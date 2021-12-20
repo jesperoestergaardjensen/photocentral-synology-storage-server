@@ -1,0 +1,9 @@
+7082342;2021-11-13;/home/jesper_privat/web-udvikling/photocentral-synology-storage-server/tests/data/photos/coffee-break.jpg
+7082339;2021-11-13;/home/jesper_privat/web-udvikling/photocentral-synology-storage-server/tests/data/photos/programming/matrix-g3ebcd682d_640.jpg
+7082340;2021-11-13;/home/jesper_privat/web-udvikling/photocentral-synology-storage-server/tests/data/photos/programming/binary-gdb73a1c75_640.jpg
+7082341;2021-11-13;/home/jesper_privat/web-udvikling/photocentral-synology-storage-server/tests/data/photos/programming/code-g0590d5745_640.jpg
+7082334;2021-11-13;/home/jesper_privat/web-udvikling/photocentral-synology-storage-server/tests/data/photos/sport/basketball/hobbies-g4fd8e4589_640.jpg
+7082335;2021-11-14;/home/jesper_privat/web-udvikling/photocentral-synology-storage-server/tests/data/photos/sport/basketball/basketball-gfe9880736_640.jpg
+7082336;2021-11-13;/home/jesper_privat/web-udvikling/photocentral-synology-storage-server/tests/data/photos/sport/basketball/backboard-g35bc4b0aa_640.jpg
+7082337;2021-11-13;/home/jesper_privat/web-udvikling/photocentral-synology-storage-server/tests/data/photos/sport/mtb/mountain-bike-g30008f9d7_1280.jpg
+7082338;2021-11-13;/home/jesper_privat/web-udvikling/photocentral-synology-storage-server/tests/data/photos/sport/mtb/action-g2a0e8f510_1280.jpg
