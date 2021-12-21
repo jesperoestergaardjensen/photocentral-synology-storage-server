@@ -11,7 +11,8 @@
         "texlab/mydb": "^0.0.6",
         "mindplay/unbox": "2.0.4",
         "ext-json": "*",
-        "ext-mysqli": "*"
+        "ext-mysqli": "*",
+        "ext-mbstring": "*"
     },
     "autoload": {
         "psr-4": {

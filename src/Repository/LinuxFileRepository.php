@@ -2,6 +2,7 @@
 
 namespace PhotoCentralSynologyStorageServer\Repository;
 
+use PhotoCentralSynologyStorageServer\Exception\PhotoCentralSynologyServerException;
 use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;
 use PhotoCentralSynologyStorageServer\Model\DatabaseTables\LinuxFileDatabaseTable;
 use PhotoCentralSynologyStorageServer\Model\LinuxFile;
@@ -60,5 +61,36 @@ class LinuxFileRepository
         }
 
         return $linux_files;
+    }
+
+    public function update(LinuxFile $linux_file): void
+    {
+    }
+
+    public function delete(string $synology_photo_collection_id, int $inode_index): void
+    {
+    }
+
+    /**
+     * @throws PhotoCentralSynologyServerException
+     */
+    public function get(int $inode_index, string $synlogy_photo_collection_id): LinuxFile
+    {
+        throw new PhotoCentralSynologyServerException("Cannot find Linux file with inode_index = $inode_index and photo collection id $synlogy_photo_collection_id");
+    }
+
+    /**
+     * @param int $inode_index
+     *
+     * @return LinuxFile[]
+     */
+    public function list(int $inode_index): array
+    {
+        return[];
+    }
+
+    public function bulkAdd(array $linux_files_to_bulk_insert, int $bulk_size = 1000): void
+    {
+
     }
 }
