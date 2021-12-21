@@ -7,7 +7,7 @@ class LinuxFileDatabaseTable
     public const NAME = 'LinuxFile';
 
     public const ROW_FILE_UUID              = 'file_uuid';
-    public const ROW_PHOTO_SOURCE_UUID      = 'photo_source_uuid';
+    public const ROW_PHOTO_COLLECTION_ID    = 'photo_collection_id';
     public const ROW_INODE_INDEX            = 'inode_index';
     public const ROW_LAST_MODIFIED_DATE     = 'last_modified_date';
     public const ROW_FILE_NAME              = 'file_name';

@@ -7,7 +7,7 @@ use PhotoCentralSynologyStorageServer\Service\UUIDService;
 class LinuxFile
 {
     public const DB_ROW_FILE_UUID              = 'file_uuid';
-    public const DB_ROW_PHOTO_SOURCE_UUID      = 'photo_source_uuid';
+    public const DB_ROW_PHOTO_COLLECTION_ID    = 'photo_collection_id';
     public const DB_ROW_INODE_INDEX            = 'inode_index';
     public const DB_ROW_LAST_MODIFIED_DATE     = 'last_modified_date';
     public const DB_ROW_FILE_NAME              = 'file_name';
@@ -20,20 +20,20 @@ class LinuxFile
     public const DB_ROW_SCHEDULED_FOR_DELETION = 'scheduled_for_deletion';
 
     private bool $imported = false;
-    private ?int $import_date;
+    private ?int $import_date = null;
     private string $file_name;
     private string $file_uuid;
-    private string $photo_source_uuid;
+    private string $photo_collection_id;
     private int $inode_index;
     private int $last_modified_date;
     private int $row_added_date_time;
     private ?string $photo_uuid;
     private string $file_path;
-    private ?string $skipped_error;
-    private string $scheduled_for_deletion;
+    private ?string $skipped_error = null;
+    private bool $scheduled_for_deletion = false;
 
     public function __construct(
-        string $photo_source_uuid,
+        string $photo_collection_id,
         int $inode_index,
         int $last_modified_date,
         string $file_name,
@@ -41,7 +41,7 @@ class LinuxFile
         string $photo_uuid = null,
         string $file_uuid = null
     ) {
-        $this->photo_source_uuid = $photo_source_uuid;
+        $this->photo_collection_id = $photo_collection_id;
         $this->inode_index = $inode_index;
         $this->last_modified_date = $last_modified_date;
         $this->file_name = $file_name;
@@ -55,9 +55,9 @@ class LinuxFile
         return $this->file_name;
     }
 
-    public function getPhotoSourceUUID(): string
+    public function getPhotoCollectionId(): string
     {
-        return $this->photo_source_uuid;
+        return $this->photo_collection_id;
     }
 
     public function getInodeIndex(): int
@@ -68,6 +68,11 @@ class LinuxFile
     public function getLastModifiedDate(): int
     {
         return $this->last_modified_date;
+    }
+
+    public function getRowAddedDateTime(): int
+    {
+        return $this->row_added_date_time;
     }
 
     public function setRowAddedDateTime(int $row_added_date_time): void
@@ -121,11 +126,6 @@ class LinuxFile
         return $this->import_date ?? null;
     }
 
-    public function getStorageType(): string
-    {
-        return LinuxFileSystem::class;
-    }
-
     /**
      * @return string
      */
@@ -137,7 +137,7 @@ class LinuxFile
     public static function fromArray($array): self
     {
         $self = new self(
-            $array[self::DB_ROW_PHOTO_SOURCE_UUID],
+            $array[self::DB_ROW_PHOTO_COLLECTION_ID],
             $array[self::DB_ROW_INODE_INDEX],
             $array[self::DB_ROW_LAST_MODIFIED_DATE],
             $array[self::DB_ROW_FILE_NAME],
@@ -164,7 +164,7 @@ class LinuxFile
     {
         return [
             self::DB_ROW_FILE_UUID              => $this->file_uuid,
-            self::DB_ROW_PHOTO_SOURCE_UUID      => $this->photo_source_uuid,
+            self::DB_ROW_PHOTO_COLLECTION_ID    => $this->photo_collection_id,
             self::DB_ROW_INODE_INDEX            => $this->inode_index,
             self::DB_ROW_LAST_MODIFIED_DATE     => $this->last_modified_date,
             self::DB_ROW_FILE_NAME              => $this->file_name,
@@ -175,7 +175,6 @@ class LinuxFile
             self::DB_ROW_PHOTO_UUID             => $this->photo_uuid,
             self::DB_ROW_SKIPPED_ERROR          => $this->skipped_error,
             self::DB_ROW_SCHEDULED_FOR_DELETION => $this->scheduled_for_deletion,
-            'storage_type'                      => $this->getStorageType(),
         ];
     }
 }
