@@ -1,0 +1,13 @@
+<?php
+namespace PhotoCentralSynologyStorageServer\config;
+
+use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\SimpleDatabaseConnection;
+use PhotoCentralSynologyStorageServer\Provider;
+
+const PHOTOCENTRAL_INSTALLATIONS_UUID = 'some uuid';
+
+$database_connection = new SimpleDatabaseConnection('localhost', [database username], [database password], [database name]);
+
+$provider = new Provider($database_connection);
+$provider->initialize();
+// include_once('SynologyNasMariaDBConf.php');
