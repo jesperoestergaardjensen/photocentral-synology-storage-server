@@ -2,23 +2,11 @@
 
 namespace PhotoCentralSynologyStorageServer\Model;
 
+use PhotoCentralSynologyStorageServer\Model\DatabaseTables\LinuxFileDatabaseTable;
 use PhotoCentralSynologyStorageServer\Service\UUIDService;
 
 class LinuxFile
 {
-    public const DB_ROW_FILE_UUID              = 'file_uuid';
-    public const DB_ROW_PHOTO_COLLECTION_ID    = 'photo_collection_id';
-    public const DB_ROW_INODE_INDEX            = 'inode_index';
-    public const DB_ROW_LAST_MODIFIED_DATE     = 'last_modified_date';
-    public const DB_ROW_FILE_NAME              = 'file_name';
-    public const DB_ROW_FILE_PATH              = 'file_path';
-    public const DB_ROW_IMPORTED               = 'imported';
-    public const DB_ROW_IMPORT_DATE_TIME       = 'import_date_time';
-    public const DB_ROW_ROW_ADDED_DATA_TIME    = 'row_added_date_time';
-    public const DB_ROW_PHOTO_UUID             = 'photo_uuid';
-    public const DB_ROW_SKIPPED_ERROR          = 'skipped_error';
-    public const DB_ROW_SCHEDULED_FOR_DELETION = 'scheduled_for_deletion';
-
     private bool $imported = false;
     private ?int $import_date = null;
     private string $file_name;
@@ -137,20 +125,20 @@ class LinuxFile
     public static function fromArray($array): self
     {
         $self = new self(
-            $array[self::DB_ROW_PHOTO_COLLECTION_ID],
-            $array[self::DB_ROW_INODE_INDEX],
-            $array[self::DB_ROW_LAST_MODIFIED_DATE],
-            $array[self::DB_ROW_FILE_NAME],
-            $array[self::DB_ROW_FILE_PATH],
-            $array[self::DB_ROW_PHOTO_UUID],
-            $array[self::DB_ROW_FILE_UUID]
+            $array[LinuxFileDatabaseTable::ROW_PHOTO_COLLECTION_ID],
+            $array[LinuxFileDatabaseTable::ROW_INODE_INDEX],
+            $array[LinuxFileDatabaseTable::ROW_LAST_MODIFIED_DATE],
+            $array[LinuxFileDatabaseTable::ROW_FILE_NAME],
+            $array[LinuxFileDatabaseTable::ROW_FILE_PATH],
+            $array[LinuxFileDatabaseTable::ROW_PHOTO_UUID],
+            $array[LinuxFileDatabaseTable::ROW_FILE_UUID]
         );
 
-        $self->setImportDate($array[self::DB_ROW_IMPORT_DATE_TIME]);
-        $self->setImported($array[self::DB_ROW_IMPORTED]);
-        $self->setRowAddedDateTime($array[self::DB_ROW_ROW_ADDED_DATA_TIME]);
-        $self->setSkippedError($array[self::DB_ROW_SKIPPED_ERROR]);
-        $self->setSceduledForDeletion($array[self::DB_ROW_SCHEDULED_FOR_DELETION]);
+        $self->setImportDate($array[LinuxFileDatabaseTable::ROW_IMPORT_DATE_TIME]);
+        $self->setImported($array[LinuxFileDatabaseTable::ROW_IMPORTED]);
+        $self->setRowAddedDateTime($array[LinuxFileDatabaseTable::ROW_ROW_ADDED_DATA_TIME]);
+        $self->setSkippedError($array[LinuxFileDatabaseTable::ROW_SKIPPED_ERROR]);
+        $self->setSceduledForDeletion($array[LinuxFileDatabaseTable::ROW_SCHEDULED_FOR_DELETION]);
 
         return $self;
     }
@@ -163,18 +151,18 @@ class LinuxFile
     public function toArray(): array
     {
         return [
-            self::DB_ROW_FILE_UUID              => $this->file_uuid,
-            self::DB_ROW_PHOTO_COLLECTION_ID    => $this->photo_collection_id,
-            self::DB_ROW_INODE_INDEX            => $this->inode_index,
-            self::DB_ROW_LAST_MODIFIED_DATE     => $this->last_modified_date,
-            self::DB_ROW_FILE_NAME              => $this->file_name,
-            self::DB_ROW_FILE_PATH              => $this->file_path,
-            self::DB_ROW_IMPORTED               => $this->imported,
-            self::DB_ROW_IMPORT_DATE_TIME       => $this->import_date,
-            self::DB_ROW_ROW_ADDED_DATA_TIME    => $this->row_added_date_time,
-            self::DB_ROW_PHOTO_UUID             => $this->photo_uuid,
-            self::DB_ROW_SKIPPED_ERROR          => $this->skipped_error,
-            self::DB_ROW_SCHEDULED_FOR_DELETION => $this->scheduled_for_deletion,
+            LinuxFileDatabaseTable::ROW_FILE_UUID              => $this->file_uuid,
+            LinuxFileDatabaseTable::ROW_PHOTO_COLLECTION_ID    => $this->photo_collection_id,
+            LinuxFileDatabaseTable::ROW_INODE_INDEX            => $this->inode_index,
+            LinuxFileDatabaseTable::ROW_LAST_MODIFIED_DATE     => $this->last_modified_date,
+            LinuxFileDatabaseTable::ROW_FILE_NAME              => $this->file_name,
+            LinuxFileDatabaseTable::ROW_FILE_PATH              => $this->file_path,
+            LinuxFileDatabaseTable::ROW_IMPORTED               => $this->imported,
+            LinuxFileDatabaseTable::ROW_IMPORT_DATE_TIME       => $this->import_date,
+            LinuxFileDatabaseTable::ROW_ROW_ADDED_DATA_TIME    => $this->row_added_date_time,
+            LinuxFileDatabaseTable::ROW_PHOTO_UUID             => $this->photo_uuid,
+            LinuxFileDatabaseTable::ROW_SKIPPED_ERROR          => $this->skipped_error,
+            LinuxFileDatabaseTable::ROW_SCHEDULED_FOR_DELETION => $this->scheduled_for_deletion,
         ];
     }
 }

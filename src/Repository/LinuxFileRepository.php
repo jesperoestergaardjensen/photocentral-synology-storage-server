@@ -50,7 +50,7 @@ class LinuxFileRepository
 
         } else {
             $photo_collection_ids = implode("','", $allowed_photo_collection_ids);
-            $sql = "SELECT * FROM LinuxFile WHERE " . LinuxFile::DB_ROW_PHOTO_COLLECTION_ID . " IN ('{$photo_collection_ids}') AND MATCH (file_name, file_path) AGAINST ('{$search_string}') LIMIT {$limit}";
+            $sql = "SELECT * FROM LinuxFile WHERE " . LinuxFileDatabaseTable::ROW_PHOTO_COLLECTION_ID . " IN ('{$photo_collection_ids}') AND MATCH (file_name, file_path) AGAINST ('{$search_string}') LIMIT {$limit}";
         }
 
         $linux_files_data = $this->database_table->runSQL($sql);
