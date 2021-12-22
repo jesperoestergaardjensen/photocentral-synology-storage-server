@@ -4,6 +4,7 @@ namespace PhotoCentralSynologyStorageServer\Tests\Unit\Repository;
 
 use PhotoCentralSynologyStorageServer\Exception\PhotoCentralSynologyServerException;
 use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\SimpleDatabaseConnection;
+use PhotoCentralSynologyStorageServer\Model\DatabaseTables\LinuxFileDatabaseTable;
 use PhotoCentralSynologyStorageServer\Model\LinuxFile;
 use PhotoCentralSynologyStorageServer\Repository\LinuxFileRepository;
 use PhotoCentralSynologyStorageServer\Tests\TestDatabaseService;
@@ -26,7 +27,7 @@ class LinuxFileRepositoryTest extends TestCase
         // self::$test_database_service->uninstallDatabase();
     }
 
-    public function testSearch()
+    public function testSearchExample1()
     {
         // Prepare
         $expected_linux_file_uuid = '2e869946-8be0-4193-a4a2-72ff6b0f5e93';
@@ -40,6 +41,22 @@ class LinuxFileRepositoryTest extends TestCase
         // Compare
         $this->assertEquals($expected_linux_file_uuid, $linux_file_found_from_search[0]->getFileUuid(),
             'Search returns the correct Linux file ');
+    }
+
+    public function testSearchExample2()
+    {
+        // Prepare
+        self::$test_database_service->emptyDatabaseTable(LinuxFileDatabaseTable::NAME);
+        $expected_linux_file_uuid = '2e869946-8be0-4193-a4a2-72ff6b0f5e93';
+        self::$test_database_service->addLinuxFileFixture('search_test_fixture.sql');
+
+        // Execute
+        $linux_file_repository = new LinuxFileRepository(self::$database_connection);
+        $linux_file_repository->connectToDb();
+        $linux_files_found_from_search = $linux_file_repository->search('SamsungS6', 10, ['non-existing-id']);
+
+        // Compare
+        $this->assertEmpty($linux_files_found_from_search,  'Search returned no Linux file(s)');
     }
 
     public function testBulkAddAndGet()
@@ -80,6 +97,7 @@ class LinuxFileRepositoryTest extends TestCase
         // Prepare
         $linux_file_repository = new LinuxFileRepository(self::$database_connection);
         $linux_file_repository->connectToDb();
+        self::$test_database_service->emptyDatabaseTable(LinuxFileDatabaseTable::NAME);
 
         $linux_file_a = new LinuxFile('id-a', 1234567, time()-500, 'test-file-name-a.jpg', 'test-folder-a');
         $linux_file_b = new LinuxFile('id-b', 1234568, time()-100, 'test-file-name-b.jpg', 'test-folder-b');
@@ -108,6 +126,7 @@ class LinuxFileRepositoryTest extends TestCase
         // Prepare
         $linux_file_repository = new LinuxFileRepository(self::$database_connection);
         $linux_file_repository->connectToDb();
+        self::$test_database_service->emptyDatabaseTable(LinuxFileDatabaseTable::NAME);
 
         // Same file added in two different photo collections
         $linux_file_a = new LinuxFile('id-a', 1234567, time()-500, 'test-file-name-a.jpg', 'test-folder-a');

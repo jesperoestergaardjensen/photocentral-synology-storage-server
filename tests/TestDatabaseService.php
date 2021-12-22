@@ -41,6 +41,11 @@ class TestDatabaseService
         $this->linux_file_table->runScript(file_get_contents($file_name));
     }
 
+    public function emptyDatabaseTable(string $database_table_name)
+    {
+        $this->linux_file_table->runSQL('TRUNCATE ' . $database_table_name);
+    }
+
     public function addLinuxFileFixture(string $fixture_filename)
     {
         $file_name = (dirname(__DIR__) . "/tests/sql/$fixture_filename");
