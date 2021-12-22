@@ -25,6 +25,13 @@ class PhotoCollectionFolderDiffResult
      */
     private array $removed_linux_files_map = [];
 
+    /**
+     * [inode_index => LinuxFile, inode_index => LinuxFile ...]
+     *
+     * @var LinuxFile[]
+     */
+    private array $moved_linus_files_map = [];
+
     public function addEntryToRemovedMap(string $linux_file_entry_to_add_to_map)
     {
         $explodedFileData = explode(';', trim($linux_file_entry_to_add_to_map));
@@ -39,7 +46,17 @@ class PhotoCollectionFolderDiffResult
         $this->added_linux_files_map[$linux_file->getInodeIndex()] = $linux_file;
     }
 
-    public function getAddedLinuxFileMap(): array
+    public function addEntryToMovedMap(LinuxFile $linux_file)
+    {
+        $this->moved_linus_files_map[$linux_file->getInodeIndex()] = $linux_file;
+    }
+
+    public function getMovedLinuxFilesMap(): array
+    {
+        return $this->moved_linus_files_map;
+    }
+
+    public function getAddedLinuxFilesMap(): array
     {
         return $this->added_linux_files_map;
     }
@@ -49,8 +66,13 @@ class PhotoCollectionFolderDiffResult
         return $this->removed_linux_files_map;
     }
 
-    public function removeEntryFromRemovedLinuxMap(int $inode_index)
+    public function removeEntryFromRemovedLinuxFilesMap(int $inode_index)
     {
         unset($this->removed_linux_files_map[$inode_index]);
+    }
+
+    public function removeEntryFromAddedLinuxFilesMap(int $inode_index)
+    {
+        unset($this->added_linux_files_map[$inode_index]);
     }
 }

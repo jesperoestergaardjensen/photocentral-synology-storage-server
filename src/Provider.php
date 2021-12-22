@@ -5,6 +5,7 @@ namespace PhotoCentralSynologyStorageServer;
 use mindplay\unbox\Container;
 use mindplay\unbox\ContainerFactory;
 use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;
+use PhotoCentralSynologyStorageServer\Model\PhotoImportResult;
 use PhotoCentralSynologyStorageServer\Repository\LinuxFileRepository;
 use PhotoCentralSynologyStorageServer\Repository\SynologyPhotoCollectionRepository;
 use PhotoCentralSynologyStorageServer\Service\PhotoImportService;
@@ -26,11 +27,11 @@ class Provider
         $this->di_container = $container_factory->createContainer();
     }
 
-    public function importPhotos()
+    public function importPhotos(): PhotoImportResult
     {
         /** @var PhotoImportService $photo_import_service */
         $photo_import_service = $this->di_container->get(PhotoImportService::class);
-        $photo_import_service->import();
+        return $photo_import_service->import();
     }
 
     private function registerDependencies(): ContainerFactory

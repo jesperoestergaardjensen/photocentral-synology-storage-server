@@ -70,7 +70,12 @@ class LinuxFileRepository
             LinuxFileDatabaseTable::ROW_PHOTO_COLLECTION_ID => $linux_file->getPhotoCollectionId()
         ];
 
-        $this->database_table->edit($condition, $linux_file->toArray());
+        $this->database_table->edit($condition,
+            [
+                LinuxFileDatabaseTable::ROW_FILE_NAME => $linux_file->getFileName(),
+                LinuxFileDatabaseTable::ROW_FILE_PATH => $linux_file->getFilePath(),
+            ]
+        );
     }
 
     public function delete(string $synology_photo_collection_id, int $inode_index): void
