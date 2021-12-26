@@ -3,7 +3,7 @@
 namespace Unit\Repository;
 
 use PhotoCentralSynologyStorageServer\Exception\PhotoCentralSynologyServerException;
-use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\SimpleDatabaseConnection;
+use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;
 use PhotoCentralSynologyStorageServer\Model\SynologyPhotoCollection;
 use PhotoCentralSynologyStorageServer\Repository\SynologyPhotoCollectionRepository;
 use PhotoCentralSynologyStorageServer\Service\UUIDService;
@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 class SynologyPhotoCollectionRepositoryTest extends TestCase
 {
     private static TestDatabaseService $test_database_service;
-    private static SimpleDatabaseConnection $database_connection;
+    private static DatabaseConnection $database_connection;
 
     public static function setUpBeforeClass(): void
     {

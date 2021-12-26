@@ -3,20 +3,20 @@
 namespace PhotoCentralSynologyStorageServer\Tests;
 
 use mysqli;
-use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\SimpleDatabaseConnection;
+use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;
 use PhotoCentralSynologyStorageServer\Model\DatabaseTables\LinuxFileDatabaseTable;
 use TexLab\MyDB\DB;
 use TexLab\MyDB\DbEntity;
 
 class TestDatabaseService
 {
-    private SimpleDatabaseConnection $database_connection;
+    private DatabaseConnection $database_connection;
     private mysqli $database_link;
     private DbEntity $linux_file_table;
 
     public function __construct()
     {
-        $this->database_connection = new SimpleDatabaseConnection('localhost', 'tester', 'Ziu2Uv1o$Ziu2Uv1o', 'photocentral-synology-storage-server-test');
+        $this->database_connection = new DatabaseConnection('localhost', 'tester', 'Ziu2Uv1o$Ziu2Uv1o', 'photocentral-synology-storage-server-test');
 
         $this->database_link = DB::link([
             'host'     => $this->database_connection->getHost(),
@@ -28,10 +28,11 @@ class TestDatabaseService
         $this->linux_file_table = new DbEntity(LinuxFileDatabaseTable::NAME, $this->database_link);
     }
 
-    public function installDatabase(): SimpleDatabaseConnection
+    public function installDatabase(): DatabaseConnection
     {
         $this->setupLinuxFileTable();
         $this->setupSynologyPhotoCollectionTable();
+        $this->setupPhotoTable();
         return $this->database_connection;
     }
 
@@ -62,6 +63,13 @@ class TestDatabaseService
     private function setupSynologyPhotoCollectionTable(): void
     {
         $file_name = (dirname(__DIR__) . '/sql/SynologyPhotoCollection.sql');
+        $sql_string = file_get_contents($file_name);
+        $this->linux_file_table->runScript($sql_string);
+    }
+
+    private function setupPhotoTable(): void
+    {
+        $file_name = (dirname(__DIR__) . '/sql/Photo.sql');
         $sql_string = file_get_contents($file_name);
         $this->linux_file_table->runScript($sql_string);
     }

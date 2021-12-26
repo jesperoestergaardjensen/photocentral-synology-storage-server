@@ -1,9 +1,9 @@
 <?php
 
-include_once('../../vendor/autoload.php');
+use PhotoCentralSynologyStorageServer\Controller\SearchController;
+use PhotoCentralSynologyStorageServer\Provider;
+
 include_once('../../config/config.php');
 
-class Search
-{
-
-}
+/** @var Provider $provider */
+$provider->runController(SearchController::class);

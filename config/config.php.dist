@@ -1,12 +1,12 @@
 <?php
 namespace PhotoCentralSynologyStorageServer\config;
 
-use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\SimpleDatabaseConnection;
+use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;
 use PhotoCentralSynologyStorageServer\Provider;
 
 const PHOTOCENTRAL_INSTALLATIONS_UUID = 'some uuid';
 
-$database_connection = new SimpleDatabaseConnection('localhost', [database username], [database password], [database name]);
+$database_connection = new DatabaseConnection('localhost', [database username], [database password], [database name]);
 
 $provider = new Provider($database_connection);
 $provider->initialize();

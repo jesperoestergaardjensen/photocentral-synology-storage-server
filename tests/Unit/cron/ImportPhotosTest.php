@@ -2,12 +2,12 @@
 
 namespace PhotoCentralSynologyStorageServer\Tests\Unit\cron;
 
-use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\SimpleDatabaseConnection;
+use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;
 use PhotoCentralSynologyStorageServer\Model\SynologyPhotoCollection;
 use PhotoCentralSynologyStorageServer\Provider;
 use PhotoCentralSynologyStorageServer\Repository\SynologyPhotoCollectionRepository;
 use PhotoCentralSynologyStorageServer\Tests\TestDatabaseService;
-use PhotoCentralSynologyStorageServer\Tests\TestFoldersService;
+use PhotoCentralSynologyStorageServer\Tests\TestService;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -15,12 +15,11 @@ use PHPUnit\Framework\TestCase;
  */
 class ImportPhotosTest extends TestCase
 {
-    use TestFoldersService;
+    use TestService;
 
     private static TestDatabaseService $test_database_service;
-    private static SimpleDatabaseConnection $database_connection;
+    private static DatabaseConnection $database_connection;
     private static Provider $provider;
-    private const SYNOLOGY_PHOTO_COLLECTION_UD = '2b613e8d-dd2a-4f1c-85a5-6e708290c200';
 
     public static function setUpBeforeClass(): void
     {
@@ -28,14 +27,14 @@ class ImportPhotosTest extends TestCase
         self::$test_database_service->uninstallDatabase();
         self::$database_connection = self::$test_database_service->installDatabase();
 
-        self::$provider = new Provider(self::$database_connection);
+        self::$provider = new Provider(self::$database_connection, '', '');
         self::$provider->initialize();
     }
 
     public static function tearDownAfterClass(): void
     {
-        unlink(self::getDataFolder() . '/status_files/' . "SynologyPhotoCollection-" . self::SYNOLOGY_PHOTO_COLLECTION_UD . "-new.txt");
-        unlink(self::getDataFolder() . '/status_files/' . "SynologyPhotoCollection-" . self::SYNOLOGY_PHOTO_COLLECTION_UD . "-old.txt");
+        unlink(self::getDataFolder() . '/status_files/' . "SynologyPhotoCollection-" . self::getPhotoCollectionId() . "-new.txt");
+        unlink(self::getDataFolder() . '/status_files/' . "SynologyPhotoCollection-" . self::getPhotoCollectionId() . "-old.txt");
         // Undo move file
         rename(self::getDataFolder() . '/photos/misc/coffee-break.jpg', self::getDataFolder() . '/photos/coffee-break.jpg');
         // Undo move file to trash folder
@@ -48,7 +47,7 @@ class ImportPhotosTest extends TestCase
         $synology_photo_collection_repository->connectToDb();
 
         $synology_photo_collection = new SynologyPhotoCollection(
-            self::SYNOLOGY_PHOTO_COLLECTION_UD,
+            self::getPhotoCollectionId(),
             'test collection',
             'Synology photo collection test',
             true,
@@ -59,11 +58,11 @@ class ImportPhotosTest extends TestCase
         $synology_photo_collection_repository->add($synology_photo_collection);
         $photo_import_result = self::$provider->importPhotos();
 
-        $expected_files_added = $photo_import_result->getPhotoCollectionFolderDiffResult(self::SYNOLOGY_PHOTO_COLLECTION_UD)->getAddedLinuxFilesMap();
-        $expected_files_moved = $photo_import_result->getPhotoCollectionFolderDiffResult(self::SYNOLOGY_PHOTO_COLLECTION_UD)->getMovedLinuxFilesMap();
-        $expected_files_removed = $photo_import_result->getPhotoCollectionFolderDiffResult(self::SYNOLOGY_PHOTO_COLLECTION_UD)->getRemovedLinuxFilesMap();
+        $expected_files_added = $photo_import_result->getPhotoCollectionFolderDiffResult(self::getPhotoCollectionId())->getAddedLinuxFilesMap();
+        $expected_files_moved = $photo_import_result->getPhotoCollectionFolderDiffResult(self::getPhotoCollectionId())->getMovedLinuxFilesMap();
+        $expected_files_removed = $photo_import_result->getPhotoCollectionFolderDiffResult(self::getPhotoCollectionId())->getRemovedLinuxFilesMap();
 
-        $this->assertCount(9, $expected_files_added);
+        $this->assertCount(10, $expected_files_added);
         $this->assertCount(0, $expected_files_moved);
         $this->assertCount(0, $expected_files_removed);
     }
@@ -75,9 +74,9 @@ class ImportPhotosTest extends TestCase
     {
         $photo_import_result = self::$provider->importPhotos();
 
-        $expected_files_added = $photo_import_result->getPhotoCollectionFolderDiffResult(self::SYNOLOGY_PHOTO_COLLECTION_UD)->getAddedLinuxFilesMap();
-        $expected_files_moved = $photo_import_result->getPhotoCollectionFolderDiffResult(self::SYNOLOGY_PHOTO_COLLECTION_UD)->getMovedLinuxFilesMap();
-        $expected_files_removed = $photo_import_result->getPhotoCollectionFolderDiffResult(self::SYNOLOGY_PHOTO_COLLECTION_UD)->getRemovedLinuxFilesMap();
+        $expected_files_added = $photo_import_result->getPhotoCollectionFolderDiffResult(self::getPhotoCollectionId())->getAddedLinuxFilesMap();
+        $expected_files_moved = $photo_import_result->getPhotoCollectionFolderDiffResult(self::getPhotoCollectionId())->getMovedLinuxFilesMap();
+        $expected_files_removed = $photo_import_result->getPhotoCollectionFolderDiffResult(self::getPhotoCollectionId())->getRemovedLinuxFilesMap();
 
         $this->assertCount(0, $expected_files_added);
         $this->assertCount(0, $expected_files_moved);
@@ -93,9 +92,9 @@ class ImportPhotosTest extends TestCase
         rename(self::getDataFolder() . '/photos/coffee-break.jpg', self::getDataFolder() . '/photos/misc/coffee-break.jpg');
         $photo_import_result = self::$provider->importPhotos();
 
-        $expected_files_added = $photo_import_result->getPhotoCollectionFolderDiffResult(self::SYNOLOGY_PHOTO_COLLECTION_UD)->getAddedLinuxFilesMap();
-        $expected_files_moved = $photo_import_result->getPhotoCollectionFolderDiffResult(self::SYNOLOGY_PHOTO_COLLECTION_UD)->getMovedLinuxFilesMap();
-        $expected_files_removed = $photo_import_result->getPhotoCollectionFolderDiffResult(self::SYNOLOGY_PHOTO_COLLECTION_UD)->getRemovedLinuxFilesMap();
+        $expected_files_added = $photo_import_result->getPhotoCollectionFolderDiffResult(self::getPhotoCollectionId())->getAddedLinuxFilesMap();
+        $expected_files_moved = $photo_import_result->getPhotoCollectionFolderDiffResult(self::getPhotoCollectionId())->getMovedLinuxFilesMap();
+        $expected_files_removed = $photo_import_result->getPhotoCollectionFolderDiffResult(self::getPhotoCollectionId())->getRemovedLinuxFilesMap();
 
         $this->assertCount(0, $expected_files_added);
         $this->assertCount(1, $expected_files_moved);
@@ -111,9 +110,9 @@ class ImportPhotosTest extends TestCase
         rename(self::getDataFolder() . '/photos/programming/matrix-g3ebcd682d_640.jpg', self::getDataFolder() . '/photos/.Trash-1000/matrix-g3ebcd682d_640.jpg');
         $photo_import_result = self::$provider->importPhotos();
 
-        $expected_files_added = $photo_import_result->getPhotoCollectionFolderDiffResult(self::SYNOLOGY_PHOTO_COLLECTION_UD)->getAddedLinuxFilesMap();
-        $expected_files_moved = $photo_import_result->getPhotoCollectionFolderDiffResult(self::SYNOLOGY_PHOTO_COLLECTION_UD)->getMovedLinuxFilesMap();
-        $expected_files_removed = $photo_import_result->getPhotoCollectionFolderDiffResult(self::SYNOLOGY_PHOTO_COLLECTION_UD)->getRemovedLinuxFilesMap();
+        $expected_files_added = $photo_import_result->getPhotoCollectionFolderDiffResult(self::getPhotoCollectionId())->getAddedLinuxFilesMap();
+        $expected_files_moved = $photo_import_result->getPhotoCollectionFolderDiffResult(self::getPhotoCollectionId())->getMovedLinuxFilesMap();
+        $expected_files_removed = $photo_import_result->getPhotoCollectionFolderDiffResult(self::getPhotoCollectionId())->getRemovedLinuxFilesMap();
 
         $this->assertCount(0, $expected_files_added);
         $this->assertCount(0, $expected_files_moved);

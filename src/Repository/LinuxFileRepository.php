@@ -88,19 +88,35 @@ class LinuxFileRepository
     /**
      * @throws PhotoCentralSynologyServerException
      */
-    public function get(int $inode_index, string $synlogy_photo_collection_id): LinuxFile
+    public function getByInode(int $inode_index, string $synology_photo_collection_id): LinuxFile
     {
         $linux_files_data = ($this->database_table
             ->reset()
             ->setSelect('*')
             ->setWhere(LinuxFileDatabaseTable::ROW_INODE_INDEX . " = $inode_index")
-            ->addWhere(LinuxFileDatabaseTable::ROW_PHOTO_COLLECTION_ID . " = '$synlogy_photo_collection_id'")
+            ->addWhere(LinuxFileDatabaseTable::ROW_PHOTO_COLLECTION_ID . " = '$synology_photo_collection_id'")
             ->get());
 
         if (isset($linux_files_data[0])) {
             return LinuxFile::fromArray($linux_files_data[0]);
         } else {
-            throw new PhotoCentralSynologyServerException("Cannot find Linux file with inode_index = $inode_index and photo collection id $synlogy_photo_collection_id");
+            throw new PhotoCentralSynologyServerException("Cannot find Linux file with inode_index = $inode_index and photo collection id $synology_photo_collection_id");
+        }
+    }
+
+    public function getByPhotoUuid(string $photo_uuid, string $synology_photo_collection_id): LinuxFile
+    {
+        $linux_files_data = ($this->database_table
+            ->reset()
+            ->setSelect('*')
+            ->setWhere(LinuxFileDatabaseTable::ROW_PHOTO_UUID . " = '$photo_uuid'")
+            ->addWhere(LinuxFileDatabaseTable::ROW_PHOTO_COLLECTION_ID . " = '$synology_photo_collection_id'")
+            ->get());
+
+        if (isset($linux_files_data[0])) {
+            return LinuxFile::fromArray($linux_files_data[0]);
+        } else {
+            throw new PhotoCentralSynologyServerException("Cannot find Linux file with photo_uuid = $photo_uuid and photo collection id $synology_photo_collection_id");
         }
     }
 

@@ -122,6 +122,11 @@ class LinuxFile
         return $this->file_uuid;
     }
 
+    public function getFullFileNameAndPath(string $base_path): string
+    {
+        return $base_path . $this->file_path . $this->file_name;
+    }
+
     public static function fromArray($array): self
     {
         $self = new self(
