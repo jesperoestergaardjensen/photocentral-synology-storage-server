@@ -8,7 +8,7 @@ use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnectio
 use PhotoCentralSynologyStorageServer\Repository\LinuxFileRepository;
 use PhotoCentralSynologyStorageServer\Service\PhotoRetrivalService;
 
-class GetPhotoPath extends Controller
+class GetPhotoPathController extends Controller
 {
     private DatabaseConnection $database_connection;
     private PhotoRetrivalService $photo_retrival_service;

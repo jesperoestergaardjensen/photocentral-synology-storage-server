@@ -2,18 +2,18 @@
 
 namespace PhotoCentralSynologyStorageServer\Tests\Unit\Controller;
 
-use GuzzleHttp\Client;
-use PhotoCentralStorage\Model\ImageDimensions;
+use PhotoCentralStorage\Model\PhotoFilter\PhotoCollectionIdFilter;
+use PhotoCentralStorage\Model\PhotoSorting\BasicSorting;
+use PhotoCentralStorage\Model\PhotoSorting\SortByAddedTimestamp;
 use PhotoCentralStorage\Photo;
-use PhotoCentralSynologyStorageServer\Controller\GetPhotoPathController;
-use PhotoCentralSynologyStorageServer\Controller\SearchController;
+use PhotoCentralSynologyStorageServer\Controller\ListPhotosController;
 use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;
 use PhotoCentralSynologyStorageServer\Provider;
 use PhotoCentralSynologyStorageServer\Tests\TestDatabaseService;
 use PhotoCentralSynologyStorageServer\Tests\TestService;
 use PHPUnit\Framework\TestCase;
 
-class GetPhotoPathControllerTest extends TestCase
+class ListPhotosControllerTest extends TestCase
 {
     use TestService;
 
@@ -37,24 +37,27 @@ class GetPhotoPathControllerTest extends TestCase
 
     public function testRunController()
     {
-        $photo_uuid = 'c3db925a9c3f19f6285f7038dcd9844e';
-        $photo_collection_id = '11efa610-5378-4964-b432-d891aef00eb9';
-        $image_dimensions = ImageDimensions::createThumb();
-
         // Prepare
         self::$test_database_service->addLinuxFileFixture('search_test_fixture.sql');
-        $expected_photo_path = 'images/cache/' . $image_dimensions->getId() . "/" . $photo_uuid . '.jpg';
 
         // Simulate post request - prepare data for controller
-        $_POST['photo_uuid'] = $photo_uuid;
-        $_POST['photo_collection_id'] = $photo_collection_id;
-        $_POST['image_dimensions'] = $image_dimensions->toArray();
+        $_POST['photo_filters'] = [
+            PhotoCollectionIdFilter::class => (new PhotoCollectionIdFilter(['11efa610-5378-4964-b432-d891aef00eb9']))->toArray()
+        ];
+        $_POST['photo_sorting_parameters'] = [
+            SortByAddedTimestamp::class => (new SortByAddedTimestamp(BasicSorting::DESC))->toArray()
+        ];
+        $_POST['limit'] = 50;
 
-        // Execute
-        $json_content = self::$provider->runController(GetPhotoPathController::class, true); // Code coverage / debugging
-        $actual_photo_path = json_decode($json_content, true);
+        // Excute
+        $json_content = self::$provider->runController(ListPhotosController::class, true); // Code coverage / debugging
+        $photo_array_list = json_decode($json_content, true);
 
-        // Test
-        $this->assertEquals($expected_photo_path, $actual_photo_path, 'Correct photo path was returned');
+        $photo_list = [];
+        foreach ($photo_array_list as $photo_array) {
+            $photo_list[] = Photo::fromArray($photo_array);
+        }
+
+        $this->assertEquals('c3db925a9c3f19f6285f7038dcd9844e', $photo_list[0]->getPhotoUuid(), 'The correct photo was returned');
     }
 }

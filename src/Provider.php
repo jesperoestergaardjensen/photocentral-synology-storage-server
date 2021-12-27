@@ -4,7 +4,10 @@ namespace PhotoCentralSynologyStorageServer;
 
 use mindplay\unbox\Container;
 use mindplay\unbox\ContainerFactory;
-use PhotoCentralSynologyStorageServer\Controller\GetPhotoPath;
+use PhotoCentralSynologyStorageServer\Controller\GetPhotoController;
+use PhotoCentralSynologyStorageServer\Controller\GetPhotoPathController;
+use PhotoCentralSynologyStorageServer\Controller\ListPhotoCollectionsController;
+use PhotoCentralSynologyStorageServer\Controller\ListPhotosController;
 use PhotoCentralSynologyStorageServer\Controller\SearchController;
 use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;
 use PhotoCentralSynologyStorageServer\Model\PhotoImportResult;
@@ -86,7 +89,10 @@ class Provider
     private function registerControllers(ContainerFactory $container_factory): void
     {
         $container_factory->register(SearchController::class);
-        $container_factory->register(GetPhotoPath::class);
+        $container_factory->register(GetPhotoPathController::class);
+        $container_factory->register(ListPhotosController::class);
+        $container_factory->register(ListPhotoCollectionsController::class);
+        $container_factory->register(GetPhotoController::class);
     }
 
     private function registerServices(ContainerFactory $container_factory)
