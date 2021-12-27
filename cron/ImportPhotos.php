@@ -2,7 +2,7 @@
 
 use PhotoCentralSynologyStorageServer\Provider;
 
-include_once('../config/config.php');
+include_once(dirname(__FILE__,2) . '/config/config.php');
 
 /** @var Provider $provider */
 $provider->importPhotos();

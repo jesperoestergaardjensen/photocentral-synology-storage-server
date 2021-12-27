@@ -14,12 +14,13 @@ class SynologyPhotoCollection extends PhotoCollection implements JsonSerializabl
     public function __construct(
         string $id,
         string $name,
-        ?string $description,
         bool $enabled,
+        ?string $description,
+        ?int $last_updated,
         string $image_source_path,
         string $status_files_path
     ) {
-        parent::__construct($id, $name, $description, $enabled);
+        parent::__construct($id, $name, $enabled, $description, $last_updated);
         $this->image_source_path = $image_source_path;
         $this->status_files_path = $status_files_path;
     }
@@ -56,8 +57,9 @@ class SynologyPhotoCollection extends PhotoCollection implements JsonSerializabl
         return new self(
             $array[SynologyPhotoCollectionDatabaseTable::ROW_ID],
             $array[SynologyPhotoCollectionDatabaseTable::ROW_NAME],
-            $array[SynologyPhotoCollectionDatabaseTable::ROW_DESCRIPTION],
             $array[SynologyPhotoCollectionDatabaseTable::ROW_ENABLED],
+            $array[SynologyPhotoCollectionDatabaseTable::ROW_DESCRIPTION],
+            $array[SynologyPhotoCollectionDatabaseTable::ROW_LAST_UPDATED],
             $array[SynologyPhotoCollectionDatabaseTable::ROW_IMAGE_SOURCE_PATH],
             $array[SynologyPhotoCollectionDatabaseTable::ROW_STATUS_FILES_PATH]
         );

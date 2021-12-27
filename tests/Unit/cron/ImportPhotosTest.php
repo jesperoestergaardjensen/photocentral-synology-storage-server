@@ -49,8 +49,9 @@ class ImportPhotosTest extends TestCase
         $synology_photo_collection = new SynologyPhotoCollection(
             self::getPhotoCollectionId(),
             'test collection',
-            'Synology photo collection test',
             true,
+            'Synology photo collection test',
+            time(),
             self::getDataFolder() . '/photos/',
             self::getDataFolder() . '/status_files/',
         );

@@ -39,7 +39,7 @@ SET `file_uuid` = UUID()
 where `file_uuid` is null;
 
 ALTER TABLE `LinuxFile`
-    ADD `skipped` INT(1) NULL DEFAULT NULL AFTER `photo_uuid`;
+    ADD `skipped` bool default false not null AFTER `photo_uuid`;
 
 ALTER TABLE `LinuxFile`
     ADD INDEX `combi-index` (`imported`, `skipped`, `scheduled_for_deletion`);

@@ -28,6 +28,10 @@ class ListPhotoCollectionsController extends Controller
 
         $adjusted_list = array_slice($full_list, 0, $post_data['limit']);
 
+        if ($testing === false) {
+            header('Content-Type: application/json');
+        }
+
         echo json_encode($adjusted_list);
     }
 }

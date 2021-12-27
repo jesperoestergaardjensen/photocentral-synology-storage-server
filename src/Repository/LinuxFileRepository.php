@@ -66,8 +66,8 @@ class LinuxFileRepository
     public function update(LinuxFile $linux_file): void
     {
         $condition = [
-            LinuxFileDatabaseTable::ROW_INODE_INDEX => $linux_file->getInodeIndex(),
-            LinuxFileDatabaseTable::ROW_PHOTO_COLLECTION_ID => $linux_file->getPhotoCollectionId()
+            LinuxFileDatabaseTable::ROW_INODE_INDEX         => $linux_file->getInodeIndex(),
+            LinuxFileDatabaseTable::ROW_PHOTO_COLLECTION_ID => $linux_file->getPhotoCollectionId(),
         ];
 
         $this->database_table->edit($condition,
@@ -138,6 +138,7 @@ class LinuxFileRepository
             $linux_file = LinuxFile::fromArray($linux_file_data);
             $linux_files[] = $linux_file;
         }
+
         return $linux_files;
     }
 
@@ -186,5 +187,53 @@ class LinuxFileRepository
             $sql_values = rtrim($sql_values, ','); // strip last comma
             $this->database_table->runSQL("INSERT INTO {$table_name} ({$table_columns}) VALUES {$sql_values};");
         };
+    }
+
+    /**
+     * @param string $photo_collection_id
+     * @param int    $limit
+     *
+     * @return LinuxFile[]
+     */
+    public function listLinuxFilesNotImported(string $photo_collection_id, int $limit): array
+    {
+        $linux_files = [];
+        $linux_files_data = ($this->database_table
+            ->reset()
+            ->setSelect('*')
+            ->setWhere(LinuxFileDatabaseTable::ROW_PHOTO_COLLECTION_ID . " = '$photo_collection_id'")
+            ->addWhere(LinuxFileDatabaseTable::ROW_IMPORTED . " = 0")
+            ->addWhere(LinuxFileDatabaseTable::ROW_SKIPPED . " = 0")
+            ->setLimit($limit)
+            ->get());
+
+        foreach ($linux_files_data as $linux_file_data) {
+            $linux_file = LinuxFile::fromArray($linux_file_data);
+            $linux_files[] = $linux_file;
+        }
+
+        return $linux_files;
+    }
+
+    public function setSkippedError(int $inode_index, string $synology_photo_collection_id, string $error_message)
+    {
+        $this->database_table->edit([
+            LinuxFileDatabaseTable::ROW_INODE_INDEX         => $inode_index,
+            LinuxFileDatabaseTable::ROW_PHOTO_COLLECTION_ID => $synology_photo_collection_id,
+        ], [
+            LinuxFileDatabaseTable::ROW_SKIPPED       => true,
+            LinuxFileDatabaseTable::ROW_SKIPPED_ERROR => $error_message,
+        ]);
+    }
+
+    public function bulkSetImported(string $synology_photo_collection_id, array $inode_list, int $import_date_time)
+    {
+        $table_name = LinuxFileDatabaseTable::NAME;
+
+        $rows_to_update = LinuxFileDatabaseTable::ROW_IMPORTED . ' = 1,' . LinuxFileDatabaseTable::ROW_IMPORT_DATE_TIME . ' = ' . $import_date_time;
+        $inode_list_string = implode("','", $inode_list);
+        $where_clause = LinuxFileDatabaseTable::ROW_PHOTO_COLLECTION_ID . " = '{$synology_photo_collection_id}' AND " . LinuxFileDatabaseTable::ROW_INODE_INDEX . " IN ('{$inode_list_string}')";
+
+        $this->database_table->runSQL("UPDATE {$table_name} SET {$rows_to_update} WHERE {$where_clause} ");
     }
 }

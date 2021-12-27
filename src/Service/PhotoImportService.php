@@ -6,6 +6,7 @@ use LinuxFileSystemHelper\FileHelper;
 use LinuxFileSystemHelper\FolderHelper;
 use PhotoCentralSynologyStorageServer\Exception\PhotoCentralSynologyServerException;
 use PhotoCentralSynologyStorageServer\Factory\LinuxFileFactory;
+use PhotoCentralSynologyStorageServer\Factory\PhotoFactory;
 use PhotoCentralSynologyStorageServer\Model\PhotoCollectionFolderDiffResult;
 use PhotoCentralSynologyStorageServer\Model\PhotoImportResult;
 use PhotoCentralSynologyStorageServer\Model\SynologyPhotoCollection;
@@ -23,14 +24,17 @@ class PhotoImportService
     private SynologyPhotoCollectionRepository $synology_photo_collection_repository;
     private LinuxFileRepository $linux_file_repository;
     private PhotoImportResult $photo_import_result;
+    private PhotoFactory $photo_factory;
 
     public function __construct(
         SynologyPhotoCollectionRepository $synology_photo_collection_repository,
-        LinuxFileRepository $linux_file_repository
+        LinuxFileRepository $linux_file_repository,
+        PhotoFactory $photo_factory
     ) {
         $this->synology_photo_collection_repository = $synology_photo_collection_repository;
         $this->linux_file_repository = $linux_file_repository;
         $this->photo_import_result = new PhotoImportResult();
+        $this->photo_factory = $photo_factory;
     }
 
     public function import(): PhotoImportResult
@@ -72,6 +76,8 @@ class PhotoImportService
             FileHelper::copyFile($newFilenameAndPath, $oldFilenameAndPath);
 
             $this->photo_import_result->add($photo_collection_folder_diff_result, $synology_photo_collection->getId());
+
+            $this->createNewPhotos($synology_photo_collection, 1000);
         }
         return $this->photo_import_result;
     }
@@ -163,5 +169,11 @@ class PhotoImportService
     {
         $linux_files_to_bulk_insert = $photo_collection_folder_diff_result->getAddedLinuxFilesMap();
         $this->linux_file_repository->bulkAdd($linux_files_to_bulk_insert);
+    }
+
+    private function createNewPhotos(SynologyPhotoCollection $synology_photo_collection, int $limit = 100): void
+    {
+        $linux_file_list = $this->linux_file_repository->listLinuxFilesNotImported($synology_photo_collection->getId(), $limit);
+        $this->photo_factory->createFromLinuxFiles($linux_file_list, $synology_photo_collection);
     }
 }

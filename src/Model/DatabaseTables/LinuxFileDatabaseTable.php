@@ -16,6 +16,7 @@ class LinuxFileDatabaseTable
     public const ROW_IMPORT_DATE_TIME       = 'import_date_time';
     public const ROW_ROW_ADDED_DATA_TIME    = 'row_added_date_time';
     public const ROW_PHOTO_UUID             = 'photo_uuid';
+    public const ROW_SKIPPED                = 'skipped';
     public const ROW_SKIPPED_ERROR          = 'skipped_error';
     public const ROW_SCHEDULED_FOR_DELETION = 'scheduled_for_deletion';
 }

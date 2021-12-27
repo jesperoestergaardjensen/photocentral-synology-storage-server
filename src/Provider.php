@@ -9,6 +9,7 @@ use PhotoCentralSynologyStorageServer\Controller\GetPhotoPathController;
 use PhotoCentralSynologyStorageServer\Controller\ListPhotoCollectionsController;
 use PhotoCentralSynologyStorageServer\Controller\ListPhotosController;
 use PhotoCentralSynologyStorageServer\Controller\SearchController;
+use PhotoCentralSynologyStorageServer\Factory\PhotoFactory;
 use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;
 use PhotoCentralSynologyStorageServer\Model\PhotoImportResult;
 use PhotoCentralSynologyStorageServer\Repository\LinuxFileRepository;
@@ -73,6 +74,7 @@ class Provider
         $this->registerRepositories($container_factory);
         $this->registerControllers($container_factory);
         $this->registerServices($container_factory);
+        $this->registerFactories($container_factory);
 
         $container_factory->register(PhotoImportService::class);
 
@@ -100,5 +102,10 @@ class Provider
         $container_factory->register(PhotoRetrivalService::class, function() {
             return new PhotoRetrivalService($this->base_photo_path, $this->image_cache_path);
         });
+    }
+
+    private function registerFactories(ContainerFactory $container_factory)
+    {
+        $container_factory->register(PhotoFactory::class);
     }
 }

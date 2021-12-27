@@ -31,7 +31,7 @@ class SynologyPhotoCollectionRepositoryTest extends TestCase
 
         // Execute
         $synology_photo_collection = new SynologyPhotoCollection($expected_synology_photo_collection_uuid,
-            'Photos from my iphone', 'Synology NAS folder', true, 'folder_name', 'another_folder_name');
+            'Photos from my iphone', true, 'Synology NAS folder', time(), 'folder_name', 'another_folder_name');
         $synology_photo_collection_repository->add($synology_photo_collection);
 
         // Compare

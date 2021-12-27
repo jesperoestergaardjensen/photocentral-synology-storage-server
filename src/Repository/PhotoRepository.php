@@ -92,6 +92,60 @@ class PhotoRepository
     }
 
     /**
+     * @param Photo[] $photo_list
+     *
+     * @return void
+     */
+    public function bulkAdd(array $photo_list): void
+    {
+        if (count($photo_list) === 0) {
+            return;
+        }
+
+        $table_name = PhotoDatabaseTable::NAME;
+        $table_columns =
+            PhotoDatabaseTable::ROW_PHOTO_UUID . ',' .
+            PhotoDatabaseTable::ROW_WIDTH . ',' .
+            PhotoDatabaseTable::ROW_HEIGHT . ',' .
+            PhotoDatabaseTable::ROW_ORIENTATION . ',' .
+            PhotoDatabaseTable::ROW_EXIF_DATE_TIME . ',' .
+            PhotoDatabaseTable::ROW_FILE_SYSTEM_DATE_TIME . ',' .
+            PhotoDatabaseTable::ROW_OVERRIDE_DATE_TIME . ',' .
+            PhotoDatabaseTable::ROW_PHOTO_DATE_TIME . ',' .
+            PhotoDatabaseTable::ROW_CAMERA_BRAND . ',' .
+            PhotoDatabaseTable::ROW_CAMERA_MODEL . ',' .
+            PhotoDatabaseTable::ROW_PHOTO_ADDED_DATE_TIME . ',' .
+            PhotoDatabaseTable::ROW_PHOTO_COLLECTION_ID;
+
+        $sql_values = '';
+        $row_added_date_time = time();
+
+        foreach ($photo_list as $new_photo) {
+            $sql_values .= "(
+                '{$new_photo->getPhotoUuid()}', 
+                {$new_photo->getWidth()},
+                {$new_photo->getHeight()},
+                {$new_photo->getOrientation()},
+                {$this->dbNULL($new_photo->getExifDateTime())},
+                {$this->dbNULL($new_photo->getFileSystemDateTime())},
+                {$this->dbNULL($new_photo->getOverrideDateTime())},
+                {$this->dbNULL($new_photo->getPhotoDateTime())},
+                '{$new_photo->getCameraBrand()}',
+                '{$new_photo->getCameraModel()}',
+                {$row_added_date_time},
+                '{$new_photo->getPhotoCollectionId()}'
+            ),";
+        }
+
+        $sql_values = rtrim($sql_values, ','); // strip last comma
+        $this->database_table->runSQL("INSERT IGNORE INTO {$table_name} ({$table_columns}) VALUES {$sql_values};");
+    }
+
+    private function dbNULL($variable) {
+        return $variable ?? 'NULL';
+    }
+
+    /**
      * @throws PhotoCentralSynologyServerException
      */
     public function get($photo_uuid, $photo_collection_id): Photo

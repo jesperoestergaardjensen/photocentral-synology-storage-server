@@ -30,7 +30,7 @@ class GetPhotoPathControllerTest extends TestCase
         self::$provider = new Provider(
             self::$database_connection,
             self::getDataFolder() . '/photos/',
-            self::getPublicFolder() . '/images/cache/'
+            self::getPublicFolder() . '/photos/cache/'
         );
         self::$provider->initialize();
     }
@@ -43,7 +43,7 @@ class GetPhotoPathControllerTest extends TestCase
 
         // Prepare
         self::$test_database_service->addLinuxFileFixture('search_test_fixture.sql');
-        $expected_photo_path = 'images/cache/' . $image_dimensions->getId() . "/" . $photo_uuid . '.jpg';
+        $expected_photo_path = 'photos/cache/' . $image_dimensions->getId() . "/" . $photo_uuid . '.jpg';
 
         // Simulate post request - prepare data for controller
         $_POST['photo_uuid'] = $photo_uuid;

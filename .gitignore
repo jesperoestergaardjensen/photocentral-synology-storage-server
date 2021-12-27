@@ -3,3 +3,5 @@ vendor/
 /.phpunit.result.cache
 config/config.php
 coverage/
+runtime/
+public/photos

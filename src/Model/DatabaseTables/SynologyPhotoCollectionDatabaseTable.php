@@ -8,8 +8,9 @@ class SynologyPhotoCollectionDatabaseTable
 
     public const ROW_ID                = 'id';
     public const ROW_NAME              = 'name';
-    public const ROW_DESCRIPTION       = 'description';
     public const ROW_ENABLED           = 'enabled';
+    public const ROW_DESCRIPTION       = 'description';
+    public const ROW_LAST_UPDATED      = 'last_updated';
     public const ROW_IMAGE_SOURCE_PATH = 'image_source_path';
     public const ROW_STATUS_FILES_PATH = 'status_files_path';
 }

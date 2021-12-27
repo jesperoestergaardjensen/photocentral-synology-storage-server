@@ -123,12 +123,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jesperoestergaardjensen/photocentral-storage.git",
-                "reference": "70c2046e398f813f82472eb23df94e312910ea8d"
+                "reference": "659536122ae9cac1da77d348dd3b955f7df30696"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jesperoestergaardjensen/photocentral-storage/zipball/70c2046e398f813f82472eb23df94e312910ea8d",
-                "reference": "70c2046e398f813f82472eb23df94e312910ea8d",
+                "url": "https://api.github.com/repos/jesperoestergaardjensen/photocentral-storage/zipball/659536122ae9cac1da77d348dd3b955f7df30696",
+                "reference": "659536122ae9cac1da77d348dd3b955f7df30696",
                 "shasum": ""
             },
             "require": {
@@ -155,7 +155,7 @@
                 "issues": "https://github.com/jesperoestergaardjensen/photocentral-storage/issues",
                 "source": "https://github.com/jesperoestergaardjensen/photocentral-storage/tree/main"
             },
-            "time": "2021-12-26T23:17:00+00:00"
+            "time": "2021-12-27T12:13:14+00:00"
         },
         {
             "name": "mindplay/unbox",

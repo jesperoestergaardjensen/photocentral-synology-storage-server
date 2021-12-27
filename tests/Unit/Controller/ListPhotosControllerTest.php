@@ -30,7 +30,7 @@ class ListPhotosControllerTest extends TestCase
         self::$provider = new Provider(
             self::$database_connection,
             self::getDataFolder() . '/photos/',
-            self::getPublicFolder() . '/images/cache/'
+            self::getPublicFolder() . '/photos/cache/'
         );
         self::$provider->initialize();
     }
