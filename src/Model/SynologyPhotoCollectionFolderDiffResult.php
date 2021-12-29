@@ -4,7 +4,7 @@ namespace PhotoCentralSynologyStorageServer\Model;
 
 use PhotoCentralSynologyStorageServer\Factory\LinuxFileFactory;
 
-class PhotoCollectionFolderDiffResult
+class SynologyPhotoCollectionFolderDiffResult
 {
     /**
      * [inode_index => LinuxFile, inode_index => LinuxFile ...]

@@ -76,6 +76,7 @@ class PhotoRepository
             $base_sql->setWhere($first_filter->getSql());
         }
 
+        $base_sql->setLimit($limit);
         return $base_sql->get();
 /*
         foreach ($photo_rows as $photo_row) {

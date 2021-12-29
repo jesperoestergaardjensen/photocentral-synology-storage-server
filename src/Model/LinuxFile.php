@@ -11,7 +11,7 @@ class LinuxFile
     private ?int $import_date = null;
     private string $file_name;
     private string $file_uuid;
-    private string $photo_collection_id;
+    private string $synology_photo_collection_id;
     private int $inode_index;
     private int $last_modified_date;
     private int $row_added_date_time;
@@ -21,7 +21,7 @@ class LinuxFile
     private bool $scheduled_for_deletion = false;
 
     public function __construct(
-        string $photo_collection_id,
+        string $synology_photo_collection_id,
         int $inode_index,
         int $last_modified_date,
         string $file_name,
@@ -29,7 +29,7 @@ class LinuxFile
         string $photo_uuid = null,
         string $file_uuid = null
     ) {
-        $this->photo_collection_id = $photo_collection_id;
+        $this->synology_photo_collection_id = $synology_photo_collection_id;
         $this->inode_index = $inode_index;
         $this->last_modified_date = $last_modified_date;
         $this->file_name = $file_name;
@@ -43,9 +43,9 @@ class LinuxFile
         return $this->file_name;
     }
 
-    public function getPhotoCollectionId(): string
+    public function getSynologyPhotoCollectionId(): string
     {
-        return $this->photo_collection_id;
+        return $this->synology_photo_collection_id;
     }
 
     public function getInodeIndex(): int
@@ -130,7 +130,7 @@ class LinuxFile
     public static function fromArray($array): self
     {
         $self = new self(
-            $array[LinuxFileDatabaseTable::ROW_PHOTO_COLLECTION_ID],
+            $array[LinuxFileDatabaseTable::ROW_SYNOLOGY_PHOTO_COLLECTION_ID],
             $array[LinuxFileDatabaseTable::ROW_INODE_INDEX],
             $array[LinuxFileDatabaseTable::ROW_LAST_MODIFIED_DATE],
             $array[LinuxFileDatabaseTable::ROW_FILE_NAME],
@@ -156,18 +156,18 @@ class LinuxFile
     public function toArray(): array
     {
         return [
-            LinuxFileDatabaseTable::ROW_FILE_UUID              => $this->file_uuid,
-            LinuxFileDatabaseTable::ROW_PHOTO_COLLECTION_ID    => $this->photo_collection_id,
-            LinuxFileDatabaseTable::ROW_INODE_INDEX            => $this->inode_index,
-            LinuxFileDatabaseTable::ROW_LAST_MODIFIED_DATE     => $this->last_modified_date,
-            LinuxFileDatabaseTable::ROW_FILE_NAME              => $this->file_name,
-            LinuxFileDatabaseTable::ROW_FILE_PATH              => $this->file_path,
-            LinuxFileDatabaseTable::ROW_IMPORTED               => $this->imported,
-            LinuxFileDatabaseTable::ROW_IMPORT_DATE_TIME       => $this->import_date,
-            LinuxFileDatabaseTable::ROW_ROW_ADDED_DATA_TIME    => $this->row_added_date_time,
-            LinuxFileDatabaseTable::ROW_PHOTO_UUID             => $this->photo_uuid,
-            LinuxFileDatabaseTable::ROW_SKIPPED_ERROR          => $this->skipped_error,
-            LinuxFileDatabaseTable::ROW_SCHEDULED_FOR_DELETION => $this->scheduled_for_deletion,
+            LinuxFileDatabaseTable::ROW_FILE_UUID                    => $this->file_uuid,
+            LinuxFileDatabaseTable::ROW_SYNOLOGY_PHOTO_COLLECTION_ID => $this->synology_photo_collection_id,
+            LinuxFileDatabaseTable::ROW_INODE_INDEX                  => $this->inode_index,
+            LinuxFileDatabaseTable::ROW_LAST_MODIFIED_DATE           => $this->last_modified_date,
+            LinuxFileDatabaseTable::ROW_FILE_NAME                    => $this->file_name,
+            LinuxFileDatabaseTable::ROW_FILE_PATH                    => $this->file_path,
+            LinuxFileDatabaseTable::ROW_IMPORTED                     => $this->imported,
+            LinuxFileDatabaseTable::ROW_IMPORT_DATE_TIME             => $this->import_date,
+            LinuxFileDatabaseTable::ROW_ROW_ADDED_DATA_TIME          => $this->row_added_date_time,
+            LinuxFileDatabaseTable::ROW_PHOTO_UUID                   => $this->photo_uuid,
+            LinuxFileDatabaseTable::ROW_SKIPPED_ERROR                => $this->skipped_error,
+            LinuxFileDatabaseTable::ROW_SCHEDULED_FOR_DELETION       => $this->scheduled_for_deletion,
         ];
     }
 }

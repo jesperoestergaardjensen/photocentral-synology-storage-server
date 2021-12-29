@@ -38,7 +38,7 @@ class GetPhotoPathControllerTest extends TestCase
     public function testRunController()
     {
         $photo_uuid = 'c3db925a9c3f19f6285f7038dcd9844e';
-        $photo_collection_id = '11efa610-5378-4964-b432-d891aef00eb9';
+        $synology_photo_collection_id = '11efa610-5378-4964-b432-d891aef00eb9';
         $image_dimensions = ImageDimensions::createThumb();
 
         // Prepare
@@ -47,7 +47,7 @@ class GetPhotoPathControllerTest extends TestCase
 
         // Simulate post request - prepare data for controller
         $_POST['photo_uuid'] = $photo_uuid;
-        $_POST['photo_collection_id'] = $photo_collection_id;
+        $_POST['photo_collection_id'] = $synology_photo_collection_id;
         $_POST['image_dimensions'] = $image_dimensions->toArray();
 
         // Execute

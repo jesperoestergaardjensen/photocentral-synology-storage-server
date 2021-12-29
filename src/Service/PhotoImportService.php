@@ -7,7 +7,7 @@ use LinuxFileSystemHelper\FolderHelper;
 use PhotoCentralSynologyStorageServer\Exception\PhotoCentralSynologyServerException;
 use PhotoCentralSynologyStorageServer\Factory\LinuxFileFactory;
 use PhotoCentralSynologyStorageServer\Factory\PhotoFactory;
-use PhotoCentralSynologyStorageServer\Model\PhotoCollectionFolderDiffResult;
+use PhotoCentralSynologyStorageServer\Model\SynologyPhotoCollectionFolderDiffResult;
 use PhotoCentralSynologyStorageServer\Model\PhotoImportResult;
 use PhotoCentralSynologyStorageServer\Model\SynologyPhotoCollection;
 use PhotoCentralSynologyStorageServer\Repository\LinuxFileRepository;
@@ -85,8 +85,8 @@ class PhotoImportService
     private function updateDatabaseWithFileSystemChanges(
         array $diffInPhotoCollectionFolder,
         SynologyPhotoCollection $synology_photo_collection
-    ): PhotoCollectionFolderDiffResult {
-        $photo_collection_folder_diff_result = new PhotoCollectionFolderDiffResult();
+    ): SynologyPhotoCollectionFolderDiffResult {
+        $photo_collection_folder_diff_result = new SynologyPhotoCollectionFolderDiffResult();
 
         foreach ($diffInPhotoCollectionFolder as $changed_linux_file_entry) {
             if ($this->isNewLinuxFile($changed_linux_file_entry)) {
@@ -128,7 +128,7 @@ class PhotoImportService
         return $status_files_path . "SynologyPhotoCollection-" . $synology_photo_collection_id . "-old.txt";
     }
 
-    private function updateMovedFilesInDatabase(PhotoCollectionFolderDiffResult $photo_collection_folder_diff_result
+    private function updateMovedFilesInDatabase(SynologyPhotoCollectionFolderDiffResult $photo_collection_folder_diff_result
     ): void {
         $removed_map = $photo_collection_folder_diff_result->getRemovedLinuxFilesMap();
         $added_map = $photo_collection_folder_diff_result->getAddedLinuxFilesMap();
@@ -146,7 +146,7 @@ class PhotoImportService
     }
 
     private function removeDeltedFilesFromDatabase(
-        PhotoCollectionFolderDiffResult $photo_collection_folder_diff_result,
+        SynologyPhotoCollectionFolderDiffResult $photo_collection_folder_diff_result,
         SynologyPhotoCollection $synology_photo_collection
     ): void {
         $removed_map = $photo_collection_folder_diff_result->getRemovedLinuxFilesMap();
@@ -165,7 +165,7 @@ class PhotoImportService
         }
     }
 
-    private function addNewFilesToDatabase(PhotoCollectionFolderDiffResult $photo_collection_folder_diff_result): void
+    private function addNewFilesToDatabase(SynologyPhotoCollectionFolderDiffResult $photo_collection_folder_diff_result): void
     {
         $linux_files_to_bulk_insert = $photo_collection_folder_diff_result->getAddedLinuxFilesMap();
         $this->linux_file_repository->bulkAdd($linux_files_to_bulk_insert);

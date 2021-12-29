@@ -49,8 +49,8 @@ class LinuxFileRepository
             $sql = "SELECT * FROM LinuxFile WHERE MATCH (file_name, file_path) AGAINST ('{$search_string}') LIMIT {$limit}";
 
         } else {
-            $photo_collection_ids = implode("','", $allowed_photo_collection_ids);
-            $sql = "SELECT * FROM LinuxFile WHERE " . LinuxFileDatabaseTable::ROW_PHOTO_COLLECTION_ID . " IN ('{$photo_collection_ids}') AND MATCH (file_name, file_path) AGAINST ('{$search_string}') LIMIT {$limit}";
+            $synology_photo_collection_ids = implode("','", $allowed_photo_collection_ids);
+            $sql = "SELECT * FROM LinuxFile WHERE " . LinuxFileDatabaseTable::ROW_SYNOLOGY_PHOTO_COLLECTION_ID . " IN ('{$synology_photo_collection_ids}') AND MATCH (file_name, file_path) AGAINST ('{$search_string}') LIMIT {$limit}";
         }
 
         $linux_files_data = $this->database_table->runSQL($sql);
@@ -66,8 +66,8 @@ class LinuxFileRepository
     public function update(LinuxFile $linux_file): void
     {
         $condition = [
-            LinuxFileDatabaseTable::ROW_INODE_INDEX         => $linux_file->getInodeIndex(),
-            LinuxFileDatabaseTable::ROW_PHOTO_COLLECTION_ID => $linux_file->getPhotoCollectionId(),
+            LinuxFileDatabaseTable::ROW_INODE_INDEX                  => $linux_file->getInodeIndex(),
+            LinuxFileDatabaseTable::ROW_SYNOLOGY_PHOTO_COLLECTION_ID => $linux_file->getSynologyPhotoCollectionId(),
         ];
 
         $this->database_table->edit($condition,
@@ -81,7 +81,7 @@ class LinuxFileRepository
     public function delete(string $synology_photo_collection_id, int $inode_index): void
     {
         $table_name = LinuxFileDatabaseTable::NAME;
-        $where_clause = LinuxFileDatabaseTable::ROW_PHOTO_COLLECTION_ID . " = '{$synology_photo_collection_id}' AND " . LinuxFileDatabaseTable::ROW_INODE_INDEX . " = {$inode_index}";
+        $where_clause = LinuxFileDatabaseTable::ROW_SYNOLOGY_PHOTO_COLLECTION_ID . " = '{$synology_photo_collection_id}' AND " . LinuxFileDatabaseTable::ROW_INODE_INDEX . " = {$inode_index}";
         $this->database_table->runSQL("DELETE FROM {$table_name} WHERE {$where_clause};");
     }
 
@@ -94,7 +94,7 @@ class LinuxFileRepository
             ->reset()
             ->setSelect('*')
             ->setWhere(LinuxFileDatabaseTable::ROW_INODE_INDEX . " = $inode_index")
-            ->addWhere(LinuxFileDatabaseTable::ROW_PHOTO_COLLECTION_ID . " = '$synology_photo_collection_id'")
+            ->addWhere(LinuxFileDatabaseTable::ROW_SYNOLOGY_PHOTO_COLLECTION_ID . " = '$synology_photo_collection_id'")
             ->get());
 
         if (isset($linux_files_data[0])) {
@@ -110,7 +110,7 @@ class LinuxFileRepository
             ->reset()
             ->setSelect('*')
             ->setWhere(LinuxFileDatabaseTable::ROW_PHOTO_UUID . " = '$photo_uuid'")
-            ->addWhere(LinuxFileDatabaseTable::ROW_PHOTO_COLLECTION_ID . " = '$synology_photo_collection_id'")
+            ->addWhere(LinuxFileDatabaseTable::ROW_SYNOLOGY_PHOTO_COLLECTION_ID . " = '$synology_photo_collection_id'")
             ->get());
 
         if (isset($linux_files_data[0])) {
@@ -149,7 +149,7 @@ class LinuxFileRepository
             LinuxFileDatabaseTable::ROW_FILE_UUID . ',' .
             LinuxFileDatabaseTable::ROW_PHOTO_UUID . ',' .
             LinuxFileDatabaseTable::ROW_ROW_ADDED_DATA_TIME . ',' .
-            LinuxFileDatabaseTable::ROW_PHOTO_COLLECTION_ID . ',' .
+            LinuxFileDatabaseTable::ROW_SYNOLOGY_PHOTO_COLLECTION_ID . ',' .
             LinuxFileDatabaseTable::ROW_INODE_INDEX . ',' .
             LinuxFileDatabaseTable::ROW_LAST_MODIFIED_DATE . ',' .
             LinuxFileDatabaseTable::ROW_FILE_NAME . ',' .
@@ -174,7 +174,7 @@ class LinuxFileRepository
                     '{$linux_file->getFileUuid()}',                
                     {$photo_uuid},                
                     {$row_added_date_time}, 
-                    '{$linux_file->getPhotoCollectionId()}',
+                    '{$linux_file->getSynologyPhotoCollectionId()}',
                     {$linux_file->getInodeIndex()},
                     {$linux_file->getLastModifiedDate()},
                     '{$linux_file->getFileName()}',
@@ -190,18 +190,18 @@ class LinuxFileRepository
     }
 
     /**
-     * @param string $photo_collection_id
+     * @param string $synology_photo_collection_id
      * @param int    $limit
      *
      * @return LinuxFile[]
      */
-    public function listLinuxFilesNotImported(string $photo_collection_id, int $limit): array
+    public function listLinuxFilesNotImported(string $synology_photo_collection_id, int $limit): array
     {
         $linux_files = [];
         $linux_files_data = ($this->database_table
             ->reset()
             ->setSelect('*')
-            ->setWhere(LinuxFileDatabaseTable::ROW_PHOTO_COLLECTION_ID . " = '$photo_collection_id'")
+            ->setWhere(LinuxFileDatabaseTable::ROW_SYNOLOGY_PHOTO_COLLECTION_ID . " = '$synology_photo_collection_id'")
             ->addWhere(LinuxFileDatabaseTable::ROW_IMPORTED . " = 0")
             ->addWhere(LinuxFileDatabaseTable::ROW_SKIPPED . " = 0")
             ->setLimit($limit)
@@ -218,8 +218,8 @@ class LinuxFileRepository
     public function setSkippedError(int $inode_index, string $synology_photo_collection_id, string $error_message)
     {
         $this->database_table->edit([
-            LinuxFileDatabaseTable::ROW_INODE_INDEX         => $inode_index,
-            LinuxFileDatabaseTable::ROW_PHOTO_COLLECTION_ID => $synology_photo_collection_id,
+            LinuxFileDatabaseTable::ROW_INODE_INDEX                  => $inode_index,
+            LinuxFileDatabaseTable::ROW_SYNOLOGY_PHOTO_COLLECTION_ID => $synology_photo_collection_id,
         ], [
             LinuxFileDatabaseTable::ROW_SKIPPED       => true,
             LinuxFileDatabaseTable::ROW_SKIPPED_ERROR => $error_message,
@@ -232,7 +232,7 @@ class LinuxFileRepository
 
         $rows_to_update = LinuxFileDatabaseTable::ROW_IMPORTED . ' = 1,' . LinuxFileDatabaseTable::ROW_IMPORT_DATE_TIME . ' = ' . $import_date_time;
         $inode_list_string = implode("','", $inode_list);
-        $where_clause = LinuxFileDatabaseTable::ROW_PHOTO_COLLECTION_ID . " = '{$synology_photo_collection_id}' AND " . LinuxFileDatabaseTable::ROW_INODE_INDEX . " IN ('{$inode_list_string}')";
+        $where_clause = LinuxFileDatabaseTable::ROW_SYNOLOGY_PHOTO_COLLECTION_ID . " = '{$synology_photo_collection_id}' AND " . LinuxFileDatabaseTable::ROW_INODE_INDEX . " IN ('{$inode_list_string}')";
 
         $this->database_table->runSQL("UPDATE {$table_name} SET {$rows_to_update} WHERE {$where_clause} ");
     }

@@ -78,7 +78,7 @@ class LinuxFileRepositoryTest extends TestCase
 
         // Execute
         $linux_file_repository->bulkAdd($linux_files_to_bulk_add);
-        $expect_linux_file_a = $linux_file_repository->getByInode($linux_file_a->getInodeIndex(), $linux_file_a->getPhotoCollectionId());
+        $expect_linux_file_a = $linux_file_repository->getByInode($linux_file_a->getInodeIndex(), $linux_file_a->getSynologyPhotoCollectionId());
         // Adjust time to be equal
         $linux_file_a->setRowAddedDateTime($expect_linux_file_a->getRowAddedDateTime());
 
@@ -174,7 +174,7 @@ class LinuxFileRepositoryTest extends TestCase
 
         // Execute
         $linux_file_repository->bulkAdd($linux_files_to_bulk_add);
-        $expect_linux_file_b = $linux_file_repository->getByPhotoUuid($linux_file_b->getPhotoUuid(), $linux_file_b->getPhotoCollectionId());
+        $expect_linux_file_b = $linux_file_repository->getByPhotoUuid($linux_file_b->getPhotoUuid(), $linux_file_b->getSynologyPhotoCollectionId());
         // Adjust time to be equal
         $linux_file_b->setRowAddedDateTime($expect_linux_file_b->getRowAddedDateTime());
 

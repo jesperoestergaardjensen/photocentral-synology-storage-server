@@ -1,6 +1,6 @@
 create table LinuxFile
 (
-    photo_collection_id varchar(255) not null,
+    synology_photo_collection_id varchar(255) not null,
     inode_index         int          not null,
     last_modified_date  bigint       not null,
     file_name           varchar(244) not null,
@@ -8,7 +8,7 @@ create table LinuxFile
 );
 
 create unique index LinuxFile_unique_entry
-    on LinuxFile (photo_collection_id, inode_index);
+    on LinuxFile (synology_photo_collection_id, inode_index);
 
 alter table LinuxFile
     add imported bool default false not null;

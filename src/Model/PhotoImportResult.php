@@ -5,11 +5,11 @@ namespace PhotoCentralSynologyStorageServer\Model;
 class PhotoImportResult
 {
     /**
-     * @var PhotoCollectionFolderDiffResult[]
+     * @var SynologyPhotoCollectionFolderDiffResult[]
      */
     private array $complete_result_map = [];
 
-    public function add(PhotoCollectionFolderDiffResult $collection_folder_diff_result, string $synology_photo_collection_id)
+    public function add(SynologyPhotoCollectionFolderDiffResult $collection_folder_diff_result, string $synology_photo_collection_id)
     {
         $this->complete_result_map[$synology_photo_collection_id] = $collection_folder_diff_result;
     }
@@ -19,7 +19,7 @@ class PhotoImportResult
         return $this->complete_result_map;
     }
 
-    public function getPhotoCollectionFolderDiffResult(string $synology_photo_collection_id): PhotoCollectionFolderDiffResult
+    public function getPhotoCollectionFolderDiffResult(string $synology_photo_collection_id): SynologyPhotoCollectionFolderDiffResult
     {
         return $this->complete_result_map[$synology_photo_collection_id];
     }
