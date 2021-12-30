@@ -49,6 +49,7 @@ class SynologyPhotoCollection extends PhotoCollection implements JsonSerializabl
             SynologyPhotoCollectionDatabaseTable::ROW_ENABLED           => $this->isEnabled(),
             SynologyPhotoCollectionDatabaseTable::ROW_IMAGE_SOURCE_PATH => $this->getImageSourcePath(),
             SynologyPhotoCollectionDatabaseTable::ROW_STATUS_FILES_PATH => $this->getStatusFilesPath(),
+            SynologyPhotoCollectionDatabaseTable::ROW_LAST_UPDATED      => $this->getLastUpdated(),
         ];
     }
 

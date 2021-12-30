@@ -7,6 +7,7 @@ use PhotoCentralStorage\Model\PhotoSorting\SortByAddedTimestamp;
 use PhotoCentralStorage\Model\PhotoSorting\SortByCreatedTimestamp;
 use PhotoCentralStorage\Photo;
 use PhotoCentralSynologyStorageServer\Exception\PhotoCentralSynologyServerException;
+use PhotoCentralSynologyStorageServer\Factory\PhotoUrlFactory;
 use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;
 use PhotoCentralSynologyStorageServer\Model\DatabaseTables\PhotoDatabaseTable;
 use TexLab\MyDB\DB;
@@ -16,10 +17,12 @@ class PhotoRepository
 {
     private DbEntity $database_table;
     private DatabaseConnection $database_connection;
+    private PhotoUrlFactory $photo_url_factory;
 
-    public function __construct(DatabaseConnection $database_connection)
+    public function __construct(DatabaseConnection $database_connection, PhotoUrlFactory $photo_url_factory)
     {
         $this->database_connection = $database_connection;
+        $this->photo_url_factory = $photo_url_factory;
     }
 
     public function connectToDb(): void
@@ -52,7 +55,9 @@ class PhotoRepository
         $photos = [];
 
         foreach ($photo_rows as $photo_row) {
-            $photos[$photo_row[PhotoDatabaseTable::ROW_PHOTO_UUID]] = Photo::fromArray($photo_row);
+            $photo_row[Photo::PHOTO_URL] = $this->photo_url_factory->createPhotoUrl($photo_row[Photo::PHOTO_UUID], $photo_row[Photo::PHOTO_COLLECTION_ID]);
+            $photo = Photo::fromArray($photo_row);
+            $photos[$photo_row[PhotoDatabaseTable::ROW_PHOTO_UUID]] = $photo;
         }
 
         return $photos;
@@ -76,8 +81,20 @@ class PhotoRepository
             $base_sql->setWhere($first_filter->getSql());
         }
 
+        if ($sorting_parameter_list) {
+            $first_sorting = array_pop($sorting_parameter_list);
+            $base_sql->setOrderBy($first_sorting->getSql());
+        }
+
         $base_sql->setLimit($limit);
-        return $base_sql->get();
+        $photo_array_list = $base_sql->get();
+
+        foreach ($photo_array_list as $key => $photo_array) {
+            $photo_array[Photo::PHOTO_URL] = $this->photo_url_factory->createPhotoUrl($photo_array[Photo::PHOTO_UUID], $photo_array[Photo::PHOTO_COLLECTION_ID]);
+            $photo_array_list[$key] = $photo_array;
+        }
+
+        return $photo_array_list;
 /*
         foreach ($photo_rows as $photo_row) {
             $photo_list[] = Photo::fromArray($photo_row);
@@ -89,7 +106,10 @@ class PhotoRepository
 
     public function add(Photo $new_photo): void
     {
-        $this->database_table->add($new_photo->toArray());
+        $photo_array = $new_photo->toArray();
+        // We do not want to save the Photo url in the database
+        unset($photo_array[Photo::PHOTO_URL]);
+        $this->database_table->add($photo_array);
     }
 
     /**
@@ -159,6 +179,7 @@ class PhotoRepository
             ->get());
 
         if (isset($photo_rows[0])) {
+            $photo_rows[0][Photo::PHOTO_URL] = $this->photo_url_factory->createPhotoUrl($photo_rows[0][Photo::PHOTO_UUID], $photo_rows[0][Photo::PHOTO_COLLECTION_ID]);
             return Photo::fromArray($photo_rows[0]);
         } else {
             throw new PhotoCentralSynologyServerException("Cannot find Photo with photo_uuid = $photo_uuid and photo collection id $photo_collection_id");

@@ -4,12 +4,14 @@ namespace PhotoCentralSynologyStorageServer;
 
 use mindplay\unbox\Container;
 use mindplay\unbox\ContainerFactory;
+use PhotoCentralSynologyStorageServer\Controller\DisplayPhotoController;
 use PhotoCentralSynologyStorageServer\Controller\GetPhotoController;
 use PhotoCentralSynologyStorageServer\Controller\GetPhotoPathController;
 use PhotoCentralSynologyStorageServer\Controller\ListPhotoCollectionsController;
 use PhotoCentralSynologyStorageServer\Controller\ListPhotosController;
 use PhotoCentralSynologyStorageServer\Controller\SearchController;
 use PhotoCentralSynologyStorageServer\Factory\PhotoFactory;
+use PhotoCentralSynologyStorageServer\Factory\PhotoUrlFactory;
 use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;
 use PhotoCentralSynologyStorageServer\Model\PhotoImportResult;
 use PhotoCentralSynologyStorageServer\Repository\LinuxFileRepository;
@@ -95,6 +97,7 @@ class Provider
         $container_factory->register(ListPhotosController::class);
         $container_factory->register(ListPhotoCollectionsController::class);
         $container_factory->register(GetPhotoController::class);
+        $container_factory->register(DisplayPhotoController::class);
     }
 
     private function registerServices(ContainerFactory $container_factory)
@@ -107,5 +110,8 @@ class Provider
     private function registerFactories(ContainerFactory $container_factory)
     {
         $container_factory->register(PhotoFactory::class);
+        $container_factory->register(PhotoUrlFactory::class, function() {
+            return new PhotoUrlFactory('http://photocentral-synology-storage-server/api/');
+        });
     }
 }

@@ -123,12 +123,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jesperoestergaardjensen/photocentral-storage.git",
-                "reference": "99790c0b8ed1f0005f46aa47797b83c6b629fe29"
+                "reference": "aa78ed4c4ec9037e67d218087f2d68410ecd2815"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jesperoestergaardjensen/photocentral-storage/zipball/99790c0b8ed1f0005f46aa47797b83c6b629fe29",
-                "reference": "99790c0b8ed1f0005f46aa47797b83c6b629fe29",
+                "url": "https://api.github.com/repos/jesperoestergaardjensen/photocentral-storage/zipball/aa78ed4c4ec9037e67d218087f2d68410ecd2815",
+                "reference": "aa78ed4c4ec9037e67d218087f2d68410ecd2815",
                 "shasum": ""
             },
             "require": {
@@ -155,7 +155,7 @@
                 "issues": "https://github.com/jesperoestergaardjensen/photocentral-storage/issues",
                 "source": "https://github.com/jesperoestergaardjensen/photocentral-storage/tree/main"
             },
-            "time": "2021-12-27T23:36:18+00:00"
+            "time": "2021-12-30T10:59:08+00:00"
         },
         {
             "name": "mindplay/unbox",
@@ -716,12 +716,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/TypeResolver.git",
-                "reference": "f8ec4ab631de5a97769e66b13418c3b8b24e81f4"
+                "reference": "94891c5b34aca4d60f6a110b0538df52f61384f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/f8ec4ab631de5a97769e66b13418c3b8b24e81f4",
-                "reference": "f8ec4ab631de5a97769e66b13418c3b8b24e81f4",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/94891c5b34aca4d60f6a110b0538df52f61384f5",
+                "reference": "94891c5b34aca4d60f6a110b0538df52f61384f5",
                 "shasum": ""
             },
             "require": {
@@ -759,7 +759,7 @@
                 "issues": "https://github.com/phpDocumentor/TypeResolver/issues",
                 "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.x"
             },
-            "time": "2021-11-24T08:29:39+00:00"
+            "time": "2021-12-28T08:51:16+00:00"
         },
         {
             "name": "phpspec/prophecy",

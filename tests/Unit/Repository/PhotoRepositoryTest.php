@@ -3,6 +3,7 @@
 namespace PhotoCentralSynologyStorageServer\Tests\Unit\Repository;
 
 use PhotoCentralStorage\Photo;
+use PhotoCentralSynologyStorageServer\Factory\PhotoUrlFactory;
 use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;
 use PhotoCentralSynologyStorageServer\Repository\PhotoRepository;
 use PhotoCentralSynologyStorageServer\Service\UUIDService;
@@ -24,10 +25,15 @@ class PhotoRepositoryTest extends TestCase
     public function testAddAndGetByPhotoUuid()
     {
         // Prepare
+        $photo_url_factory = new PhotoUrlFactory(dirname(__FILE__) . "/public/api");
+        $photo_repository = new PhotoRepository(self::$database_connection, $photo_url_factory);
+        $photo_repository->connectToDb();
+
         $photo_a = new Photo(UUIDService::create(), '1', 500, 500, 0, time(), time(), time(), time(), 'Apple', 'Iphone 12');
         $photo_b = new Photo(UUIDService::create(), '1', 200, 300, 0, time(), time(), time(), time(), 'Apple', 'Iphone 12');
-        $photo_repository = new PhotoRepository(self::$database_connection);
-        $photo_repository->connectToDb();
+
+        $photo_a->setPhotoUrl($photo_url_factory->createPhotoUrl($photo_a->getPhotoUuid(), $photo_a->getPhotoCollectionId()));
+        $photo_b->setPhotoUrl($photo_url_factory->createPhotoUrl($photo_b->getPhotoUuid(), $photo_b->getPhotoCollectionId()));
 
         // Execute and Test
         $photo_list = $photo_repository->list([$photo_a->getPhotoUuid(), $photo_b->getPhotoUuid()]);

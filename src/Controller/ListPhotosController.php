@@ -5,6 +5,7 @@ namespace PhotoCentralSynologyStorageServer\Controller;
 use PhotoCentralSynologyStorageServer\Controller;
 use PhotoCentralSynologyStorageServer\Repository\PhotoRepository;
 use PhotoCentralSynologyStorageServer\Service\PhotoFilterOverrideService;
+use PhotoCentralSynologyStorageServer\Service\PhotoSortingOverrideService;
 
 class ListPhotosController extends Controller
 {
@@ -30,7 +31,8 @@ class ListPhotosController extends Controller
 
         if (isset($_POST['photo_sorting_parameters'])) {
             foreach ($_POST['photo_sorting_parameters'] as $sorting_class_name => $filter_as_array) {
-                $photo_sorting_parameters[] = $sorting_class_name::fromArray($filter_as_array);
+                $override_sorting_class_name = PhotoSortingOverrideService::map($sorting_class_name);
+                $photo_sorting_parameters[] = $sorting_class_name::fromArray($filter_as_array, $override_sorting_class_name);
             }
         }
 

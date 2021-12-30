@@ -5,3 +5,4 @@ config/config.php
 coverage/
 runtime/
 public/photos
+tests/data/photos/129_PANA
