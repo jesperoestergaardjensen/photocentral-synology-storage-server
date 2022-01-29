@@ -26,7 +26,7 @@ class GetPhotoPathController extends Controller
 
     public function run(bool $testing = false): void
     {
-        $post_data = $this->sanitizePost(['photo_uuid' => 'd49e611175d3e896e6936bf7404a6c9d', 'photo_collection_id' => 'a24e57e0-a1e9-4d8e-a671-67eb165a6b1d', 'image_dimensions' => ImageDimensions::createThumb()->toArray()],
+        $post_data = $this->sanitizePost(['photo_uuid' => 'd49e611175d3e896e6936bf7404a6c9d', 'photo_collection_id' => 'a24e57e0-a1e9-4d8e-a671-67eb165a6b1d', 'image_dimensions' => ImageDimensions::createFromId(ImageDimensions::THUMB_ID)->toArray()],
             $this->database_connection);
 
         $this->linux_file_repository->connectToDb();

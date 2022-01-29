@@ -24,16 +24,13 @@ class Provider
 {
     private Container $di_container;
     private DatabaseConnection $database_connection;
-    private string $base_photo_path;
     private string $image_cache_path;
 
     public function __construct(
         DatabaseConnection $database_connection,
-        string $base_photo_path,
         string $image_cache_path
     ) {
         $this->database_connection = $database_connection;
-        $this->base_photo_path = $base_photo_path;
         $this->image_cache_path = $image_cache_path;
     }
 
@@ -102,8 +99,8 @@ class Provider
 
     private function registerServices(ContainerFactory $container_factory)
     {
-        $container_factory->register(PhotoRetrivalService::class, function() {
-            return new PhotoRetrivalService($this->base_photo_path, $this->image_cache_path);
+        $container_factory->register(PhotoRetrivalService::class, function(SynologyPhotoCollectionRepository $synology_photo_collection_repository) {
+            return new PhotoRetrivalService($this->image_cache_path, $synology_photo_collection_repository);
         });
     }
 

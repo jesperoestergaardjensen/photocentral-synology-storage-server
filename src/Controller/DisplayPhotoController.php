@@ -4,22 +4,18 @@ namespace PhotoCentralSynologyStorageServer\Controller;
 
 use PhotoCentralStorage\Model\ImageDimensions;
 use PhotoCentralSynologyStorageServer\Controller;
-use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;
 use PhotoCentralSynologyStorageServer\Repository\LinuxFileRepository;
 use PhotoCentralSynologyStorageServer\Service\PhotoRetrivalService;
 
 class DisplayPhotoController extends Controller
 {
-    private DatabaseConnection $database_connection;
     private PhotoRetrivalService $photo_retrival_service;
     private LinuxFileRepository $linux_file_repository;
 
     public function __construct(
-        DatabaseConnection $database_connection,
         PhotoRetrivalService $photo_retrival_service,
         LinuxFileRepository $linux_file_repository
     ) {
-        $this->database_connection = $database_connection;
         $this->photo_retrival_service = $photo_retrival_service;
         $this->linux_file_repository = $linux_file_repository;
     }
@@ -33,7 +29,7 @@ class DisplayPhotoController extends Controller
         $get_data = $_GET;
 
         $this->linux_file_repository->connectToDb();
-        $linux_file = $this->linux_file_repository->getByPhotoUuid($get_data['photo_uuid'], $get_data['photo_collection_id']);
+        $linux_file = $this->linux_file_repository->getByPhotoUuid($get_data['photo_uuid'], null);
 /*
         if ($testing === false) {
             header('Content-Type: application/json');
@@ -41,6 +37,7 @@ class DisplayPhotoController extends Controller
 */
         $photo_path = $this->photo_retrival_service->getPhotoPath($linux_file, ImageDimensions::createFromId($get_data['image_dimensions_id'] ?? ImageDimensions::THUMB_ID));
 
+        header('Content-Length: ' . filesize($photo_path));
         header('Content-Type: image/jpeg');
         readfile($photo_path);
     }

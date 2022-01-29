@@ -39,7 +39,7 @@ class GetPhotoPathControllerTest extends TestCase
     {
         $photo_uuid = 'c3db925a9c3f19f6285f7038dcd9844e';
         $synology_photo_collection_id = '11efa610-5378-4964-b432-d891aef00eb9';
-        $image_dimensions = ImageDimensions::createThumb();
+        $image_dimensions = ImageDimensions::createFromId(ImageDimensions::THUMB_ID);
 
         // Prepare
         self::$test_database_service->addLinuxFileFixture('search_test_fixture.sql');

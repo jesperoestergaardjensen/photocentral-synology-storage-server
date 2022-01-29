@@ -28,7 +28,6 @@ class ListPhotosController extends Controller
                 $photo_filters[] = $override_filter_class_name::fromArray($filter_as_array, $override_filter_class_name);
             }
         }
-
         if (isset($_POST['photo_sorting_parameters'])) {
             foreach ($_POST['photo_sorting_parameters'] as $sorting_class_name => $filter_as_array) {
                 $override_sorting_class_name = PhotoSortingOverrideService::map($sorting_class_name);

@@ -3,6 +3,7 @@
     "description": "Synology NAS storage for PhotoCentral, server",
     "license": "gpl-3.0",
     "minimum-stability": "dev",
+    "prefer-stable" : true,
     "require": {
         "php": "^7.4",
         "jesperoestergaardjensen/photocentral-storage" : "dev-main",

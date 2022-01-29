@@ -104,14 +104,19 @@ class LinuxFileRepository
         }
     }
 
-    public function getByPhotoUuid(string $photo_uuid, string $synology_photo_collection_id): LinuxFile
+    public function getByPhotoUuid(string $photo_uuid, ?string $synology_photo_collection_id): LinuxFile
     {
-        $linux_files_data = ($this->database_table
+        $sql = ($this->database_table
             ->reset()
             ->setSelect('*')
             ->setWhere(LinuxFileDatabaseTable::ROW_PHOTO_UUID . " = '$photo_uuid'")
-            ->addWhere(LinuxFileDatabaseTable::ROW_SYNOLOGY_PHOTO_COLLECTION_ID . " = '$synology_photo_collection_id'")
-            ->get());
+        );
+
+        if ($synology_photo_collection_id) {
+            $sql = $sql->addWhere(LinuxFileDatabaseTable::ROW_SYNOLOGY_PHOTO_COLLECTION_ID . " = '$synology_photo_collection_id'");
+        }
+
+        $linux_files_data = $sql->get();
 
         if (isset($linux_files_data[0])) {
             return LinuxFile::fromArray($linux_files_data[0]);

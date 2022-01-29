@@ -6,17 +6,19 @@ use LinuxImageHelper\Exception\LinuxImageHelperException;
 use LinuxImageHelper\Service\JpgImageService;
 use PhotoCentralStorage\Exception\PhotoCentralStorageException;
 use PhotoCentralStorage\Model\ImageDimensions;
+use PhotoCentralSynologyStorageServer\Exception\PhotoCentralSynologyServerException;
 use PhotoCentralSynologyStorageServer\Model\LinuxFile;
+use PhotoCentralSynologyStorageServer\Repository\SynologyPhotoCollectionRepository;
 
 class PhotoRetrivalService
 {
     private string $image_cache_path;
-    private string $photo_path;
+    private SynologyPhotoCollectionRepository $synology_photo_collection_repository;
 
-    public function __construct(string $photo_path, string $image_cache_path)
+    public function __construct(string $image_cache_path, SynologyPhotoCollectionRepository $synology_photo_collection_repository)
     {
         $this->image_cache_path = $image_cache_path;
-        $this->photo_path = $photo_path;
+        $this->synology_photo_collection_repository = $synology_photo_collection_repository;
     }
 
     /**
@@ -24,8 +26,7 @@ class PhotoRetrivalService
      * @param ImageDimensions $image_dimensions
      *
      * @return string
-     * @throws PhotoCentralStorageException
-     * @throws LinuxImageHelperException
+     * @throws PhotoCentralStorageException|LinuxImageHelperException|PhotoCentralSynologyServerException
      */
     public function getPhotoPath(LinuxFile $linux_file, ImageDimensions $image_dimensions) : string
     {
@@ -35,7 +36,9 @@ class PhotoRetrivalService
             return $photo_path;
         }
 
-        $org_file_name_and_path = $linux_file->getFullFileNameAndPath($this->photo_path);
+        $this->synology_photo_collection_repository->connectToDb();
+        $photo_collection_image_source_path = $this->synology_photo_collection_repository->get($linux_file->getSynologyPhotoCollectionId())->getImageSourcePath();
+        $org_file_name_and_path = $linux_file->getFullFileNameAndPath($photo_collection_image_source_path);
 
         if (is_readable($org_file_name_and_path) === false) {
             throw new PhotoCentralStorageException("Cannot read the file $org_file_name_and_path, (photo_uuid={$linux_file->getPhotoUuid()}. Please check file and folder permissions");

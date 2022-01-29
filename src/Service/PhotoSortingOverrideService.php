@@ -4,9 +4,11 @@ namespace PhotoCentralSynologyStorageServer\Service;
 
 use PhotoCentralStorage\Model\PhotoSorting\SortByAddedTimestamp;
 use PhotoCentralStorage\Model\PhotoSorting\SortByCreatedTimestamp;
+use PhotoCentralStorage\Model\PhotoSorting\SortByPhotoDateTime;
 use PhotoCentralSynologyStorageServer\Model\PhotoSortingOverride\PhotoSortingOverrideFallback;
 use PhotoCentralSynologyStorageServer\Model\PhotoSortingOverride\SortByAddedTimestampOverride;
 use PhotoCentralSynologyStorageServer\Model\PhotoSortingOverride\SortByCreatedTimestampOverride;
+use PhotoCentralSynologyStorageServer\Model\PhotoSortingOverride\SortByPhotoDateTimeOverride;
 
 class PhotoSortingOverrideService
 {
@@ -18,6 +20,10 @@ class PhotoSortingOverrideService
 
             case SortByCreatedTimestamp::class :
                 $to_class_name = SortByCreatedTimestampOverride::class;
+            break;
+
+            case SortByPhotoDateTime::class :
+                $to_class_name = SortByPhotoDateTimeOverride::class;
             break;
 
             default:
