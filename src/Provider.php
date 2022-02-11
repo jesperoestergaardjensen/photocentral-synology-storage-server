@@ -8,6 +8,9 @@ use PhotoCentralSynologyStorageServer\Controller\DisplayPhotoController;
 use PhotoCentralSynologyStorageServer\Controller\GetPhotoController;
 use PhotoCentralSynologyStorageServer\Controller\GetPhotoPathController;
 use PhotoCentralSynologyStorageServer\Controller\ListPhotoCollectionsController;
+use PhotoCentralSynologyStorageServer\Controller\ListPhotoQuantityByDayController;
+use PhotoCentralSynologyStorageServer\Controller\ListPhotoQuantityByMonthController;
+use PhotoCentralSynologyStorageServer\Controller\ListPhotoQuantityByYearController;
 use PhotoCentralSynologyStorageServer\Controller\ListPhotosController;
 use PhotoCentralSynologyStorageServer\Controller\SearchController;
 use PhotoCentralSynologyStorageServer\Factory\PhotoFactory;
@@ -15,6 +18,7 @@ use PhotoCentralSynologyStorageServer\Factory\PhotoUrlFactory;
 use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;
 use PhotoCentralSynologyStorageServer\Model\PhotoImportResult;
 use PhotoCentralSynologyStorageServer\Repository\LinuxFileRepository;
+use PhotoCentralSynologyStorageServer\Repository\PhotoQuantityRepository;
 use PhotoCentralSynologyStorageServer\Repository\PhotoRepository;
 use PhotoCentralSynologyStorageServer\Repository\SynologyPhotoCollectionRepository;
 use PhotoCentralSynologyStorageServer\Service\PhotoImportService;
@@ -85,6 +89,7 @@ class Provider
         $container_factory->register(SynologyPhotoCollectionRepository::class);
         $container_factory->register(LinuxFileRepository::class);
         $container_factory->register(PhotoRepository::class);
+        $container_factory->register(PhotoQuantityRepository::class);
     }
 
     private function registerControllers(ContainerFactory $container_factory): void
@@ -95,6 +100,9 @@ class Provider
         $container_factory->register(ListPhotoCollectionsController::class);
         $container_factory->register(GetPhotoController::class);
         $container_factory->register(DisplayPhotoController::class);
+        $container_factory->register(ListPhotoQuantityByYearController::class);
+        $container_factory->register(ListPhotoQuantityByMonthController::class);
+        $container_factory->register(ListPhotoQuantityByDayController::class);
     }
 
     private function registerServices(ContainerFactory $container_factory)

@@ -2,9 +2,6 @@
 
 namespace PhotoCentralSynologyStorageServer\Repository;
 
-use PhotoCentralStorage\Model\PhotoFilter\PhotoCollectionIdFilter;
-use PhotoCentralStorage\Model\PhotoSorting\SortByAddedTimestamp;
-use PhotoCentralStorage\Model\PhotoSorting\SortByCreatedTimestamp;
 use PhotoCentralStorage\Photo;
 use PhotoCentralSynologyStorageServer\Exception\PhotoCentralSynologyServerException;
 use PhotoCentralSynologyStorageServer\Factory\PhotoUrlFactory;

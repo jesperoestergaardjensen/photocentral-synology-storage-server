@@ -2,13 +2,12 @@
 
 namespace PhotoCentralSynologyStorageServer\Tests\Unit\Controller;
 
-use GuzzleHttp\Client;
 use PhotoCentralStorage\Model\ImageDimensions;
-use PhotoCentralStorage\Photo;
 use PhotoCentralSynologyStorageServer\Controller\GetPhotoPathController;
-use PhotoCentralSynologyStorageServer\Controller\SearchController;
 use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;
+use PhotoCentralSynologyStorageServer\Model\SynologyPhotoCollection;
 use PhotoCentralSynologyStorageServer\Provider;
+use PhotoCentralSynologyStorageServer\Repository\SynologyPhotoCollectionRepository;
 use PhotoCentralSynologyStorageServer\Tests\TestDatabaseService;
 use PhotoCentralSynologyStorageServer\Tests\TestService;
 use PHPUnit\Framework\TestCase;
@@ -29,8 +28,7 @@ class GetPhotoPathControllerTest extends TestCase
 
         self::$provider = new Provider(
             self::$database_connection,
-            self::getDataFolder() . '/photos/',
-            self::getPublicFolder() . '/photos/cache/'
+            self::getDataFolder() . '/cache/',
         );
         self::$provider->initialize();
     }
@@ -43,7 +41,21 @@ class GetPhotoPathControllerTest extends TestCase
 
         // Prepare
         self::$test_database_service->addLinuxFileFixture('search_test_fixture.sql');
-        $expected_photo_path = 'photos/cache/' . $image_dimensions->getId() . "/" . $photo_uuid . '.jpg';
+        $synology_photo_collection_repository = new SynologyPhotoCollectionRepository(self::$database_connection);
+        $synology_photo_collection_repository->connectToDb();
+        $synology_photo_collection_repository->add(
+            new SynologyPhotoCollection(
+                $synology_photo_collection_id,
+                'test',
+                true,
+                'tester',
+                time(),
+                self::getDataFolder() . '/photos/',
+                self::getDataFolder() . '/status_files/'
+            )
+        );
+
+        $expected_photo_path = self::getDataFolder() . '/cache/' . $image_dimensions->getId() . "/" . $photo_uuid . '.jpg';
 
         // Simulate post request - prepare data for controller
         $_POST['photo_uuid'] = $photo_uuid;
@@ -51,7 +63,8 @@ class GetPhotoPathControllerTest extends TestCase
         $_POST['image_dimensions'] = $image_dimensions->toArray();
 
         // Execute
-        $json_content = self::$provider->runController(GetPhotoPathController::class, true); // Code coverage / debugging
+        $json_content = self::$provider->runController(GetPhotoPathController::class,
+            true); // Code coverage / debugging
         $actual_photo_path = json_decode($json_content, true);
 
         // Test

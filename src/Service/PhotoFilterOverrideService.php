@@ -3,7 +3,9 @@
 namespace PhotoCentralSynologyStorageServer\Service;
 
 use PhotoCentralStorage\Model\PhotoFilter\PhotoCollectionIdFilter;
+use PhotoCentralStorage\Model\PhotoFilter\PhotoDateTimeRangeFilter;
 use PhotoCentralSynologyStorageServer\Model\PhotoFilterOverride\PhotoCollectionIdFilterOverride;
+use PhotoCentralSynologyStorageServer\Model\PhotoFilterOverride\PhotoDateTimeRangeFilterOverride;
 use PhotoCentralSynologyStorageServer\Model\PhotoFilterOverride\PhotoFilterOverrideFallback;
 
 class PhotoFilterOverrideService
@@ -12,6 +14,9 @@ class PhotoFilterOverrideService
         switch ($from_class_name) {
             case PhotoCollectionIdFilter::class :
                 $to_class_name = PhotoCollectionIdFilterOverride::class;
+            break;
+            case PhotoDateTimeRangeFilter::class :
+                $to_class_name = PhotoDateTimeRangeFilterOverride::class;
             break;
 
             default:
