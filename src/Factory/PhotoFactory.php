@@ -46,7 +46,7 @@ class PhotoFactory
                     $synology_photo_collection->getId(), $exception->getMessage());
                 continue;
             }
-// TODO : Do we need this - should it be handled in ExifDataFactory::ThrowExceptionIfValidationFails method ?
+// TODO : Do we need this - should it be handled in ExifDataFactory::ThrowExceptionIfValidationFails method ? - Update 16-02-22 : ExifDataFactory is not the right place to put the check!
             /*
                         if (
                             $exif_data->getWidth() === null ||

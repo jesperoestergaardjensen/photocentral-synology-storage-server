@@ -23,7 +23,7 @@ class LinuxFile
     public function __construct(
         string $synology_photo_collection_id,
         int $inode_index,
-        int $last_modified_date,
+        int $last_modified_date, // TODO : Rename to $last_modified_date_time
         string $file_name,
         string $file_path,
         string $photo_uuid = null,
