@@ -68,8 +68,8 @@ class LinuxFileRepositoryTest extends TestCase
         $linux_file_repository = new LinuxFileRepository(self::$database_connection);
         $linux_file_repository->connectToDb();
 
-        $linux_file_a = new LinuxFile('id-a', 1234567, time()-500, 'test-file-name-a.jpg', 'test-folder-a');
-        $linux_file_b = new LinuxFile('id-b', 1234568, time()-100, 'test-file-name-b.jpg', 'test-folder-b');
+        $linux_file_a = new LinuxFile('id-a', 1234567, time()-500, 'test-file-name-a.jpg', 'test-folder-a', UUIDService::create());
+        $linux_file_b = new LinuxFile('id-b', 1234568, time()-100, 'test-file-name-b.jpg', 'test-folder-b', UUIDService::create());
 
         $linux_files_to_bulk_add = [
             $linux_file_a,
@@ -102,8 +102,8 @@ class LinuxFileRepositoryTest extends TestCase
         $linux_file_repository->connectToDb();
         self::$test_database_service->emptyDatabaseTable(LinuxFileDatabaseTable::NAME);
 
-        $linux_file_a = new LinuxFile('id-a', 1234567, time()-500, 'test-file-name-a.jpg', 'test-folder-a');
-        $linux_file_b = new LinuxFile('id-b', 1234568, time()-100, 'test-file-name-b.jpg', 'test-folder-b');
+        $linux_file_a = new LinuxFile('id-a', 1234567, time()-500, 'test-file-name-a.jpg', 'test-folder-a', UUIDService::create());
+        $linux_file_b = new LinuxFile('id-b', 1234568, time()-100, 'test-file-name-b.jpg', 'test-folder-b', UUIDService::create());
 
         $linux_files_to_bulk_add = [
             $linux_file_a,
@@ -132,8 +132,8 @@ class LinuxFileRepositoryTest extends TestCase
         self::$test_database_service->emptyDatabaseTable(LinuxFileDatabaseTable::NAME);
 
         // Same file added in two different photo collections
-        $linux_file_a = new LinuxFile('id-a', 1234567, time()-500, 'test-file-name-a.jpg', 'test-folder-a');
-        $linux_file_b = new LinuxFile('id-b', 1234567, time()-100, 'test-file-name-b.jpg', 'test-folder-b');
+        $linux_file_a = new LinuxFile('id-a', 1234567, time()-500, 'test-file-name-a.jpg', 'test-folder-a', UUIDService::create());
+        $linux_file_b = new LinuxFile('id-b', 1234567, time()-100, 'test-file-name-b.jpg', 'test-folder-b', UUIDService::create());
 
         $linux_files_to_bulk_add = [
             $linux_file_a,
@@ -174,7 +174,7 @@ class LinuxFileRepositoryTest extends TestCase
 
         // Execute
         $linux_file_repository->bulkAdd($linux_files_to_bulk_add);
-        $expect_linux_file_b = $linux_file_repository->getByPhotoUuid($linux_file_b->getPhotoUuid(), $linux_file_b->getSynologyPhotoCollectionId());
+        $expect_linux_file_b = $linux_file_repository->getByInode($linux_file_b->getInodeIndex(), $linux_file_b->getSynologyPhotoCollectionId());
         // Adjust time to be equal
         $linux_file_b->setRowAddedDateTime($expect_linux_file_b->getRowAddedDateTime());
 

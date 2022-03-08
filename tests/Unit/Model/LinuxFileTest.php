@@ -15,8 +15,8 @@ class LinuxFileTest extends TestCase
         $expected_last_modified_date = time();
         $expected_file_name = 'file_name';
         $expected_file_path = 'file_path/';
-        $expected_photo_uuid = null;
-        $expectec_file_uuid = UUIDService::create();
+        $expected_photo_uuid = UUIDService::create();
+        $expected_file_uuid = UUIDService::create();
 
         $linux_file = new LinuxFile(
             $expected_synology_photo_collection_id,
@@ -25,7 +25,7 @@ class LinuxFileTest extends TestCase
             $expected_file_name,
             $expected_file_path,
             $expected_photo_uuid,
-            $expectec_file_uuid
+            $expected_file_uuid
         );
 
         $this->assertEquals($expected_synology_photo_collection_id, $linux_file->getSynologyPhotoCollectionId());
@@ -34,8 +34,8 @@ class LinuxFileTest extends TestCase
         $this->assertEquals($expected_file_name, $linux_file->getFileName());
         $this->assertEquals($expected_file_path, $linux_file->getFilePath());
 
-        $this->assertNull($linux_file->getPhotoUuid());
-        $this->assertEquals($expectec_file_uuid, $linux_file->getFileUuid());
+        $this->assertEquals($expected_photo_uuid, $linux_file->getPhotoUuid());
+        $this->assertEquals($expected_file_uuid, $linux_file->getFileUuid());
     }
 
     public function testToArrayAndSetter()
@@ -45,7 +45,7 @@ class LinuxFileTest extends TestCase
         $expected_last_modified_date = time();
         $expected_file_name = 'file_name';
         $expected_file_path = 'file_path/';
-        $expected_photo_uuid = null;
+        $expected_photo_uuid = UUIDService::create();
         $expectec_file_uuid = UUIDService::create();
         $expected_row_added_date_time = time();
 
@@ -62,6 +62,8 @@ class LinuxFileTest extends TestCase
             'import_date_time'             => null,
             'skipped_error'                => null,
             'scheduled_for_deletion'       => false,
+            'skipped'                      => false,
+            'duplicate'                    => false,
         ];
 
         $linux_file = new LinuxFile(

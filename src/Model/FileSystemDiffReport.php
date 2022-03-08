@@ -4,7 +4,7 @@ namespace PhotoCentralSynologyStorageServer\Model;
 
 use PhotoCentralSynologyStorageServer\Factory\LinuxFileFactory;
 
-class SynologyPhotoCollectionFolderDiffResult
+class FileSystemDiffReport
 {
     /**
      * [inode_index => LinuxFile, inode_index => LinuxFile ...]
@@ -30,7 +30,7 @@ class SynologyPhotoCollectionFolderDiffResult
      *
      * @var LinuxFile[]
      */
-    private array $moved_linus_files_map = [];
+    private array $moved_linux_files_map = [];
 
     public function addEntryToRemovedMap(string $linux_file_entry_to_add_to_map)
     {
@@ -48,12 +48,12 @@ class SynologyPhotoCollectionFolderDiffResult
 
     public function addEntryToMovedMap(LinuxFile $linux_file)
     {
-        $this->moved_linus_files_map[$linux_file->getInodeIndex()] = $linux_file;
+        $this->moved_linux_files_map[$linux_file->getInodeIndex()] = $linux_file;
     }
 
     public function getMovedLinuxFilesMap(): array
     {
-        return $this->moved_linus_files_map;
+        return $this->moved_linux_files_map;
     }
 
     public function getAddedLinuxFilesMap(): array

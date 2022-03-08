@@ -11,16 +11,16 @@ create unique index LinuxFile_unique_entry
     on LinuxFile (synology_photo_collection_id, inode_index);
 
 alter table LinuxFile
-    add imported bool default false not null;
+    add imported bool default null null;
 
 alter table LinuxFile
-    add import_date_time bigint default null;
+    add import_date_time bigint default null null;
 
 alter table LinuxFile
     add row_added_date_time bigint not null;
 
 alter table LinuxFile
-    add photo_uuid varchar(255) null;
+    add photo_uuid varchar(255) not null;
 
 alter table LinuxFile
     add skipped_error varchar(1024) default null null;
@@ -46,3 +46,9 @@ ALTER TABLE `LinuxFile`
 
 ALTER TABLE `LinuxFile`
     ADD FULLTEXT `text-search` (`file_name`, `file_path`);
+
+create unique index LinuxFile__duplicate_index
+    on LinuxFile (photo_uuid, synology_photo_collection_id, imported, skipped);
+
+ALTER TABLE `LinuxFile`
+    ADD `duplicate` bool default false not null AFTER `photo_uuid`;

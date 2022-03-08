@@ -15,10 +15,12 @@ class LinuxFile
     private int $inode_index;
     private int $last_modified_date;
     private int $row_added_date_time;
-    private ?string $photo_uuid;
+    private string $photo_uuid;
     private string $file_path;
     private ?string $skipped_error = null;
     private bool $scheduled_for_deletion = false;
+    private bool $duplicate = false;
+    private bool $skipped = false;
 
     public function __construct(
         string $synology_photo_collection_id,
@@ -26,7 +28,7 @@ class LinuxFile
         int $last_modified_date, // TODO : Rename to $last_modified_date_time
         string $file_name,
         string $file_path,
-        string $photo_uuid = null,
+        string $photo_uuid,
         string $file_uuid = null
     ) {
         $this->synology_photo_collection_id = $synology_photo_collection_id;
@@ -88,7 +90,7 @@ class LinuxFile
         return $this->file_path;
     }
 
-    public function getPhotoUuid(): ?string
+    public function getPhotoUuid(): string
     {
         return $this->photo_uuid;
     }
@@ -141,6 +143,8 @@ class LinuxFile
 
         $self->setImportDate($array[LinuxFileDatabaseTable::ROW_IMPORT_DATE_TIME]);
         $self->setImported($array[LinuxFileDatabaseTable::ROW_IMPORTED]);
+        $self->setDuplicate($array[LinuxFileDatabaseTable::ROW_DUPLCIATE]);
+        $self->setSkipped($array[LinuxFileDatabaseTable::ROW_SKIPPED]);
         $self->setRowAddedDateTime($array[LinuxFileDatabaseTable::ROW_ROW_ADDED_DATA_TIME]);
         $self->setSkippedError($array[LinuxFileDatabaseTable::ROW_SKIPPED_ERROR]);
         $self->setSceduledForDeletion($array[LinuxFileDatabaseTable::ROW_SCHEDULED_FOR_DELETION]);
@@ -166,8 +170,20 @@ class LinuxFile
             LinuxFileDatabaseTable::ROW_IMPORT_DATE_TIME             => $this->import_date,
             LinuxFileDatabaseTable::ROW_ROW_ADDED_DATA_TIME          => $this->row_added_date_time,
             LinuxFileDatabaseTable::ROW_PHOTO_UUID                   => $this->photo_uuid,
+            LinuxFileDatabaseTable::ROW_DUPLCIATE                    => $this->duplicate,
+            LinuxFileDatabaseTable::ROW_SKIPPED                      => $this->skipped,
             LinuxFileDatabaseTable::ROW_SKIPPED_ERROR                => $this->skipped_error,
             LinuxFileDatabaseTable::ROW_SCHEDULED_FOR_DELETION       => $this->scheduled_for_deletion,
         ];
+    }
+
+    public function setDuplicate(bool $status)
+    {
+        $this->duplicate = $status;
+    }
+
+    public function setSkipped($status)
+    {
+        $this->skipped = $status;
     }
 }

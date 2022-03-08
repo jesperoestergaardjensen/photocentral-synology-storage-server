@@ -112,12 +112,12 @@ class PhotoRepository
     /**
      * @param Photo[] $photo_list
      *
-     * @return void
+     * @return array MySQL Warnings e.g. array [0] => ['Level' => "Warning", 'Code' => 1062, 'Message' => 'Duplicate...']
      */
-    public function bulkAdd(array $photo_list): void
+    public function bulkAdd(array $photo_list): array
     {
         if (count($photo_list) === 0) {
-            return;
+            return [];
         }
 
         $table_name = PhotoDatabaseTable::NAME;
@@ -157,6 +157,7 @@ class PhotoRepository
 
         $sql_values = rtrim($sql_values, ','); // strip last comma
         $this->database_table->runSQL("INSERT IGNORE INTO {$table_name} ({$table_columns}) VALUES {$sql_values};");
+        return $this->database_table->runSQL("SHOW WARNINGS");
     }
 
     private function dbNULL($variable) {

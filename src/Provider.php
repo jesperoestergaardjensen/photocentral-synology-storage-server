@@ -13,10 +13,10 @@ use PhotoCentralSynologyStorageServer\Controller\ListPhotoQuantityByMonthControl
 use PhotoCentralSynologyStorageServer\Controller\ListPhotoQuantityByYearController;
 use PhotoCentralSynologyStorageServer\Controller\ListPhotosController;
 use PhotoCentralSynologyStorageServer\Controller\SearchController;
-use PhotoCentralSynologyStorageServer\Factory\PhotoFactory;
+use PhotoCentralSynologyStorageServer\Factory\PhotoBulkAddService;
 use PhotoCentralSynologyStorageServer\Factory\PhotoUrlFactory;
 use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;
-use PhotoCentralSynologyStorageServer\Model\PhotoImportResult;
+use PhotoCentralSynologyStorageServer\Model\FileSystemDiffReportList;
 use PhotoCentralSynologyStorageServer\Repository\LinuxFileRepository;
 use PhotoCentralSynologyStorageServer\Repository\PhotoQuantityRepository;
 use PhotoCentralSynologyStorageServer\Repository\PhotoRepository;
@@ -44,7 +44,7 @@ class Provider
         $this->di_container = $container_factory->createContainer();
     }
 
-    public function importPhotos(): PhotoImportResult
+    public function importPhotos(): FileSystemDiffReportList
     {
         /** @var PhotoImportService $photo_import_service */
         $photo_import_service = $this->di_container->get(PhotoImportService::class);
@@ -114,7 +114,7 @@ class Provider
 
     private function registerFactories(ContainerFactory $container_factory)
     {
-        $container_factory->register(PhotoFactory::class);
+        $container_factory->register(PhotoBulkAddService::class);
         $container_factory->register(PhotoUrlFactory::class, function() {
             return new PhotoUrlFactory('http://photocentral-synology-storage-server/api/');
         });

@@ -63,6 +63,17 @@ class LinuxFileRepository
         return $linux_files;
     }
 
+    public function add(LinuxFile $linux_file): void
+    {
+        $linux_file_array = $linux_file->toArray();
+        $linux_file_array[LinuxFileDatabaseTable::ROW_DUPLCIATE] = (int) $linux_file_array[LinuxFileDatabaseTable::ROW_DUPLCIATE];
+        $linux_file_array[LinuxFileDatabaseTable::ROW_SKIPPED] = (int) $linux_file_array[LinuxFileDatabaseTable::ROW_SKIPPED];
+        $linux_file_array[LinuxFileDatabaseTable::ROW_IMPORTED] = (int) $linux_file_array[LinuxFileDatabaseTable::ROW_IMPORTED];
+        $linux_file_array[LinuxFileDatabaseTable::ROW_SCHEDULED_FOR_DELETION] = (int) $linux_file_array[LinuxFileDatabaseTable::ROW_SCHEDULED_FOR_DELETION];
+        unset($linux_file_array[LinuxFileDatabaseTable::ROW_IMPORT_DATE_TIME]);
+        $this->database_table->add($linux_file_array);
+    }
+
     public function update(LinuxFile $linux_file): void
     {
         $condition = [
@@ -165,33 +176,84 @@ class LinuxFileRepository
         while (count($linux_files_to_bulk_insert) !== 0) {
             // Insert in portions of bulk size - default 1000
             $sql_values = '';
+            $duplicate_check = [];
             for ($count = 0; $count < $bulk_size && count($linux_files_to_bulk_insert) == ! 0; $count++) {
 
                 /** @var LinuxFile $linux_file */
                 $linux_file = array_shift($linux_files_to_bulk_insert);
+                $duplicate_check[$linux_file->getSynologyPhotoCollectionId()][$linux_file->getPhotoUuid()][$linux_file->getInodeIndex()] = $linux_file;
                 $row_added_date_time = time();
-
-                $import_date = $linux_file->getImportDate() ? "'{$linux_file->getImportDate()}'" : 'NULL';
-                $photo_uuid = $linux_file->getPhotoUuid() ? "'{$linux_file->getPhotoUuid()}'" : 'NULL';
-                $is_imported = (int) $linux_file->isImported();
 
                 $sql_values .= "(
                     '{$linux_file->getFileUuid()}',                
-                    {$photo_uuid},                
+                    '{$linux_file->getPhotoUuid()}',                
                     {$row_added_date_time}, 
                     '{$linux_file->getSynologyPhotoCollectionId()}',
                     {$linux_file->getInodeIndex()},
                     {$linux_file->getLastModifiedDate()},
                     '{$linux_file->getFileName()}',
-                    {$is_imported},
-                    {$import_date},
+                    0,
+                    NULL,
                     '{$linux_file->getFilePath()}'
                 ),";
             }
 
             $sql_values = rtrim($sql_values, ','); // strip last comma
-            $this->database_table->runSQL("INSERT INTO {$table_name} ({$table_columns}) VALUES {$sql_values};");
+            $this->database_table->runSQL("INSERT INTO {$table_name} ({$table_columns}) VALUES {$sql_values} ON DUPLICATE KEY UPDATE duplicate = true;");
+            $this->handleDuplicateInserts($duplicate_check);
         };
+    }
+
+    private function handleDuplicateInserts(array $duplicate_check): void
+    {
+        $duplicate_linux_file_list = $this->listDuplicates();
+
+        if (count($duplicate_linux_file_list) > 0) {
+            foreach ($duplicate_linux_file_list as $duplicate_linux_file) {
+                // Remove duplicate flag in database
+                $this->removeDuplicateFlag($duplicate_linux_file);
+                // Remove linux file entries not to insert again
+                $photo_collection_id = $duplicate_linux_file->getSynologyPhotoCollectionId();
+                $photo_uuid = $duplicate_linux_file->getPhotoUuid();
+                $inode_index = $duplicate_linux_file->getInodeIndex();
+                unset($duplicate_check[$photo_collection_id][$photo_uuid][$inode_index]);
+
+                foreach ($duplicate_check[$photo_collection_id][$photo_uuid] as $linux_file) {
+                    /** @var LinuxFile $linux_file */
+                    $error_message = 'Duplicate error. An image with this photo collection id and photo uuid have allready been imported';
+                    $linux_file->setSkipped(true);
+                    $linux_file->setSkippedError($error_message);
+                    $linux_file->setRowAddedDateTime(time());
+                    $this->add($linux_file);
+                }
+            }
+        }
+    }
+
+    private function removeDuplicateFlag(LinuxFile $linux_file): void
+    {
+        $linux_file->setDuplicate(false);
+        $this->setDuplicate($linux_file->getInodeIndex(), $linux_file->getSynologyPhotoCollectionId(), false);
+    }
+
+    /**
+     * @return LinuxFile[]
+     */
+    private function listDuplicates(): array
+    {
+        $linux_files = [];
+        $linux_files_data = ($this->database_table
+            ->reset()
+            ->setSelect('*')
+            ->setWhere(LinuxFileDatabaseTable::ROW_DUPLCIATE . " = 1")
+            ->get());
+
+        foreach ($linux_files_data as $linux_file_data) {
+            $linux_file = LinuxFile::fromArray($linux_file_data);
+            $linux_files[] = $linux_file;
+        }
+
+        return $linux_files;
     }
 
     /**
@@ -228,6 +290,16 @@ class LinuxFileRepository
         ], [
             LinuxFileDatabaseTable::ROW_SKIPPED       => true,
             LinuxFileDatabaseTable::ROW_SKIPPED_ERROR => $error_message,
+        ]);
+    }
+
+    public function setDuplicate(int $inode_index, string $synology_photo_collection_id, bool $status)
+    {
+        $this->database_table->edit([
+            LinuxFileDatabaseTable::ROW_INODE_INDEX                  => $inode_index,
+            LinuxFileDatabaseTable::ROW_SYNOLOGY_PHOTO_COLLECTION_ID => $synology_photo_collection_id,
+        ], [
+            LinuxFileDatabaseTable::ROW_DUPLCIATE => (int) $status,
         ]);
     }
 
