@@ -30,13 +30,16 @@ class Provider
     private Container $di_container;
     private DatabaseConnection $database_connection;
     private string $image_cache_path;
+    private string $synology_nas_host_address;
 
     public function __construct(
+        string $synology_nas_host_address,
         DatabaseConnection $database_connection,
         string $image_cache_path
     ) {
         $this->database_connection = $database_connection;
         $this->image_cache_path = $image_cache_path;
+        $this->synology_nas_host_address = $synology_nas_host_address;
     }
 
     public function initialize()
@@ -118,7 +121,7 @@ class Provider
     {
         $container_factory->register(PhotoFactory::class);
         $container_factory->register(PhotoUrlFactory::class, function() {
-            return new PhotoUrlFactory('http://photocentral-synology-storage-server/api/'); // TODO - is this ok?
+            return new PhotoUrlFactory($this->synology_nas_host_address);
         });
     }
 }

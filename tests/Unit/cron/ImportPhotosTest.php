@@ -27,7 +27,7 @@ class ImportPhotosTest extends TestCase
         self::$test_database_service->uninstallDatabase();
         self::$database_connection = self::$test_database_service->installDatabase();
 
-        self::$provider = new Provider(self::$database_connection, '', '');
+        self::$provider = new Provider('http://photocentral-synology-storage-server/api/', self::$database_connection, '', '');
         self::$provider->initialize();
     }
 

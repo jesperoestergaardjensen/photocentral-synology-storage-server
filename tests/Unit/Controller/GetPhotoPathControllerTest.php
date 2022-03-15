@@ -27,6 +27,7 @@ class GetPhotoPathControllerTest extends TestCase
         self::$database_connection = self::$test_database_service->installDatabase();
 
         self::$provider = new Provider(
+            'http://photocentral-synology-storage-server/api/',
             self::$database_connection,
             self::getDataFolder() . '/cache/',
         );

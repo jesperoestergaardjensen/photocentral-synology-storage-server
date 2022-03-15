@@ -31,7 +31,6 @@ abstract class Controller
 
     public function run(bool $testing = false): void
     {
-        // TODO catch exceptions to avoid info to be displayed to wrong persons
     }
 
     private function getDabaseLink(DatabaseConnection $database_connection): mysqli
