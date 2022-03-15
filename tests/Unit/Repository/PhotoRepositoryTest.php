@@ -3,6 +3,7 @@
 namespace PhotoCentralSynologyStorageServer\Tests\Unit\Repository;
 
 use PhotoCentralStorage\Photo;
+use PhotoCentralSynologyStorageServer\Exception\PhotoCentralSynologyServerException;
 use PhotoCentralSynologyStorageServer\Factory\PhotoUrlFactory;
 use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;
 use PhotoCentralSynologyStorageServer\Repository\PhotoRepository;
@@ -46,5 +47,15 @@ class PhotoRepositoryTest extends TestCase
 
         $photo = $photo_repository->get($photo_a->getPhotoUuid(), 1);
         $this->assertEquals($photo_a, $photo, 'returned photo is a');
+    }
+
+    public function testGetNonExistingPhotoUuid()
+    {
+        $photo_url_factory = new PhotoUrlFactory(dirname(__FILE__) . "/public/api");
+        $photo_repository = new PhotoRepository(self::$database_connection, $photo_url_factory);
+        $photo_repository->connectToDb();
+
+        $this->expectException(PhotoCentralSynologyServerException::class);
+        $photo_repository->get(UUIDService::create(), 'non-exising photo collection id');
     }
 }

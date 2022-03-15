@@ -190,7 +190,7 @@ class LinuxFileRepository
                     {$row_added_date_time}, 
                     '{$linux_file->getSynologyPhotoCollectionId()}',
                     {$linux_file->getInodeIndex()},
-                    {$linux_file->getLastModifiedDate()},
+                    {$linux_file->getLastModifiedDateTime()},
                     '{$linux_file->getFileName()}',
                     0,
                     NULL,

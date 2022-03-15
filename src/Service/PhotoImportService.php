@@ -6,11 +6,11 @@ use LinuxFileSystemHelper\FileHelper;
 use LinuxFileSystemHelper\FolderHelper;
 use PhotoCentralSynologyStorageServer\Exception\PhotoCentralSynologyServerException;
 use PhotoCentralSynologyStorageServer\Factory\LinuxFileFactory;
-use PhotoCentralSynologyStorageServer\Factory\PhotoBulkAddService;
 use PhotoCentralSynologyStorageServer\Model\FileSystemDiffReport;
 use PhotoCentralSynologyStorageServer\Model\FileSystemDiffReportList;
 use PhotoCentralSynologyStorageServer\Model\SynologyPhotoCollection;
 use PhotoCentralSynologyStorageServer\Repository\LinuxFileRepository;
+use PhotoCentralSynologyStorageServer\Repository\PhotoRepository;
 use PhotoCentralSynologyStorageServer\Repository\SynologyPhotoCollectionRepository;
 
 class PhotoImportService
@@ -25,16 +25,19 @@ class PhotoImportService
     private LinuxFileRepository $linux_file_repository;
     private FileSystemDiffReportList $file_system_diff_report_list;
     private PhotoBulkAddService $photo_add_service;
+    private PhotoRepository $photo_repository;
 
     public function __construct(
         SynologyPhotoCollectionRepository $synology_photo_collection_repository,
         LinuxFileRepository $linux_file_repository,
-        PhotoBulkAddService $photo_factory
+        PhotoBulkAddService $photo_factory,
+        PhotoRepository $photo_repository
     ) {
         $this->synology_photo_collection_repository = $synology_photo_collection_repository;
         $this->linux_file_repository = $linux_file_repository;
         $this->file_system_diff_report_list = new FileSystemDiffReportList();
         $this->photo_add_service = $photo_factory;
+        $this->photo_repository = $photo_repository;
     }
 
     public function import(): FileSystemDiffReportList
@@ -104,7 +107,7 @@ class PhotoImportService
         $this->linux_file_repository->connectToDb();
 
         $this->updateMovedFilesInDatabase($file_system_diff_report);
-        $this->removeDeltedFilesFromDatabase($file_system_diff_report, $synology_photo_collection);
+        $this->removeDeletedFilesFromDatabase($file_system_diff_report, $synology_photo_collection);
         $this->addNewFilesToDatabase($file_system_diff_report);
 
         return $file_system_diff_report;
@@ -147,23 +150,21 @@ class PhotoImportService
         }
     }
 
-    private function removeDeltedFilesFromDatabase(
+    private function removeDeletedFilesFromDatabase(
         FileSystemDiffReport $file_system_diff_report,
         SynologyPhotoCollection $synology_photo_collection
     ): void {
         $removed_map = $file_system_diff_report->getRemovedLinuxFilesMap();
         foreach ($removed_map as $inode_index => $diff_entry) {
 
+            $deleted_linux_file = $this->linux_file_repository->getByInode($inode_index, $synology_photo_collection->getId());
             $this->linux_file_repository->delete($synology_photo_collection->getId(), $inode_index);
 
             try {
-                $this->linux_file_repository->list($inode_index);
+                $this->linux_file_repository->getByPhotoUuid($deleted_linux_file->getPhotoUuid(), $synology_photo_collection->getId());
             } catch (PhotoCentralSynologyServerException $photo_central_synology_server_exception) {
-                // TODO : This is not finished !
                 // If last linux file of photo is removed - remove entry in Photo db table as well
-                $linux_file = LinuxFileFactory::createLinuxFileFromDiffEntry($diff_entry, $synology_photo_collection);
-                // $photo_repository = new PhotoRepository($this->database_connection);
-                // $photo_repository->delete($synology_photo_collection->getId(), $linux_file->getPhotoUuid());
+                $this->photo_repository->delete($deleted_linux_file->getPhotoUuid(), $synology_photo_collection->getId());
             }
         }
     }

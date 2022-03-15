@@ -190,5 +190,34 @@ class ImportPhotosTest extends TestCase
         $this->assertCount(6, $files_added);
         $this->assertCount(0, $files_moved);
         $this->assertCount(0, $files_removed);
+
+        rename(self::getDuplicatePhotosFolder() . "folder_a", self::getDataFolder() . "/tmp/folder_a");
+
+        $file_system_diff_report_list = self::$provider->importPhotos();
+
+        $file_system_diff_report = $file_system_diff_report_list->get(self::getDuplicatePhotosPhotoCollectionId());
+        $files_added = $file_system_diff_report->getAddedLinuxFilesMap();
+        $files_moved = $file_system_diff_report->getMovedLinuxFilesMap();
+        $files_removed = $file_system_diff_report->getRemovedLinuxFilesMap();
+
+        $this->assertCount(0, $files_added);
+        $this->assertCount(0, $files_moved);
+        $this->assertCount(3, $files_removed);
+
+        rename(self::getDuplicatePhotosFolder() . "folder_b", self::getDataFolder() . "/tmp/folder_b");
+
+        $file_system_diff_report_list = self::$provider->importPhotos();
+
+        $file_system_diff_report = $file_system_diff_report_list->get(self::getDuplicatePhotosPhotoCollectionId());
+        $files_added = $file_system_diff_report->getAddedLinuxFilesMap();
+        $files_moved = $file_system_diff_report->getMovedLinuxFilesMap();
+        $files_removed = $file_system_diff_report->getRemovedLinuxFilesMap();
+
+        $this->assertCount(0, $files_added);
+        $this->assertCount(0, $files_moved);
+        $this->assertCount(3, $files_removed);
+
+        rename(self::getDataFolder() . "/tmp/folder_a", self::getDuplicatePhotosFolder() . "folder_a");
+        rename(self::getDataFolder() . "/tmp/folder_b", self::getDuplicatePhotosFolder() . "folder_b");
     }
 }

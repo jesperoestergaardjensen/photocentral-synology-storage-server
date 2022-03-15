@@ -13,7 +13,7 @@ use PhotoCentralSynologyStorageServer\Controller\ListPhotoQuantityByMonthControl
 use PhotoCentralSynologyStorageServer\Controller\ListPhotoQuantityByYearController;
 use PhotoCentralSynologyStorageServer\Controller\ListPhotosController;
 use PhotoCentralSynologyStorageServer\Controller\SearchController;
-use PhotoCentralSynologyStorageServer\Factory\PhotoBulkAddService;
+use PhotoCentralSynologyStorageServer\Factory\PhotoFactory;
 use PhotoCentralSynologyStorageServer\Factory\PhotoUrlFactory;
 use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;
 use PhotoCentralSynologyStorageServer\Model\FileSystemDiffReportList;
@@ -21,6 +21,7 @@ use PhotoCentralSynologyStorageServer\Repository\LinuxFileRepository;
 use PhotoCentralSynologyStorageServer\Repository\PhotoQuantityRepository;
 use PhotoCentralSynologyStorageServer\Repository\PhotoRepository;
 use PhotoCentralSynologyStorageServer\Repository\SynologyPhotoCollectionRepository;
+use PhotoCentralSynologyStorageServer\Service\PhotoBulkAddService;
 use PhotoCentralSynologyStorageServer\Service\PhotoImportService;
 use PhotoCentralSynologyStorageServer\Service\PhotoRetrivalService;
 
@@ -107,6 +108,7 @@ class Provider
 
     private function registerServices(ContainerFactory $container_factory)
     {
+        $container_factory->register(PhotoBulkAddService::class);
         $container_factory->register(PhotoRetrivalService::class, function(SynologyPhotoCollectionRepository $synology_photo_collection_repository) {
             return new PhotoRetrivalService($this->image_cache_path, $synology_photo_collection_repository);
         });
@@ -114,9 +116,9 @@ class Provider
 
     private function registerFactories(ContainerFactory $container_factory)
     {
-        $container_factory->register(PhotoBulkAddService::class);
+        $container_factory->register(PhotoFactory::class);
         $container_factory->register(PhotoUrlFactory::class, function() {
-            return new PhotoUrlFactory('http://photocentral-synology-storage-server/api/');
+            return new PhotoUrlFactory('http://photocentral-synology-storage-server/api/'); // TODO - is this ok?
         });
     }
 }

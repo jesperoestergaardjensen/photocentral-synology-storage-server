@@ -13,7 +13,7 @@ class LinuxFile
     private string $file_uuid;
     private string $synology_photo_collection_id;
     private int $inode_index;
-    private int $last_modified_date;
+    private int $last_modified_date_time;
     private int $row_added_date_time;
     private string $photo_uuid;
     private string $file_path;
@@ -25,7 +25,7 @@ class LinuxFile
     public function __construct(
         string $synology_photo_collection_id,
         int $inode_index,
-        int $last_modified_date, // TODO : Rename to $last_modified_date_time
+        int $last_modified_date_time,
         string $file_name,
         string $file_path,
         string $photo_uuid,
@@ -33,7 +33,7 @@ class LinuxFile
     ) {
         $this->synology_photo_collection_id = $synology_photo_collection_id;
         $this->inode_index = $inode_index;
-        $this->last_modified_date = $last_modified_date;
+        $this->last_modified_date_time = $last_modified_date_time;
         $this->file_name = $file_name;
         $this->file_path = $file_path;
         $this->photo_uuid = $photo_uuid;
@@ -55,9 +55,9 @@ class LinuxFile
         return $this->inode_index;
     }
 
-    public function getLastModifiedDate(): int
+    public function getLastModifiedDateTime(): int
     {
-        return $this->last_modified_date;
+        return $this->last_modified_date_time;
     }
 
     public function getRowAddedDateTime(): int
@@ -163,7 +163,7 @@ class LinuxFile
             LinuxFileDatabaseTable::ROW_FILE_UUID                    => $this->file_uuid,
             LinuxFileDatabaseTable::ROW_SYNOLOGY_PHOTO_COLLECTION_ID => $this->synology_photo_collection_id,
             LinuxFileDatabaseTable::ROW_INODE_INDEX                  => $this->inode_index,
-            LinuxFileDatabaseTable::ROW_LAST_MODIFIED_DATE           => $this->last_modified_date,
+            LinuxFileDatabaseTable::ROW_LAST_MODIFIED_DATE           => $this->last_modified_date_time,
             LinuxFileDatabaseTable::ROW_FILE_NAME                    => $this->file_name,
             LinuxFileDatabaseTable::ROW_FILE_PATH                    => $this->file_path,
             LinuxFileDatabaseTable::ROW_IMPORTED                     => $this->imported,

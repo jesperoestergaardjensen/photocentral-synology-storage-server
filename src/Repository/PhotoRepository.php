@@ -92,13 +92,6 @@ class PhotoRepository
         }
 
         return $photo_array_list;
-/*
-        foreach ($photo_rows as $photo_row) {
-            $photo_list[] = Photo::fromArray($photo_row);
-        }
-
-        return $photo_list;
-*/
     }
 
     public function add(Photo $new_photo): void
@@ -182,5 +175,12 @@ class PhotoRepository
         } else {
             throw new PhotoCentralSynologyServerException("Cannot find Photo with photo_uuid = $photo_uuid and photo collection id $photo_collection_id");
         }
+    }
+
+    public function delete(string $photo_uuid, string $photo_collection_id)
+    {
+        $table_name = PhotoDatabaseTable::NAME;
+        $where_clause = PhotoDatabaseTable::ROW_PHOTO_COLLECTION_ID . " = '{$photo_collection_id}' AND " . PhotoDatabaseTable::ROW_PHOTO_UUID . " = '{$photo_uuid}'";
+        $this->database_table->runSQL("DELETE FROM {$table_name} WHERE {$where_clause};");
     }
 }

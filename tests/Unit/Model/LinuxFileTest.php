@@ -30,7 +30,7 @@ class LinuxFileTest extends TestCase
 
         $this->assertEquals($expected_synology_photo_collection_id, $linux_file->getSynologyPhotoCollectionId());
         $this->assertEquals($expected_inode_index, $linux_file->getInodeIndex());
-        $this->assertEquals($expected_last_modified_date, $linux_file->getLastModifiedDate());
+        $this->assertEquals($expected_last_modified_date, $linux_file->getLastModifiedDateTime());
         $this->assertEquals($expected_file_name, $linux_file->getFileName());
         $this->assertEquals($expected_file_path, $linux_file->getFilePath());
 
