@@ -1,0 +1,3 @@
+INSERT INTO `SynologyPhotoCollection` (id, `name`, enabled, `description`, last_updated, image_source_path, status_files_path) VALUES ('id1', 'list1', 1, 'test list 1', 1234, 'image_source_path_1', 'status_files_path_1');
+INSERT INTO `SynologyPhotoCollection` (id, `name`, enabled, `description`, last_updated, image_source_path, status_files_path) VALUES ('id2', 'list2', 1, 'test list 2', 12345, 'image_source_path_2', 'status_files_path_2');
+INSERT INTO `SynologyPhotoCollection` (id, `name`, enabled, `description`, last_updated, image_source_path, status_files_path) VALUES ('id3', 'list3', 1, 'test list 3', 123456, 'image_source_path_3', 'status_files_path_3');
