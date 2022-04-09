@@ -27,6 +27,7 @@ class SearchControllerTest extends TestCase
 
         self::$provider = new Provider('http://photocentral-synology-storage-server/api/', self::$database_connection, '');
         self::$provider->initialize();
+        unset($_POST);
     }
 
     public function testRunController()

@@ -32,6 +32,7 @@ class GetPhotoPathControllerTest extends TestCase
             self::getDataFolder() . '/cache/',
         );
         self::$provider->initialize();
+        unset($_POST);
     }
 
     public function testRunController()

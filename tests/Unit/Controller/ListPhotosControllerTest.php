@@ -33,6 +33,7 @@ class ListPhotosControllerTest extends TestCase
             self::getDataFolder() . '/photos/'
         );
         self::$provider->initialize();
+        unset($_POST);
     }
 
     public function testRunController()
