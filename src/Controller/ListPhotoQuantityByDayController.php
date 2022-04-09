@@ -28,6 +28,10 @@ class ListPhotoQuantityByDayController extends Controller
         $month = $post_data['month'];
         $photo_quantity_day_list = $this->photo_quantity_repository->listPhotoQuantityByDay($year, $month, $photo_collection_id_list);
 
+        if ($testing === false) {
+            header('Content-Type: application/json');
+        }
+
         $return_array = [];
         foreach ($photo_quantity_day_list as $photo_quantity_day) {
             $return_array[] = $photo_quantity_day->toArray();

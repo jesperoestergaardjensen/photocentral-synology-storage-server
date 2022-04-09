@@ -2,7 +2,6 @@
 
 namespace PhotoCentralSynologyStorageServer\Tests\Unit\Controller;
 
-use GuzzleHttp\Client;
 use PhotoCentralStorage\Photo;
 use PhotoCentralSynologyStorageServer\Controller\SearchController;
 use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;

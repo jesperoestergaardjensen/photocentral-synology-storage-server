@@ -2,15 +2,8 @@
 
 namespace PhotoCentralSynologyStorageServer\Tests\Unit\Controller;
 
-use PhotoCentralStorage\Model\PhotoFilter\PhotoCollectionIdFilter;
-use PhotoCentralStorage\Model\PhotoQuantity\PhotoQuantityDay;
 use PhotoCentralStorage\Model\PhotoQuantity\PhotoQuantityMonth;
-use PhotoCentralStorage\Model\PhotoSorting\BasicSorting;
-use PhotoCentralStorage\Model\PhotoSorting\SortByAddedTimestamp;
-use PhotoCentralStorage\Photo;
-use PhotoCentralSynologyStorageServer\Controller\ListPhotoQuantityByDayController;
 use PhotoCentralSynologyStorageServer\Controller\ListPhotoQuantityByMonthController;
-use PhotoCentralSynologyStorageServer\Controller\ListPhotosController;
 use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;
 use PhotoCentralSynologyStorageServer\Provider;
 use PhotoCentralSynologyStorageServer\Tests\TestDatabaseService;

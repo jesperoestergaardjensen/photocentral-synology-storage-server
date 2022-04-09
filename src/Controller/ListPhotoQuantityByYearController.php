@@ -26,6 +26,10 @@ class ListPhotoQuantityByYearController extends Controller
         $photo_collection_id_list = $post_data['photo_collection_id_list'];
         $photo_quantity_year_list = $this->photo_quantity_repository->listPhotoQuantityByYear($photo_collection_id_list);
 
+        if ($testing === false) {
+            header('Content-Type: application/json');
+        }
+
         $return_array = [];
         foreach ($photo_quantity_year_list as $photo_quantity_year) {
             $return_array[] = $photo_quantity_year->toArray();

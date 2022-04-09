@@ -27,6 +27,10 @@ class ListPhotoQuantityByMonthController extends Controller
         $year = $post_data['year'];
         $photo_quantity_month_list = $this->photo_quantity_repository->listPhotoQuantityByMonth($year, $photo_collection_id_list);
 
+        if ($testing === false) {
+            header('Content-Type: application/json');
+        }
+
         $return_array = [];
         foreach ($photo_quantity_month_list as $photo_quantity_month) {
             $return_array[] = $photo_quantity_month->toArray();
