@@ -4,7 +4,7 @@ namespace PhotoCentralSynologyStorageServer;
 
 use mysqli;
 use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;
-use TexLab\MyDB\DB;
+use jesperoestergaardjensen\MyDB\DB;
 
 abstract class Controller
 {

@@ -7,8 +7,8 @@ use PhotoCentralSynologyStorageServer\Exception\PhotoCentralSynologyServerExcept
 use PhotoCentralSynologyStorageServer\Factory\PhotoUrlFactory;
 use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;
 use PhotoCentralSynologyStorageServer\Model\DatabaseTables\PhotoDatabaseTable;
-use TexLab\MyDB\DB;
-use TexLab\MyDB\DbEntity;
+use jesperoestergaardjensen\MyDB\DB;
+use jesperoestergaardjensen\MyDB\DbEntity;
 
 class PhotoRepository
 {

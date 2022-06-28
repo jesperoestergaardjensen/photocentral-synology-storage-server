@@ -5,8 +5,8 @@ namespace PhotoCentralSynologyStorageServer\Tests;
 use mysqli;
 use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;
 use PhotoCentralSynologyStorageServer\Model\DatabaseTables\LinuxFileDatabaseTable;
-use TexLab\MyDB\DB;
-use TexLab\MyDB\DbEntity;
+use jesperoestergaardjensen\MyDB\DB;
+use jesperoestergaardjensen\MyDB\DbEntity;
 
 class TestDatabaseService
 {

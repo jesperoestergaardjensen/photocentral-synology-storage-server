@@ -8,8 +8,8 @@ use PhotoCentralStorage\Model\PhotoQuantity\PhotoQuantityYear;
 use PhotoCentralStorage\Photo;
 use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;
 use PhotoCentralSynologyStorageServer\Model\DatabaseTables\PhotoDatabaseTable;
-use TexLab\MyDB\DB;
-use TexLab\MyDB\DbEntity;
+use jesperoestergaardjensen\MyDB\DB;
+use jesperoestergaardjensen\MyDB\DbEntity;
 
 class PhotoQuantityRepository
 {
