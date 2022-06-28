@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "889579b3ae61491d096fa49db8d476c6",
+    "content-hash": "d3f82e17a4cfd6fa73bc5125667d2b3e",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -44,24 +44,25 @@
         },
         {
             "name": "jesperoestergaardjensen/linux-file-system-helper",
-            "version": "v1.0.0-beta.3",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jesperoestergaardjensen/linux-file-system-helper.git",
-                "reference": "2690e3c7d9643a98dcd7ac50330a221e13627600"
+                "reference": "6185d705b1352974dc97c2e21aa1fa102d485dd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jesperoestergaardjensen/linux-file-system-helper/zipball/2690e3c7d9643a98dcd7ac50330a221e13627600",
-                "reference": "2690e3c7d9643a98dcd7ac50330a221e13627600",
+                "url": "https://api.github.com/repos/jesperoestergaardjensen/linux-file-system-helper/zipball/6185d705b1352974dc97c2e21aa1fa102d485dd6",
+                "reference": "6185d705b1352974dc97c2e21aa1fa102d485dd6",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.4"
+                "php": ">=7.4"
             },
             "require-dev": {
                 "phpunit/phpunit": "^9.5"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -70,36 +71,37 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "gpl-3.0"
+                "gpl-3.0-only"
             ],
             "description": "Small helper to perform Linux file system specific operations",
             "support": {
                 "issues": "https://github.com/jesperoestergaardjensen/linux-file-system-helper/issues",
-                "source": "https://github.com/jesperoestergaardjensen/linux-file-system-helper/tree/v1.0.0-beta.3"
+                "source": "https://github.com/jesperoestergaardjensen/linux-file-system-helper/tree/main"
             },
-            "time": "2021-11-14T15:25:53+00:00"
+            "time": "2022-06-19T09:17:41+00:00"
         },
         {
             "name": "jesperoestergaardjensen/linux-image-helper",
-            "version": "v0.1.3",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jesperoestergaardjensen/linux-image-helper.git",
-                "reference": "57555955e07e072fb598e980a5d49027b7cdc2a0"
+                "reference": "3b4212a5ef10f1242814947b94415ddb896929f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jesperoestergaardjensen/linux-image-helper/zipball/57555955e07e072fb598e980a5d49027b7cdc2a0",
-                "reference": "57555955e07e072fb598e980a5d49027b7cdc2a0",
+                "url": "https://api.github.com/repos/jesperoestergaardjensen/linux-image-helper/zipball/3b4212a5ef10f1242814947b94415ddb896929f9",
+                "reference": "3b4212a5ef10f1242814947b94415ddb896929f9",
                 "shasum": ""
             },
             "require": {
                 "ext-gd": "*",
-                "php": "^7.4"
+                "php": ">=7.4"
             },
             "require-dev": {
                 "phpunit/phpunit": "^9.5"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -108,14 +110,61 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "gpl-3.0"
+                "gpl-3.0-only"
             ],
             "description": "Small repository to make it easier to work with images",
             "support": {
                 "issues": "https://github.com/jesperoestergaardjensen/linux-image-helper/issues",
-                "source": "https://github.com/jesperoestergaardjensen/linux-image-helper/tree/v0.1.3"
+                "source": "https://github.com/jesperoestergaardjensen/linux-image-helper/tree/main"
             },
-            "time": "2021-11-28T16:12:41+00:00"
+            "time": "2022-06-19T22:24:39+00:00"
+        },
+        {
+            "name": "jesperoestergaardjensen/mydb",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jesperoestergaardjensen/mydb.git",
+                "reference": "259457ac7fda49c22a500bb5ccd7c96d40ae97ad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jesperoestergaardjensen/mydb/zipball/259457ac7fda49c22a500bb5ccd7c96d40ae97ad",
+                "reference": "259457ac7fda49c22a500bb5ccd7c96d40ae97ad",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mysqli": "*",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.12",
+                "phpunit/phpunit": "^9.5",
+                "squizlabs/php_codesniffer": "3.*",
+                "vimeo/psalm": "^3.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "TexLab\\MyDB\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "The lightweight ORM for MySql and MariaDB",
+            "keywords": [
+                "mariadb",
+                "mysql",
+                "orm",
+                "php"
+            ],
+            "support": {
+                "source": "https://github.com/jesperoestergaardjensen/mydb/tree/master"
+            },
+            "time": "2022-06-28T21:52:54+00:00"
         },
         {
             "name": "jesperoestergaardjensen/photocentral-storage",
@@ -123,18 +172,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jesperoestergaardjensen/photocentral-storage.git",
-                "reference": "5d43e939e63daa493d4e77789bbfdda583d82970"
+                "reference": "2037f315f8c82e8abd74844a3607abf158c9d0f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jesperoestergaardjensen/photocentral-storage/zipball/5d43e939e63daa493d4e77789bbfdda583d82970",
-                "reference": "5d43e939e63daa493d4e77789bbfdda583d82970",
+                "url": "https://api.github.com/repos/jesperoestergaardjensen/photocentral-storage/zipball/2037f315f8c82e8abd74844a3607abf158c9d0f3",
+                "reference": "2037f315f8c82e8abd74844a3607abf158c9d0f3",
                 "shasum": ""
             },
             "require": {
                 "ext-exif": "*",
                 "ext-json": "*",
-                "php": "^7.4"
+                "php": ">=7.4"
             },
             "require-dev": {
                 "jesperoestergaardjensen/exif-samples": "1.0.0",
@@ -151,14 +200,14 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "gpl-3.0"
+                "gpl-3.0-only"
             ],
             "description": "Repository that define photo storage(s) for PhotoCentral Main",
             "support": {
                 "issues": "https://github.com/jesperoestergaardjensen/photocentral-storage/issues",
                 "source": "https://github.com/jesperoestergaardjensen/photocentral-storage/tree/main"
             },
-            "time": "2022-03-05T10:43:26+00:00"
+            "time": "2022-06-19T23:31:00+00:00"
         },
         {
             "name": "mindplay/unbox",
@@ -256,53 +305,6 @@
                 "source": "https://github.com/php-fig/container/tree/1.1.2"
             },
             "time": "2021-11-05T16:50:12+00:00"
-        },
-        {
-            "name": "texlab/mydb",
-            "version": "v0.0.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/andy-aa/mydb.git",
-                "reference": "6588dfdd212f7b455642f744e60ce43b83538dc7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/andy-aa/mydb/zipball/6588dfdd212f7b455642f744e60ce43b83538dc7",
-                "reference": "6588dfdd212f7b455642f744e60ce43b83538dc7",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mysqli": "*",
-                "php": "^7.1"
-            },
-            "require-dev": {
-                "phpstan/phpstan": "^0.12",
-                "phpunit/phpunit": "^7.5",
-                "squizlabs/php_codesniffer": "3.*",
-                "vimeo/psalm": "^3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "TexLab\\MyDB\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "The lightweight ORM for MySql and MariaDB",
-            "keywords": [
-                "mariadb",
-                "mysql",
-                "orm",
-                "php"
-            ],
-            "support": {
-                "issues": "https://github.com/andy-aa/mydb/issues",
-                "source": "https://github.com/andy-aa/mydb/tree/v0.0.6"
-            },
-            "time": "2020-08-07T05:49:47+00:00"
         }
     ],
     "packages-dev": [
@@ -459,16 +461,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.13.2",
+            "version": "v4.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "210577fe3cf7badcc5814d99455df46564f3c077"
+                "reference": "34bea19b6e03d8153165d8f30bba4c3be86184c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/210577fe3cf7badcc5814d99455df46564f3c077",
-                "reference": "210577fe3cf7badcc5814d99455df46564f3c077",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/34bea19b6e03d8153165d8f30bba4c3be86184c1",
+                "reference": "34bea19b6e03d8153165d8f30bba4c3be86184c1",
                 "shasum": ""
             },
             "require": {
@@ -509,9 +511,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v4.13.2"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v4.14.0"
             },
-            "time": "2021-11-30T19:35:32+00:00"
+            "time": "2022-05-31T20:59:12+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -857,19 +859,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "f8853c984a5e8e34596c9fc3be6a28474edfae7e"
+                "reference": "f4e0bd98e5e5fa9ca6300415d5429c313b2aed08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/f8853c984a5e8e34596c9fc3be6a28474edfae7e",
-                "reference": "f8853c984a5e8e34596c9fc3be6a28474edfae7e",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/f4e0bd98e5e5fa9ca6300415d5429c313b2aed08",
+                "reference": "f4e0bd98e5e5fa9ca6300415d5429c313b2aed08",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-libxml": "*",
                 "ext-xmlwriter": "*",
-                "nikic/php-parser": "^4.13.0",
+                "nikic/php-parser": "^4.14",
                 "php": ">=7.3",
                 "phpunit/php-file-iterator": "^3.0.3",
                 "phpunit/php-text-template": "^2.0.2",
@@ -926,7 +928,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-04-02T15:48:11+00:00"
+            "time": "2022-06-28T05:36:48+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -1171,16 +1173,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.5.20",
+            "version": "9.5.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "12bc8879fb65aef2138b26fc633cb1e3620cffba"
+                "reference": "0e32b76be457de00e83213528f6bb37e2a38fcb1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/12bc8879fb65aef2138b26fc633cb1e3620cffba",
-                "reference": "12bc8879fb65aef2138b26fc633cb1e3620cffba",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/0e32b76be457de00e83213528f6bb37e2a38fcb1",
+                "reference": "0e32b76be457de00e83213528f6bb37e2a38fcb1",
                 "shasum": ""
             },
             "require": {
@@ -1214,7 +1216,6 @@
                 "sebastian/version": "^3.0.2"
             },
             "require-dev": {
-                "ext-pdo": "*",
                 "phpspec/prophecy-phpunit": "^2.0.1"
             },
             "suggest": {
@@ -1258,7 +1259,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.20"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.21"
             },
             "funding": [
                 {
@@ -1270,7 +1271,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-04-01T12:37:26+00:00"
+            "time": "2022-06-19T12:14:25+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -2237,88 +2238,6 @@
             "time": "2020-09-28T06:39:44+00:00"
         },
         {
-            "name": "symfony/polyfill-ctype",
-            "version": "v1.25.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "30885182c981ab175d4d034db0f6f469898070ab"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/30885182c981ab175d4d034db0f6f469898070ab",
-                "reference": "30885182c981ab175d4d034db0f6f469898070ab",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1"
-            },
-            "provide": {
-                "ext-ctype": "*"
-            },
-            "suggest": {
-                "ext-ctype": "For best performance"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "1.23-dev"
-                },
-                "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ],
-                "psr-4": {
-                    "Symfony\\Polyfill\\Ctype\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Gert de Pagter",
-                    "email": "BackEndTea@gmail.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony polyfill for ctype functions",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "compatibility",
-                "ctype",
-                "polyfill",
-                "portable"
-            ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.25.0"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2021-10-20T20:35:02+00:00"
-        },
-        {
             "name": "theseer/tokenizer",
             "version": "1.2.1",
             "source": {
@@ -2370,21 +2289,21 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "1.10.0",
+            "version": "1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozarts/assert.git",
-                "reference": "6964c76c7804814a842473e0c8fd15bab0f18e25"
+                "reference": "11cb2199493b2f8a3b53e7f19068fc6aac760991"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozarts/assert/zipball/6964c76c7804814a842473e0c8fd15bab0f18e25",
-                "reference": "6964c76c7804814a842473e0c8fd15bab0f18e25",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/11cb2199493b2f8a3b53e7f19068fc6aac760991",
+                "reference": "11cb2199493b2f8a3b53e7f19068fc6aac760991",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2 || ^8.0",
-                "symfony/polyfill-ctype": "^1.8"
+                "ext-ctype": "*",
+                "php": "^7.2 || ^8.0"
             },
             "conflict": {
                 "phpstan/phpstan": "<0.12.20",
@@ -2422,21 +2341,24 @@
             ],
             "support": {
                 "issues": "https://github.com/webmozarts/assert/issues",
-                "source": "https://github.com/webmozarts/assert/tree/1.10.0"
+                "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
-            "time": "2021-03-09T10:59:23+00:00"
+            "time": "2022-06-03T18:03:27+00:00"
         }
     ],
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
         "jesperoestergaardjensen/photocentral-storage": 20,
+        "jesperoestergaardjensen/linux-file-system-helper": 20,
+        "jesperoestergaardjensen/linux-image-helper": 20,
+        "jesperoestergaardjensen/mydb": 20,
         "phpunit/php-code-coverage": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.4",
+        "php": ">=7.4",
         "ext-json": "*",
         "ext-mysqli": "*",
         "ext-mbstring": "*"
