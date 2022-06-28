@@ -125,12 +125,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jesperoestergaardjensen/mydb.git",
-                "reference": "259457ac7fda49c22a500bb5ccd7c96d40ae97ad"
+                "reference": "0b6d0db5b7dc1b1686386d3fbe45434a57c3bde7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jesperoestergaardjensen/mydb/zipball/259457ac7fda49c22a500bb5ccd7c96d40ae97ad",
-                "reference": "259457ac7fda49c22a500bb5ccd7c96d40ae97ad",
+                "url": "https://api.github.com/repos/jesperoestergaardjensen/mydb/zipball/0b6d0db5b7dc1b1686386d3fbe45434a57c3bde7",
+                "reference": "0b6d0db5b7dc1b1686386d3fbe45434a57c3bde7",
                 "shasum": ""
             },
             "require": {
@@ -147,7 +147,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "TexLab\\MyDB\\": "src"
+                    "jesperoestergaardjensen\\MyDB\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -164,7 +164,7 @@
             "support": {
                 "source": "https://github.com/jesperoestergaardjensen/mydb/tree/master"
             },
-            "time": "2022-06-28T21:52:54+00:00"
+            "time": "2022-06-28T22:10:41+00:00"
         },
         {
             "name": "jesperoestergaardjensen/photocentral-storage",
