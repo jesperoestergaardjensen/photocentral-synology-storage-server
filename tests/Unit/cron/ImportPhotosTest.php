@@ -68,7 +68,7 @@ class ImportPhotosTest extends TestCase
         rename(self::getDataFolder() . '/photos/misc/coffee-break.jpg', self::getDataFolder() . '/photos/coffee-break.jpg');
 
         // Undo move file to trash folder
-        rename(self::getDataFolder() . '/photos/.Trash-1000/matrix-g3ebcd682d_640.jpg', self::getDataFolder() . '/photos/programming/matrix-g3ebcd682d_640.jpg');
+   //     rename(self::getDataFolder() . '/photos/.Trash-1000/matrix-g3ebcd682d_640.jpg', self::getDataFolder() . '/photos/programming/matrix-g3ebcd682d_640.jpg');
     }
 
     public function testInitialImport()
@@ -152,6 +152,9 @@ class ImportPhotosTest extends TestCase
         $this->assertCount(0, $expected_files_added);
         $this->assertCount(0, $expected_files_moved);
         $this->assertCount(1, $expected_files_removed);
+
+        // Undo move file to trash folder
+        rename(self::getDataFolder() . '/photos/.Trash-1000/matrix-g3ebcd682d_640.jpg', self::getDataFolder() . '/photos/programming/matrix-g3ebcd682d_640.jpg');
     }
 
     /**

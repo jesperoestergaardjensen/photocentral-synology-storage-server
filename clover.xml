@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1656840642">
-  <project timestamp="1656840642">
+<coverage generated="1656842061">
+  <project timestamp="1656842061">
     <file name="/home/jesper_privat/web-udvikling/photocentral-synology-storage-server/src/Controller.php">
       <class name="PhotoCentralSynologyStorageServer\Controller" namespace="global">
         <metrics complexity="7" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="16" elements="18" coveredelements="18"/>
@@ -849,7 +849,7 @@
       <line num="102" type="stmt" count="1"/>
       <line num="110" type="method" name="bulkAdd" visibility="public" complexity="3" crap="3" count="6"/>
       <line num="112" type="stmt" count="6"/>
-      <line num="113" type="stmt" count="5"/>
+      <line num="113" type="stmt" count="4"/>
       <line num="116" type="stmt" count="3"/>
       <line num="117" type="stmt" count="3"/>
       <line num="118" type="stmt" count="3"/>
