@@ -1,3 +1,3 @@
-drop table LinuxFile;
-drop table SynologyPhotoCollection;
-drop table Photo;
+drop table IF EXISTS LinuxFile;
+drop table IF EXISTS SynologyPhotoCollection;
+drop table IF EXISTS Photo;
