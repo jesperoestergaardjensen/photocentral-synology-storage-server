@@ -16,7 +16,7 @@ class TestDatabaseService
 
     public function __construct()
     {
-        $this->database_connection = new DatabaseConnection('localhost', 'tester', 'Ziu2Uv1o$Ziu2Uv1o', 'photocentral-synology-storage-server-test');
+        $this->database_connection = new DatabaseConnection('127.0.0.1', 'tester', 'Ziu2Uv1o$Ziu2Uv1o', 'photocentral-synology-storage-server-test');
 
 /*
         $this->database_connection = new DatabaseConnection(
