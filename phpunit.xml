@@ -1,6 +1,12 @@
 <?xml version="1.0"?>
 <!-- works fine with PHPUnit-3.6.10 -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+    <php>
+        <var name="mysql_host" value="localhost"/>
+        <var name="mysql_user" value="tester"/>
+        <var name="mysql_pass" value="Ziu2Uv1o$Ziu2Uv1o"/>
+        <var name="mysql_db" value="photocentral-synology-storage-server-test"/>
+    </php>
   <coverage includeUncoveredFiles="true">
     <include>
       <directory suffix=".php">./src</directory>
