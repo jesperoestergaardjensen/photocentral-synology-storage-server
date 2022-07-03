@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1656842061">
-  <project timestamp="1656842061">
+<coverage generated="1656847236">
+  <project timestamp="1656847236">
     <file name="/home/jesper_privat/web-udvikling/photocentral-synology-storage-server/src/Controller.php">
       <class name="PhotoCentralSynologyStorageServer\Controller" namespace="global">
         <metrics complexity="7" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="16" elements="18" coveredelements="18"/>
