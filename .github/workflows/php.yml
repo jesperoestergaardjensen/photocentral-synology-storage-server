@@ -13,7 +13,11 @@ jobs:
       mysql:
         image: mysql:latest
         env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: photocentral-synology-storage-server-test
+          MYSQL_HOST: 127.0.0.1
+          MYSQL_USER: tester
+          MYSQL_PASSWORD: Ziu2Uv1o$Ziu2Uv1o
+          MYSQL_ROOT_PASSWORD: Ziu2Uv1o$Ziu2Uv1o
         ports:
           - 3306:3306
         # needed because the mysql container does not provide a healthcheck
