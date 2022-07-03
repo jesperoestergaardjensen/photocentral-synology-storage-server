@@ -26,6 +26,10 @@ class ImportPhotosTest extends TestCase
         if (file_exists(self::getDataFolder() . '/status_files/') === false) {
             mkdir(self::getDataFolder() . '/status_files/');
         }
+
+        if (file_exists(self::getDataFolder() . '/photos/.Trash-1000/') === false) {
+            mkdir(self::getDataFolder() . '/photos/.Trash-1000/');
+        }
     }
 
     public static function setUpBeforeClass(): void
