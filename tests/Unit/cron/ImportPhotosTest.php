@@ -131,6 +131,7 @@ class ImportPhotosTest extends TestCase
         $expected_files_removed = $file_system_diff_report->getRemovedLinuxFilesMap();
 
         $this->assertCount(0, $expected_files_added);
+        var_dump($expected_files_moved); die('STOP');
         $this->assertCount(1, $expected_files_moved);
         $this->assertCount(0, $expected_files_removed);
     }
