@@ -33,14 +33,24 @@ class ImportPhotosTest extends TestCase
 
     public static function tearDownAfterClass(): void
     {
-        unlink(self::getDataFolder() . '/status_files/' . "SynologyPhotoCollection-" . self::getPhotoCollectionId() . "-new.txt");
-        unlink(self::getDataFolder() . '/status_files/' . "SynologyPhotoCollection-" . self::getPhotoCollectionId() . "-old.txt");
-        unlink(self::getDataFolder() . '/status_files/' . "SynologyPhotoCollection-" . self::getExifSamplesPhotoCollectionId() . "-new.txt");
-        unlink(self::getDataFolder() . '/status_files/' . "SynologyPhotoCollection-" . self::getExifSamplesPhotoCollectionId() . "-old.txt");
-        unlink(self::getDataFolder() . '/status_files/' . "SynologyPhotoCollection-" . self::getDuplicatePhotosPhotoCollectionId() . "-new.txt");
-        unlink(self::getDataFolder() . '/status_files/' . "SynologyPhotoCollection-" . self::getDuplicatePhotosPhotoCollectionId() . "-old.txt");
+        $status_files = [
+            self::getDataFolder() . '/status_files/' . "SynologyPhotoCollection-" . self::getPhotoCollectionId() . "-new.txt",
+            self::getDataFolder() . '/status_files/' . "SynologyPhotoCollection-" . self::getPhotoCollectionId() . "-old.txt",
+            self::getDataFolder() . '/status_files/' . "SynologyPhotoCollection-" . self::getExifSamplesPhotoCollectionId() . "-new.txt",
+            self::getDataFolder() . '/status_files/' . "SynologyPhotoCollection-" . self::getExifSamplesPhotoCollectionId() . "-old.txt",
+            self::getDataFolder() . '/status_files/' . "SynologyPhotoCollection-" . self::getDuplicatePhotosPhotoCollectionId() . "-new.txt",
+            self::getDataFolder() . '/status_files/' . "SynologyPhotoCollection-" . self::getDuplicatePhotosPhotoCollectionId() . "-old.txt"
+        ];
+
+        foreach ($status_files as $status_file) {
+            if (file_exists($status_file)) {
+                unlink($status_file);
+            }
+        }
+
         // Undo move file
         rename(self::getDataFolder() . '/photos/misc/coffee-break.jpg', self::getDataFolder() . '/photos/coffee-break.jpg');
+
         // Undo move file to trash folder
         rename(self::getDataFolder() . '/photos/.Trash-1000/matrix-g3ebcd682d_640.jpg', self::getDataFolder() . '/photos/programming/matrix-g3ebcd682d_640.jpg');
     }
