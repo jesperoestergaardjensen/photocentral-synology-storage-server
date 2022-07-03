@@ -2,6 +2,7 @@
 
 namespace PhotoCentralSynologyStorageServer\Tests\Unit\cron;
 
+use LinuxFileSystemHelper\FileHelper;
 use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;
 use PhotoCentralSynologyStorageServer\Model\SynologyPhotoCollection;
 use PhotoCentralSynologyStorageServer\Provider;
@@ -135,11 +136,6 @@ class ImportPhotosTest extends TestCase
         $expected_files_removed = $file_system_diff_report->getRemovedLinuxFilesMap();
 
         $this->assertCount(0, $expected_files_added);
-        var_dump(file_get_contents(self::getDataFolder() . "/status_files/SynologyPhotoCollection-2b613e8d-dd2a-4f1c-85a5-6e708290c200-new.txt"));
-        var_dump(file_get_contents(self::getDataFolder() . "/status_files/SynologyPhotoCollection-2b613e8d-dd2a-4f1c-85a5-6e708290c200-old.txt"));
-        var_dump($expected_files_moved);
-        die();
-        return true;
         $this->assertCount(1, $expected_files_moved);
         $this->assertCount(0, $expected_files_removed);
     }
