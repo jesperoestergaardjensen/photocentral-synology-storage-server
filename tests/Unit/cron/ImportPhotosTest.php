@@ -21,8 +21,16 @@ class ImportPhotosTest extends TestCase
     private static DatabaseConnection $database_connection;
     private static Provider $provider;
 
+    private static function create_test_folders(): void
+    {
+        if (file_exists(self::getDataFolder() . '/status_files/') === false) {
+            mkdir(self::getDataFolder() . '/status_files/');
+        }
+    }
+
     public static function setUpBeforeClass(): void
     {
+        self::create_test_folders();
         self::$test_database_service = new TestDatabaseService();
         self::$test_database_service->uninstallDatabase();
         self::$database_connection = self::$test_database_service->installDatabase();
