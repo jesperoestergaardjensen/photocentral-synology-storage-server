@@ -5,7 +5,6 @@ namespace PhotoCentralSynologyStorageServer\Service;
 use LinuxFileSystemHelper\FileHelper;
 use LinuxFileSystemHelper\FolderHelper;
 use PhotoCentralSynologyStorageServer\Exception\PhotoCentralSynologyServerException;
-use PhotoCentralSynologyStorageServer\Factory\LinuxFileFactory;
 use PhotoCentralSynologyStorageServer\Model\FileSystemDiffReport;
 use PhotoCentralSynologyStorageServer\Model\FileSystemDiffReportList;
 use PhotoCentralSynologyStorageServer\Model\SynologyPhotoCollection;
@@ -73,8 +72,8 @@ class PhotoImportService
             // Diff new and old status file to get changes in photo collection folder
             $diffInPhotoCollectionFolder = FileHelper::diffFiles($newFilenameAndPath, $oldFilenameAndPath);
 
-            var_dump('----------------------------');
-            var_dump($diffInPhotoCollectionFolder);
+//            var_dump('----------------------------');
+//            var_dump($diffInPhotoCollectionFolder);
 
             $file_system_diff_report = $this->updateDatabaseWithFileSystemChanges($diffInPhotoCollectionFolder, $synology_photo_collection);
 
