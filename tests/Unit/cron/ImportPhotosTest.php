@@ -235,8 +235,8 @@ class ImportPhotosTest extends TestCase
         $files_removed = $file_system_diff_report->getRemovedLinuxFilesMap();
 
         $this->assertCount(0, $files_added, '0 files should have been added :' . print_r($files_added, true));
-        $this->assertCount(0, $files_moved, '0 files should have moved :' . print_r($files_moved, true));
         $this->assertCount(3, $files_removed, '3 files should have been removed :' . print_r($files_removed, true));
+        $this->assertCount(0, $files_moved, '0 files should have moved :' . print_r($files_moved, true));
 
         rename(self::getDuplicatePhotosFolder() . "folder_b", self::getDataFolder() . "/tmp/folder_b");
 
