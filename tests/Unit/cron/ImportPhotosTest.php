@@ -41,6 +41,19 @@ class ImportPhotosTest extends TestCase
         }
     }
 
+    /**
+     * This method was introduced to control modified timestamp on Github
+     *
+     * @return void
+     */
+    private static function touchDuplicatePhotosFolderFiles(): void
+    {
+        // programming
+        touch(self::getDuplicatePhotosFolder() . 'folder_b/binary-gdb73a1c75_640.jpg' , strtotime('11 sep 2022'));
+        touch(self::getDuplicatePhotosFolder() . 'folder_b/code-g0590d5745_640.jpg' , strtotime('11 sep 2022'));
+        touch(self::getDuplicatePhotosFolder() . 'folder_b/matrix-g3ebcd682d_640.jpg' , strtotime('11 sep 2022'));
+    }
+
     public static function setUpBeforeClass(): void
     {
         self::create_test_folders();
@@ -199,6 +212,8 @@ class ImportPhotosTest extends TestCase
      */
     public function testAddingNewPhotoCollectionWithDuplicates()
     {
+        self::touchDuplicatePhotosFolderFiles();
+
         $synology_photo_collection_repository = new SynologyPhotoCollectionRepository(self::$database_connection);
         $synology_photo_collection_repository->connectToDb();
 
