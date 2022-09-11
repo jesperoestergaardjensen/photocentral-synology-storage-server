@@ -48,11 +48,11 @@ class Provider
         $this->di_container = $container_factory->createContainer();
     }
 
-    public function importPhotos(): FileSystemDiffReportList
+    public function importPhotos(bool $debug = false): FileSystemDiffReportList
     {
         /** @var PhotoImportService $photo_import_service */
         $photo_import_service = $this->di_container->get(PhotoImportService::class);
-        return $photo_import_service->import();
+        return $photo_import_service->import($debug);
     }
 
     public function runController(string $controller_class, bool $testing =  false)

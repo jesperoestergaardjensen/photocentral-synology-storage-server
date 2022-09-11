@@ -242,7 +242,7 @@ class ImportPhotosTest extends TestCase
 
         rename(self::getDuplicatePhotosFolder() . "folder_a", self::getDataFolder() . "/tmp/folder_a");
 
-        $file_system_diff_report_list = self::$provider->importPhotos();
+        $file_system_diff_report_list = self::$provider->importPhotos(true);
 
         $file_system_diff_report = $file_system_diff_report_list->get(self::getDuplicatePhotosPhotoCollectionId());
         $files_added = $file_system_diff_report->getAddedLinuxFilesMap();

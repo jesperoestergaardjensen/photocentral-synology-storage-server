@@ -39,7 +39,7 @@ class PhotoImportService
         $this->photo_repository = $photo_repository;
     }
 
-    public function import(): FileSystemDiffReportList
+    public function import(bool $debug = false): FileSystemDiffReportList
     {
         $this->synology_photo_collection_repository->connectToDb();
         $synology_photo_collection_list = $this->synology_photo_collection_repository->list();
@@ -72,8 +72,10 @@ class PhotoImportService
             // Diff new and old status file to get changes in photo collection folder
             $diffInPhotoCollectionFolder = FileHelper::diffFiles($newFilenameAndPath, $oldFilenameAndPath);
 
-//            var_dump('----------------------------');
-//            var_dump($diffInPhotoCollectionFolder);
+            if ($debug === true) {
+                var_dump('----------------------------');
+                var_dump($diffInPhotoCollectionFolder);
+            }
 
             $file_system_diff_report = $this->updateDatabaseWithFileSystemChanges($diffInPhotoCollectionFolder, $synology_photo_collection);
 
