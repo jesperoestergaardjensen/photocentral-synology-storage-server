@@ -6,9 +6,9 @@
     "prefer-stable" : true,
     "require": {
         "php": ">=7.4",
-        "jesperoestergaardjensen/photocentral-storage" : "dev-main",
-        "jesperoestergaardjensen/linux-file-system-helper": "dev-main",
-        "jesperoestergaardjensen/linux-image-helper" : "dev-main",
+        "jesperoestergaardjensen/photocentral-storage" : "^v1.0.1",
+        "jesperoestergaardjensen/linux-file-system-helper": "^v1.0.0",
+        "jesperoestergaardjensen/linux-image-helper" : "^v1.0.0",
         "jesperoestergaardjensen/mydb": "dev-master",
         "slince/di" : "^3.2.0",
         "ext-json": "*",

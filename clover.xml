@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1664394069">
-  <project timestamp="1664394069">
+<coverage generated="1664920611">
+  <project timestamp="1664920611">
     <file name="/home/jesper_privat/web-udvikling/photocentral-synology-storage-server/src/Controller.php">
       <class name="PhotoCentralSynologyStorageServer\Controller" namespace="global">
         <metrics complexity="7" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="16" elements="18" coveredelements="18"/>
@@ -330,28 +330,89 @@
     </file>
     <file name="/home/jesper_privat/web-udvikling/photocentral-synology-storage-server/src/Model/FileSystemDiffReport.php">
       <class name="PhotoCentralSynologyStorageServer\Model\FileSystemDiffReport" namespace="global">
-        <metrics complexity="8" methods="8" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="11" elements="19" coveredelements="19"/>
+        <metrics complexity="8" methods="8" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="23" coveredstatements="23" elements="31" coveredelements="31"/>
       </class>
-      <line num="35" type="method" name="addEntryToRemovedMap" visibility="public" complexity="1" crap="1" count="3"/>
-      <line num="37" type="stmt" count="3"/>
-      <line num="38" type="stmt" count="3"/>
-      <line num="40" type="stmt" count="3"/>
-      <line num="43" type="method" name="addEntryToAddedMap" visibility="public" complexity="1" crap="1" count="4"/>
-      <line num="45" type="stmt" count="4"/>
-      <line num="46" type="stmt" count="4"/>
-      <line num="49" type="method" name="addEntryToMovedMap" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="51" type="stmt" count="1"/>
-      <line num="54" type="method" name="getMovedLinuxFilesMap" visibility="public" complexity="1" crap="1" count="6"/>
-      <line num="56" type="stmt" count="6"/>
-      <line num="59" type="method" name="getAddedLinuxFilesMap" visibility="public" complexity="1" crap="1" count="6"/>
-      <line num="61" type="stmt" count="6"/>
-      <line num="64" type="method" name="getRemovedLinuxFilesMap" visibility="public" complexity="1" crap="1" count="6"/>
-      <line num="66" type="stmt" count="6"/>
-      <line num="69" type="method" name="removeEntryFromRemovedLinuxFilesMap" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="71" type="stmt" count="1"/>
-      <line num="74" type="method" name="removeEntryFromAddedLinuxFilesMap" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="76" type="stmt" count="1"/>
-      <metrics loc="79" ncloc="59" classes="1" methods="8" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="11" elements="19" coveredelements="19"/>
+      <line num="54" type="method" name="addEntryToRemovedMap" visibility="public" complexity="1" crap="1" count="3"/>
+      <line num="56" type="stmt" count="3"/>
+      <line num="57" type="stmt" count="3"/>
+      <line num="58" type="stmt" count="3"/>
+      <line num="60" type="stmt" count="3"/>
+      <line num="61" type="stmt" count="3"/>
+      <line num="65" type="method" name="addEntryToAddedMap" visibility="public" complexity="1" crap="1" count="4"/>
+      <line num="67" type="stmt" count="4"/>
+      <line num="68" type="stmt" count="4"/>
+      <line num="70" type="stmt" count="4"/>
+      <line num="72" type="stmt" count="4"/>
+      <line num="76" type="method" name="addEntryToMovedMap" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="78" type="stmt" count="1"/>
+      <line num="79" type="stmt" count="1"/>
+      <line num="80" type="stmt" count="1"/>
+      <line num="82" type="stmt" count="1"/>
+      <line num="83" type="stmt" count="1"/>
+      <line num="87" type="method" name="getMovedLinuxFilesMap" visibility="public" complexity="1" crap="1" count="6"/>
+      <line num="89" type="stmt" count="6"/>
+      <line num="92" type="method" name="getAddedLinuxFilesMap" visibility="public" complexity="1" crap="1" count="6"/>
+      <line num="94" type="stmt" count="6"/>
+      <line num="97" type="method" name="getRemovedLinuxFilesMap" visibility="public" complexity="1" crap="1" count="6"/>
+      <line num="99" type="stmt" count="6"/>
+      <line num="102" type="method" name="removeEntryFromRemovedLinuxFilesMap" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="104" type="stmt" count="1"/>
+      <line num="105" type="stmt" count="1"/>
+      <line num="106" type="stmt" count="1"/>
+      <line num="109" type="method" name="removeEntryFromAddedLinuxFilesMap" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="111" type="stmt" count="1"/>
+      <line num="112" type="stmt" count="1"/>
+      <line num="113" type="stmt" count="1"/>
+      <metrics loc="116" ncloc="87" classes="1" methods="8" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="23" coveredstatements="23" elements="31" coveredelements="31"/>
+    </file>
+    <file name="/home/jesper_privat/web-udvikling/photocentral-synology-storage-server/src/Model/FileSystemDiffReport/FileAdded.php">
+      <class name="PhotoCentralSynologyStorageServer\Model\FileSystemDiffReport\FileAdded" namespace="global">
+        <metrics complexity="3" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="3" elements="7" coveredelements="5"/>
+      </class>
+      <line num="14" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="4"/>
+      <line num="16" type="stmt" count="4"/>
+      <line num="17" type="stmt" count="4"/>
+      <line num="20" type="method" name="getAddedTo" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="22" type="stmt" count="1"/>
+      <line num="28" type="method" name="getLinuxFile" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="30" type="stmt" count="0"/>
+      <metrics loc="32" ncloc="29" classes="1" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="3" elements="7" coveredelements="5"/>
+    </file>
+    <file name="/home/jesper_privat/web-udvikling/photocentral-synology-storage-server/src/Model/FileSystemDiffReport/FileMoved.php">
+      <class name="PhotoCentralSynologyStorageServer\Model\FileSystemDiffReport\FileMoved" namespace="global">
+        <metrics complexity="4" methods="4" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="3" elements="10" coveredelements="4"/>
+      </class>
+      <line num="16" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="18" type="stmt" count="1"/>
+      <line num="19" type="stmt" count="1"/>
+      <line num="20" type="stmt" count="1"/>
+      <line num="23" type="method" name="getTo" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="25" type="stmt" count="0"/>
+      <line num="28" type="method" name="getFrom" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="30" type="stmt" count="0"/>
+      <line num="33" type="method" name="getLinuxFile" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="35" type="stmt" count="0"/>
+      <metrics loc="38" ncloc="38" classes="1" methods="4" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="3" elements="10" coveredelements="4"/>
+    </file>
+    <file name="/home/jesper_privat/web-udvikling/photocentral-synology-storage-server/src/Model/FileSystemDiffReport/FileRemoved.php">
+      <class name="PhotoCentralSynologyStorageServer\Model\FileSystemDiffReport\FileRemoved" namespace="global">
+        <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+      </class>
+      <line num="11" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="3"/>
+      <line num="13" type="stmt" count="3"/>
+      <line num="16" type="method" name="getRemovedFrom" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="18" type="stmt" count="1"/>
+      <metrics loc="21" ncloc="21" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+    </file>
+    <file name="/home/jesper_privat/web-udvikling/photocentral-synology-storage-server/src/Model/FileSystemDiffReportLine.php">
+      <class name="PhotoCentralSynologyStorageServer\Model\FileSystemDiffReportLine" namespace="global">
+        <metrics complexity="2" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="1" elements="4" coveredelements="2"/>
+      </class>
+      <line num="9" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="5"/>
+      <line num="11" type="stmt" count="5"/>
+      <line num="14" type="method" name="getDiffLine" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="16" type="stmt" count="0"/>
+      <metrics loc="19" ncloc="19" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="1" elements="4" coveredelements="2"/>
     </file>
     <file name="/home/jesper_privat/web-udvikling/photocentral-synology-storage-server/src/Model/FileSystemDiffReportList.php">
       <class name="PhotoCentralSynologyStorageServer\Model\FileSystemDiffReportList" namespace="global">
@@ -377,8 +438,8 @@
       <line num="40" type="stmt" count="14"/>
       <line num="43" type="method" name="getFileName" visibility="public" complexity="1" crap="1" count="9"/>
       <line num="45" type="stmt" count="9"/>
-      <line num="48" type="method" name="getSynologyPhotoCollectionId" visibility="public" complexity="1" crap="1" count="10"/>
-      <line num="50" type="stmt" count="10"/>
+      <line num="48" type="method" name="getSynologyPhotoCollectionId" visibility="public" complexity="1" crap="1" count="9"/>
+      <line num="50" type="stmt" count="9"/>
       <line num="53" type="method" name="getInodeIndex" visibility="public" complexity="1" crap="1" count="9"/>
       <line num="55" type="stmt" count="9"/>
       <line num="58" type="method" name="getLastModifiedDateTime" visibility="public" complexity="1" crap="1" count="8"/>
@@ -405,8 +466,8 @@
       <line num="116" type="stmt" count="0"/>
       <line num="122" type="method" name="getFileUuid" visibility="public" complexity="1" crap="1" count="9"/>
       <line num="124" type="stmt" count="9"/>
-      <line num="127" type="method" name="getFullFileNameAndPath" visibility="public" complexity="1" crap="1" count="4"/>
-      <line num="129" type="stmt" count="4"/>
+      <line num="127" type="method" name="getFullFileNameAndPath" visibility="public" complexity="1" crap="1" count="3"/>
+      <line num="129" type="stmt" count="3"/>
       <line num="132" type="method" name="fromArray" visibility="public" complexity="1" crap="1" count="11"/>
       <line num="134" type="stmt" count="11"/>
       <line num="135" type="stmt" count="11"/>
@@ -508,72 +569,52 @@
       <line num="50" type="stmt" count="6"/>
       <line num="51" type="stmt" count="6"/>
       <line num="52" type="stmt" count="6"/>
-      <line num="56" type="method" name="fromArray" visibility="public" complexity="1" crap="1" count="9"/>
-      <line num="58" type="stmt" count="9"/>
-      <line num="59" type="stmt" count="9"/>
-      <line num="60" type="stmt" count="9"/>
-      <line num="61" type="stmt" count="9"/>
-      <line num="62" type="stmt" count="9"/>
-      <line num="63" type="stmt" count="9"/>
-      <line num="64" type="stmt" count="9"/>
-      <line num="65" type="stmt" count="9"/>
+      <line num="56" type="method" name="fromArray" visibility="public" complexity="1" crap="1" count="8"/>
+      <line num="58" type="stmt" count="8"/>
+      <line num="59" type="stmt" count="8"/>
+      <line num="60" type="stmt" count="8"/>
+      <line num="61" type="stmt" count="8"/>
+      <line num="62" type="stmt" count="8"/>
+      <line num="63" type="stmt" count="8"/>
+      <line num="64" type="stmt" count="8"/>
+      <line num="65" type="stmt" count="8"/>
       <metrics loc="69" ncloc="69" classes="1" methods="6" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="21" coveredstatements="21" elements="27" coveredelements="27"/>
     </file>
     <file name="/home/jesper_privat/web-udvikling/photocentral-synology-storage-server/src/Provider.php">
       <class name="PhotoCentralSynologyStorageServer\Provider" namespace="global">
-        <metrics complexity="10" methods="9" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="41" coveredstatements="9" elements="50" coveredelements="10"/>
+        <metrics complexity="8" methods="7" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="23" coveredstatements="8" elements="30" coveredelements="9"/>
       </class>
-      <line num="34" type="method" name="__construct" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="39" type="stmt" count="0"/>
-      <line num="40" type="stmt" count="0"/>
-      <line num="41" type="stmt" count="0"/>
-      <line num="44" type="method" name="initialize" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="46" type="stmt" count="0"/>
-      <line num="49" type="method" name="importPhotos" visibility="public" complexity="1" crap="1" count="6"/>
-      <line num="52" type="stmt" count="6"/>
-      <line num="53" type="stmt" count="6"/>
-      <line num="56" type="method" name="runController" visibility="public" complexity="2" crap="2.02" count="8"/>
-      <line num="61" type="stmt" count="8"/>
-      <line num="63" type="stmt" count="8"/>
-      <line num="64" type="stmt" count="8"/>
-      <line num="65" type="stmt" count="8"/>
-      <line num="66" type="stmt" count="8"/>
+      <line num="20" type="method" name="__construct" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="25" type="stmt" count="0"/>
+      <line num="26" type="stmt" count="0"/>
+      <line num="27" type="stmt" count="0"/>
+      <line num="30" type="method" name="initialize" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="32" type="stmt" count="0"/>
+      <line num="35" type="method" name="importPhotos" visibility="public" complexity="1" crap="1" count="6"/>
+      <line num="38" type="stmt" count="6"/>
+      <line num="39" type="stmt" count="6"/>
+      <line num="42" type="method" name="runController" visibility="public" complexity="2" crap="2.02" count="8"/>
+      <line num="47" type="stmt" count="8"/>
+      <line num="49" type="stmt" count="8"/>
+      <line num="50" type="stmt" count="8"/>
+      <line num="51" type="stmt" count="8"/>
+      <line num="52" type="stmt" count="8"/>
+      <line num="54" type="stmt" count="0"/>
+      <line num="57" type="method" name="registerDependencies" visibility="private" complexity="1" crap="1.63" count="9"/>
+      <line num="59" type="stmt" count="0"/>
+      <line num="61" type="stmt" count="0"/>
+      <line num="62" type="stmt" count="9"/>
+      <line num="65" type="stmt" count="0"/>
+      <line num="66" type="stmt" count="0"/>
       <line num="68" type="stmt" count="0"/>
-      <line num="71" type="method" name="registerDependencies" visibility="private" complexity="1" crap="1.70" count="9"/>
-      <line num="73" type="stmt" count="0"/>
+      <line num="70" type="stmt" count="0"/>
+      <line num="73" type="method" name="registerServices" visibility="private" complexity="1" crap="2" count="0"/>
       <line num="75" type="stmt" count="0"/>
-      <line num="76" type="stmt" count="9"/>
-      <line num="79" type="stmt" count="0"/>
-      <line num="80" type="stmt" count="0"/>
-      <line num="81" type="stmt" count="0"/>
-      <line num="82" type="stmt" count="0"/>
-      <line num="84" type="stmt" count="0"/>
+      <line num="76" type="stmt" count="0"/>
+      <line num="78" type="stmt" count="0"/>
+      <line num="84" type="method" name="registerFactories" visibility="private" complexity="1" crap="2" count="0"/>
       <line num="86" type="stmt" count="0"/>
-      <line num="89" type="method" name="registerRepositories" visibility="private" complexity="1" crap="2" count="0"/>
-      <line num="91" type="stmt" count="0"/>
-      <line num="92" type="stmt" count="0"/>
-      <line num="93" type="stmt" count="0"/>
-      <line num="94" type="stmt" count="0"/>
-      <line num="97" type="method" name="registerControllers" visibility="private" complexity="1" crap="2" count="0"/>
-      <line num="99" type="stmt" count="0"/>
-      <line num="100" type="stmt" count="0"/>
-      <line num="101" type="stmt" count="0"/>
-      <line num="102" type="stmt" count="0"/>
-      <line num="103" type="stmt" count="0"/>
-      <line num="104" type="stmt" count="0"/>
-      <line num="105" type="stmt" count="0"/>
-      <line num="106" type="stmt" count="0"/>
-      <line num="107" type="stmt" count="0"/>
-      <line num="110" type="method" name="registerServices" visibility="private" complexity="1" crap="2" count="0"/>
-      <line num="112" type="stmt" count="0"/>
-      <line num="113" type="stmt" count="0"/>
-      <line num="115" type="stmt" count="0"/>
-      <line num="116" type="stmt" count="0"/>
-      <line num="121" type="method" name="registerFactories" visibility="private" complexity="1" crap="1.30" count="4"/>
-      <line num="123" type="stmt" count="0"/>
-      <line num="124" type="stmt" count="0"/>
-      <line num="125" type="stmt" count="4"/>
-      <metrics loc="129" ncloc="124" classes="1" methods="9" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="41" coveredstatements="9" elements="50" coveredelements="10"/>
+      <metrics loc="89" ncloc="85" classes="1" methods="7" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="23" coveredstatements="8" elements="30" coveredelements="9"/>
     </file>
     <file name="/home/jesper_privat/web-udvikling/photocentral-synology-storage-server/src/Repository/LinuxFileRepository.php">
       <class name="PhotoCentralSynologyStorageServer\Repository\LinuxFileRepository" namespace="global">
@@ -905,16 +946,16 @@
       <line num="31" type="stmt" count="10"/>
       <line num="34" type="method" name="add" visibility="public" complexity="1" crap="1" count="5"/>
       <line num="36" type="stmt" count="5"/>
-      <line num="42" type="method" name="get" visibility="public" complexity="2" crap="2" count="3"/>
-      <line num="44" type="stmt" count="3"/>
-      <line num="45" type="stmt" count="3"/>
-      <line num="46" type="stmt" count="3"/>
-      <line num="47" type="stmt" count="3"/>
-      <line num="48" type="stmt" count="3"/>
-      <line num="51" type="stmt" count="3"/>
+      <line num="42" type="method" name="get" visibility="public" complexity="2" crap="2" count="2"/>
+      <line num="44" type="stmt" count="2"/>
+      <line num="45" type="stmt" count="2"/>
+      <line num="46" type="stmt" count="2"/>
+      <line num="47" type="stmt" count="2"/>
+      <line num="48" type="stmt" count="2"/>
+      <line num="51" type="stmt" count="2"/>
       <line num="52" type="stmt" count="1"/>
-      <line num="55" type="stmt" count="2"/>
-      <line num="56" type="stmt" count="2"/>
+      <line num="55" type="stmt" count="1"/>
+      <line num="56" type="stmt" count="1"/>
       <line num="62" type="method" name="list" visibility="public" complexity="3" crap="3.01" count="7"/>
       <line num="64" type="stmt" count="7"/>
       <line num="66" type="stmt" count="7"/>
@@ -966,7 +1007,7 @@
     </file>
     <file name="/home/jesper_privat/web-udvikling/photocentral-synology-storage-server/src/Service/PhotoImportService.php">
       <class name="PhotoCentralSynologyStorageServer\Service\PhotoImportService" namespace="global">
-        <metrics complexity="21" methods="11" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="63" coveredstatements="62" elements="74" coveredelements="72"/>
+        <metrics complexity="21" methods="11" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="63" coveredstatements="60" elements="74" coveredelements="70"/>
       </class>
       <line num="29" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="1"/>
       <line num="35" type="stmt" count="1"/>
@@ -974,7 +1015,7 @@
       <line num="37" type="stmt" count="1"/>
       <line num="38" type="stmt" count="1"/>
       <line num="39" type="stmt" count="1"/>
-      <line num="42" type="method" name="import" visibility="public" complexity="4" crap="4" count="6"/>
+      <line num="42" type="method" name="import" visibility="public" complexity="4" crap="4.05" count="6"/>
       <line num="44" type="stmt" count="6"/>
       <line num="45" type="stmt" count="6"/>
       <line num="47" type="stmt" count="6"/>
@@ -989,8 +1030,8 @@
       <line num="70" type="stmt" count="6"/>
       <line num="73" type="stmt" count="6"/>
       <line num="75" type="stmt" count="6"/>
-      <line num="76" type="stmt" count="1"/>
-      <line num="77" type="stmt" count="1"/>
+      <line num="76" type="stmt" count="0"/>
+      <line num="77" type="stmt" count="0"/>
       <line num="80" type="stmt" count="6"/>
       <line num="83" type="stmt" count="6"/>
       <line num="85" type="stmt" count="6"/>
@@ -1042,51 +1083,48 @@
       <line num="182" type="method" name="addPhotosToDatabase" visibility="private" complexity="1" crap="1" count="6"/>
       <line num="184" type="stmt" count="6"/>
       <line num="185" type="stmt" count="6"/>
-      <metrics loc="188" ncloc="181" classes="1" methods="11" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="63" coveredstatements="62" elements="74" coveredelements="72"/>
+      <metrics loc="188" ncloc="181" classes="1" methods="11" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="63" coveredstatements="60" elements="74" coveredelements="70"/>
     </file>
     <file name="/home/jesper_privat/web-udvikling/photocentral-synology-storage-server/src/Service/PhotoRetrivalService.php">
       <class name="PhotoCentralSynologyStorageServer\Service\PhotoRetrivalService" namespace="global">
-        <metrics complexity="12" methods="5" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="33" coveredstatements="9" elements="38" coveredelements="11"/>
+        <metrics complexity="12" methods="5" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="30" coveredstatements="6" elements="35" coveredelements="8"/>
       </class>
       <line num="18" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="1"/>
       <line num="20" type="stmt" count="1"/>
       <line num="21" type="stmt" count="1"/>
-      <line num="31" type="method" name="getPhotoPath" visibility="public" complexity="4" crap="7.91" count="1"/>
+      <line num="31" type="method" name="getPhotoPath" visibility="public" complexity="4" crap="11.28" count="1"/>
       <line num="33" type="stmt" count="1"/>
       <line num="35" type="stmt" count="1"/>
       <line num="36" type="stmt" count="1"/>
-      <line num="37" type="stmt" count="1"/>
-      <line num="40" type="stmt" count="1"/>
-      <line num="41" type="stmt" count="1"/>
+      <line num="39" type="stmt" count="0"/>
+      <line num="40" type="stmt" count="0"/>
+      <line num="41" type="stmt" count="0"/>
+      <line num="43" type="stmt" count="0"/>
       <line num="44" type="stmt" count="0"/>
-      <line num="45" type="stmt" count="0"/>
-      <line num="46" type="stmt" count="0"/>
+      <line num="47" type="stmt" count="0"/>
       <line num="48" type="stmt" count="0"/>
-      <line num="49" type="stmt" count="0"/>
-      <line num="52" type="stmt" count="0"/>
-      <line num="53" type="stmt" count="0"/>
-      <line num="55" type="stmt" count="0"/>
-      <line num="56" type="stmt" count="0"/>
-      <line num="59" type="stmt" count="0"/>
-      <line num="69" type="method" name="imageCacheFolderCheck" visibility="private" complexity="3" crap="12" count="0"/>
-      <line num="71" type="stmt" count="0"/>
-      <line num="72" type="stmt" count="0"/>
-      <line num="73" type="stmt" count="0"/>
-      <line num="74" type="stmt" count="0"/>
-      <line num="88" type="method" name="resize" visibility="public" complexity="3" crap="12" count="0"/>
+      <line num="50" type="stmt" count="0"/>
+      <line num="51" type="stmt" count="0"/>
+      <line num="54" type="stmt" count="0"/>
+      <line num="64" type="method" name="imageCacheFolderCheck" visibility="private" complexity="3" crap="12" count="0"/>
+      <line num="66" type="stmt" count="0"/>
+      <line num="67" type="stmt" count="0"/>
+      <line num="68" type="stmt" count="0"/>
+      <line num="69" type="stmt" count="0"/>
+      <line num="83" type="method" name="resize" visibility="public" complexity="3" crap="12" count="0"/>
+      <line num="85" type="stmt" count="0"/>
+      <line num="86" type="stmt" count="0"/>
+      <line num="88" type="stmt" count="0"/>
+      <line num="89" type="stmt" count="0"/>
       <line num="90" type="stmt" count="0"/>
       <line num="91" type="stmt" count="0"/>
       <line num="93" type="stmt" count="0"/>
-      <line num="94" type="stmt" count="0"/>
-      <line num="95" type="stmt" count="0"/>
-      <line num="96" type="stmt" count="0"/>
-      <line num="98" type="stmt" count="0"/>
-      <line num="102" type="stmt" count="0"/>
-      <line num="105" type="stmt" count="0"/>
-      <line num="108" type="stmt" count="0"/>
-      <line num="111" type="method" name="getResizedPath" visibility="private" complexity="1" crap="1" count="1"/>
-      <line num="113" type="stmt" count="1"/>
-      <metrics loc="115" ncloc="89" classes="1" methods="5" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="33" coveredstatements="9" elements="38" coveredelements="11"/>
+      <line num="97" type="stmt" count="0"/>
+      <line num="100" type="stmt" count="0"/>
+      <line num="103" type="stmt" count="0"/>
+      <line num="106" type="method" name="getResizedPath" visibility="private" complexity="1" crap="1" count="1"/>
+      <line num="108" type="stmt" count="1"/>
+      <metrics loc="110" ncloc="84" classes="1" methods="5" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="30" coveredstatements="6" elements="35" coveredelements="8"/>
     </file>
     <file name="/home/jesper_privat/web-udvikling/photocentral-synology-storage-server/src/Service/PhotoSortingOverrideService.php">
       <class name="PhotoCentralSynologyStorageServer\Service\PhotoSortingOverrideService" namespace="global">
@@ -1115,6 +1153,32 @@
       <line num="39" type="stmt" count="0"/>
       <metrics loc="41" ncloc="22" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="4" elements="7" coveredelements="5"/>
     </file>
-    <metrics files="40" loc="2464" ncloc="2260" classes="34" methods="141" coveredmethods="107" conditionals="0" coveredconditionals="0" statements="739" coveredstatements="645" elements="880" coveredelements="752"/>
+    <file name="/home/jesper_privat/web-udvikling/photocentral-synology-storage-server/src/UrlHelper.php">
+      <class name="PhotoCentralSynologyStorageServer\UrlHelper" namespace="global">
+        <metrics complexity="10" methods="10" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="0" elements="20" coveredelements="0"/>
+      </class>
+      <line num="7" type="method" name="searchPath" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="9" type="stmt" count="0"/>
+      <line num="12" type="method" name="listPhotoCollectionsPath" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="14" type="stmt" count="0"/>
+      <line num="17" type="method" name="getPhotoPath" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="19" type="stmt" count="0"/>
+      <line num="22" type="method" name="displayPhotoPath" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="24" type="stmt" count="0"/>
+      <line num="27" type="method" name="listPhotoQuantityByYearPath" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="29" type="stmt" count="0"/>
+      <line num="32" type="method" name="listPhotoQuantityByMonthPath" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="34" type="stmt" count="0"/>
+      <line num="36" type="method" name="listPhotoQuantityByDayPath" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="38" type="stmt" count="0"/>
+      <line num="41" type="method" name="softDeletePath" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="43" type="stmt" count="0"/>
+      <line num="46" type="method" name="undoSoftDeletePath" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="48" type="stmt" count="0"/>
+      <line num="51" type="method" name="listPhotosPath" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="53" type="stmt" count="0"/>
+      <metrics loc="56" ncloc="56" classes="1" methods="10" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="0" elements="20" coveredelements="0"/>
+    </file>
+    <metrics files="45" loc="2622" ncloc="2407" classes="39" methods="160" coveredmethods="113" conditionals="0" coveredconditionals="0" statements="754" coveredstatements="660" elements="914" coveredelements="773"/>
   </project>
 </coverage>
