@@ -2,28 +2,13 @@
 
 namespace PhotoCentralSynologyStorageServer;
 
-use mindplay\unbox\Container;
-use mindplay\unbox\ContainerFactory;
-use PhotoCentralSynologyStorageServer\Controller\DisplayPhotoController;
-use PhotoCentralSynologyStorageServer\Controller\GetPhotoController;
-use PhotoCentralSynologyStorageServer\Controller\GetPhotoPathController;
-use PhotoCentralSynologyStorageServer\Controller\ListPhotoCollectionsController;
-use PhotoCentralSynologyStorageServer\Controller\ListPhotoQuantityByDayController;
-use PhotoCentralSynologyStorageServer\Controller\ListPhotoQuantityByMonthController;
-use PhotoCentralSynologyStorageServer\Controller\ListPhotoQuantityByYearController;
-use PhotoCentralSynologyStorageServer\Controller\ListPhotosController;
-use PhotoCentralSynologyStorageServer\Controller\SearchController;
-use PhotoCentralSynologyStorageServer\Factory\PhotoFactory;
 use PhotoCentralSynologyStorageServer\Factory\PhotoUrlFactory;
 use PhotoCentralSynologyStorageServer\Model\DatabaseConnection\DatabaseConnection;
 use PhotoCentralSynologyStorageServer\Model\FileSystemDiffReportList;
-use PhotoCentralSynologyStorageServer\Repository\LinuxFileRepository;
-use PhotoCentralSynologyStorageServer\Repository\PhotoQuantityRepository;
-use PhotoCentralSynologyStorageServer\Repository\PhotoRepository;
-use PhotoCentralSynologyStorageServer\Repository\SynologyPhotoCollectionRepository;
 use PhotoCentralSynologyStorageServer\Service\PhotoBulkAddService;
 use PhotoCentralSynologyStorageServer\Service\PhotoImportService;
 use PhotoCentralSynologyStorageServer\Service\PhotoRetrivalService;
+use Slince\Di\Container;
 
 class Provider
 {
@@ -44,8 +29,7 @@ class Provider
 
     public function initialize()
     {
-        $container_factory = $this->registerDependencies();
-        $this->di_container = $container_factory->createContainer();
+        $this->di_container = $this->registerDependencies();
     }
 
     public function importPhotos(bool $debug = false): FileSystemDiffReportList
@@ -70,58 +54,35 @@ class Provider
         $controller->run($testing);
     }
 
-    private function registerDependencies(): ContainerFactory
+    private function registerDependencies(): Container
     {
-        $container_factory = new ContainerFactory();
+        $container = new Container();
 
-        $container_factory->register(DatabaseConnection::class, function () {
+        $container->register(DatabaseConnection::class, function () {
             return $this->database_connection;
         });
 
-        $this->registerRepositories($container_factory);
-        $this->registerControllers($container_factory);
-        $this->registerServices($container_factory);
-        $this->registerFactories($container_factory);
+        $this->registerServices($container);
+        $this->registerFactories($container);
 
-        $container_factory->register(PhotoImportService::class);
+        $container->register(PhotoImportService::class);
 
-        return $container_factory;
+        return $container;
     }
 
-    private function registerRepositories(ContainerFactory $container_factory): void
+    private function registerServices(Container $container)
     {
-        $container_factory->register(SynologyPhotoCollectionRepository::class);
-        $container_factory->register(LinuxFileRepository::class);
-        $container_factory->register(PhotoRepository::class);
-        $container_factory->register(PhotoQuantityRepository::class);
+        $container->register(PhotoBulkAddService::class);
+        $container->register(PhotoRetrivalService::class)->setArguments(
+            [
+                'image_cache_path' => $this->image_cache_path,
+//                'synology_photo_collection_repository' => $container->getParameter(/*SynologyPhotoCollectionRepository::class*/'gg'),
+            ]
+        );
     }
 
-    private function registerControllers(ContainerFactory $container_factory): void
+    private function registerFactories(Container $container)
     {
-        $container_factory->register(SearchController::class);
-        $container_factory->register(GetPhotoPathController::class);
-        $container_factory->register(ListPhotosController::class);
-        $container_factory->register(ListPhotoCollectionsController::class);
-        $container_factory->register(GetPhotoController::class);
-        $container_factory->register(DisplayPhotoController::class);
-        $container_factory->register(ListPhotoQuantityByYearController::class);
-        $container_factory->register(ListPhotoQuantityByMonthController::class);
-        $container_factory->register(ListPhotoQuantityByDayController::class);
-    }
-
-    private function registerServices(ContainerFactory $container_factory)
-    {
-        $container_factory->register(PhotoBulkAddService::class);
-        $container_factory->register(PhotoRetrivalService::class, function(SynologyPhotoCollectionRepository $synology_photo_collection_repository) {
-            return new PhotoRetrivalService($this->image_cache_path, $synology_photo_collection_repository);
-        });
-    }
-
-    private function registerFactories(ContainerFactory $container_factory)
-    {
-        $container_factory->register(PhotoFactory::class);
-        $container_factory->register(PhotoUrlFactory::class, function() {
-            return new PhotoUrlFactory($this->synology_nas_host_address);
-        });
+        $container->register(PhotoUrlFactory::class)->setArgument('controller_public_path', $this->synology_nas_host_address);
     }
 }

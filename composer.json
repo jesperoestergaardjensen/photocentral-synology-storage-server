@@ -10,7 +10,7 @@
         "jesperoestergaardjensen/linux-file-system-helper": "dev-main",
         "jesperoestergaardjensen/linux-image-helper" : "dev-main",
         "jesperoestergaardjensen/mydb": "dev-master",
-        "mindplay/unbox": "^2.0.4",
+        "slince/di" : "^3.2.0",
         "ext-json": "*",
         "ext-mysqli": "*",
         "ext-mbstring": "*"
